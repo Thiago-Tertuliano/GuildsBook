@@ -53,7 +53,7 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Configurar ESLint e Prettier
 
 - [ ] **0.3** Configurar ambiente de desenvolvimento
-  - [ ] Criar arquivo `.env.local` template
+  - [x] Criar arquivo `.env.local` template
   - [ ] Configurar variáveis de ambiente
   - [ ] Testar build local do Next.js
 
