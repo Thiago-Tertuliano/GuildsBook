@@ -145,19 +145,19 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Função para sincronizar dados da API externa com nosso BD
   - [x] Endpoint `GET /api/books/external-search`
 
-- [ ] **2.5** API - Biblioteca Pessoal
-  - [ ] `GET /api/user/books` - Listar livros do usuário
-  - [ ] `POST /api/user/books` - Adicionar livro à biblioteca
-  - [ ] `PUT /api/user/books/[bookId]` - Atualizar status/rating/review
-  - [ ] `DELETE /api/user/books/[bookId]` - Remover da biblioteca
-  - [ ] `GET /api/user/books/stats` - Estatísticas pessoais
+- [x] **2.5** API - Biblioteca Pessoal
+  - [x] `GET /api/user/books` - Listar livros do usuário
+  - [x] `POST /api/user/books` - Adicionar livro à biblioteca
+  - [x] `PUT /api/user/books/[bookId]` - Atualizar status/rating/review
+  - [x] `DELETE /api/user/books/[bookId]` - Remover da biblioteca
+  - [x] `GET /api/user/books/stats` - Estatísticas pessoais
 
-- [ ] **2.6** API - Reviews
-  - [ ] `GET /api/books/[bookId]/reviews` - Listar reviews de um livro
-  - [ ] `POST /api/books/[bookId]/reviews` - Criar review
-  - [ ] `PUT /api/reviews/[id]` - Atualizar review
-  - [ ] `DELETE /api/reviews/[id]` - Deletar review
-  - [ ] `POST /api/reviews/[id]/like` - Dar like em review
+- [x] **2.6** API - Reviews
+  - [x] `GET /api/books/[bookId]/reviews` - Listar reviews de um livro
+  - [x] `POST /api/books/[bookId]/reviews` - Criar review
+  - [x] `PUT /api/reviews/[id]` - Atualizar review
+  - [x] `DELETE /api/reviews/[id]` - Deletar review
+  - [x] `POST /api/reviews/[id]/like` - Dar like em review
 
 - [ ] **2.7** API - Comentários
   - [ ] `GET /api/reviews/[reviewId]/comments` - Listar comentários

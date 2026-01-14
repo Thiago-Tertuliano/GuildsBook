@@ -20,10 +20,16 @@ export const userBookSchema = z.object({
   currentPage: z.number().int().positive().optional(),
 });
 
-// Schema para Review
+// Schema para Review (criação)
 export const reviewSchema = z.object({
     bookId: z.string().uuid("ID do livro inválido"),
     content: z.string().min(10, "A review deve ter pelo menos 10 caracteres"),
+    rating: z.number().int().min(1).max(5).optional(),
+});
+
+// Schema para atualização de Review
+export const reviewUpdateSchema = z.object({
+    content: z.string().min(10, "A review deve ter pelo menos 10 caracteres").optional(),
     rating: z.number().int().min(1).max(5).optional(),
 });
 
