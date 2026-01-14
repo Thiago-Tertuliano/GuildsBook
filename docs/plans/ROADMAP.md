@@ -73,16 +73,16 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Inicializar Prisma (`npx prisma init`)
   - [x] Configurar conexão com PostgreSQL no `.env.local`
 
-- [ ] **1.2** Criar schema inicial (Entidades Core)
+- [x] **1.2** Criar schema inicial (Entidades Core)
   - [x] Model `User` (id, email, name, avatar, bio, createdAt, location, preferences)
   - [x] Model `Book` (id, title, author, isbn, cover, genre, publishedYear, description, pages)
   - [x] Model `UserBook` (id, userId, bookId, status, rating, review, readDate, currentPage, createdAt)
   - [x] Definir relacionamentos básicos
 
-- [ ] **1.3** Criar schema - Sistema de Reviews
-  - [ ] Model `Review` (id, userId, bookId, content, rating, likes, createdAt, updatedAt)
-  - [ ] Model `Comment` (id, userId, reviewId, content, createdAt, updatedAt)
-  - [ ] Definir relacionamentos
+- [x] **1.3** Criar schema - Sistema de Reviews
+  - [x] Model `Review` (id, userId, bookId, content, rating, likes, createdAt, updatedAt)
+  - [x] Model `Comment` (id, userId, reviewId, content, createdAt, updatedAt)
+  - [x] Definir relacionamentos
 
 - [ ] **1.4** Criar schema - Listas e Organização
   - [ ] Model `ReadingList` (id, userId, name, description, isPublic, createdAt)
@@ -99,12 +99,6 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [ ] Model `BookClubMember` (id, clubId, userId, role, joinedAt)
   - [ ] Model `BookClubDiscussion` (id, clubId, bookId, title, content, scheduledDate, creatorId, createdAt)
 
-- [ ] **1.7** Criar schema - Marketplace (Opcional - Fase 7)
-  - [ ] Model `BookListing` (id, userId, bookId, condition, price, currency, location, isAvailable, createdAt)
-  - [ ] Model `Transaction` (id, listingId, buyerId, sellerId, status, createdAt, completedAt)
-
-- [ ] **1.8** Criar schema - Sincronização (Opcional - Fase 7)
-  - [ ] Model `DeviceSync` (id, userId, deviceType, deviceId, lastSync, syncToken)
 
 - [ ] **1.9** Finalizar schema
   - [ ] Adicionar índices necessários
