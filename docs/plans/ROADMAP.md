@@ -85,7 +85,7 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Definir relacionamentos
 
 - [ ] **1.4** Criar schema - Listas e Organização
-  - [ ] Model `ReadingList` (id, userId, name, description, isPublic, createdAt)
+  - [x] Model `ReadingList` (id, userId, name, description, isPublic, createdAt)
   - [ ] Model `ReadingListItem` (id, listId, bookId, order)
   - [ ] Definir relacionamentos
 
