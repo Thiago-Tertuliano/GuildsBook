@@ -33,9 +33,14 @@ export const reviewUpdateSchema = z.object({
     rating: z.number().int().min(1).max(5).optional(),
 });
 
-// Schema para Comment
+// Schema para Comment (criação)
 export const commentSchema = z.object({
     reviewId: z.string().uuid("ID da review inválida"),
+    content: z.string().min(1, "O comentário não pode ser vazio"),
+});
+
+// Schema para atualização de Comment
+export const commentUpdateSchema = z.object({
     content: z.string().min(1, "O comentário não pode ser vazio"),
 });
 
