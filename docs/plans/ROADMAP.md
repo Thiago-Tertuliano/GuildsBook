@@ -133,17 +133,17 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Criar tipos TypeScript (`src/types/`)
   - [x] Configurar validação com Zod
 
-- [ ] **2.3** API - Gestão de Livros
-  - [ ] `GET /api/books` - Listar livros (com paginação)
-  - [ ] `GET /api/books/[id]` - Detalhes de um livro
-  - [ ] `POST /api/books` - Criar livro manualmente
-  - [ ] `GET /api/books/search` - Buscar livros (título, autor, ISBN)
+- [x] **2.3** API - Gestão de Livros
+  - [x] `GET /api/books` - Listar livros (com paginação)
+  - [x] `GET /api/books/[id]` - Detalhes de um livro
+  - [x] `POST /api/books` - Criar livro manualmente
+  - [x] `GET /api/books/search` - Buscar livros (título, autor, ISBN)
 
-- [ ] **2.4** Integração com API Externa (Google Books)
-  - [ ] Criar serviço para Google Books API
-  - [ ] Função para buscar livros na API externa
-  - [ ] Função para sincronizar dados da API externa com nosso BD
-  - [ ] Endpoint `GET /api/books/external-search`
+- [x] **2.4** Integração com API Externa (Google Books)
+  - [x] Criar serviço para Google Books API
+  - [x] Função para buscar livros na API externa
+  - [x] Função para sincronizar dados da API externa com nosso BD
+  - [x] Endpoint `GET /api/books/external-search`
 
 - [ ] **2.5** API - Biblioteca Pessoal
   - [ ] `GET /api/user/books` - Listar livros do usuário
