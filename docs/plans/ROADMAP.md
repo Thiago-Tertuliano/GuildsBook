@@ -102,9 +102,9 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 - [ ] **1.7** Finalizar schema
   - [x] Adicionar índices necessários
-  - [ ] Revisar relacionamentos e constraints
-  - [ ] Gerar primeira migration (`npx prisma migrate dev --name init`)
-  - [ ] Gerar Prisma Client (`npx prisma generate`)
+  - [x] Revisar relacionamentos e constraints
+  - [x] Gerar primeira migration (`npx prisma migrate dev --name init`)
+  - [x] Gerar Prisma Client (`npx prisma generate`)
   - [ ] Testar conexão com banco
 
 - [ ] **1.8** Seed do banco (dados de teste)
