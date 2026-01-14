@@ -152,12 +152,12 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] `DELETE /api/user/books/[bookId]` - Remover da biblioteca
   - [x] `GET /api/user/books/stats` - Estatísticas pessoais
 
-- [ ] **2.6** API - Reviews
-  - [ ] `GET /api/books/[bookId]/reviews` - Listar reviews de um livro
-  - [ ] `POST /api/books/[bookId]/reviews` - Criar review
-  - [ ] `PUT /api/reviews/[id]` - Atualizar review
-  - [ ] `DELETE /api/reviews/[id]` - Deletar review
-  - [ ] `POST /api/reviews/[id]/like` - Dar like em review
+- [x] **2.6** API - Reviews
+  - [x] `GET /api/books/[bookId]/reviews` - Listar reviews de um livro
+  - [x] `POST /api/books/[bookId]/reviews` - Criar review
+  - [x] `PUT /api/reviews/[id]` - Atualizar review
+  - [x] `DELETE /api/reviews/[id]` - Deletar review
+  - [x] `POST /api/reviews/[id]/like` - Dar like em review
 
 - [ ] **2.7** API - Comentários
   - [ ] `GET /api/reviews/[reviewId]/comments` - Listar comentários
