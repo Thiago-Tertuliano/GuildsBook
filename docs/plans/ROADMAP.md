@@ -25,12 +25,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
     - [✅ Tarefas](#-tarefas-5)
   - [Fase 6: Comunidade e Recursos Avançados](#fase-6-comunidade-e-recursos-avançados)
     - [✅ Tarefas](#-tarefas-6)
-  - [Fase 7: Features Extras](#fase-7-features-extras)
+  - [Fase 7: Features Extras (Opcional)](#fase-7-features-extras-opcional)
     - [✅ Tarefas](#-tarefas-7)
   - [📊 Progresso Geral](#-progresso-geral)
     - [Resumo por Fase](#resumo-por-fase)
-  - [🎯 Próximos Passos Imediatos](#-próximos-passos-imediatos)
-  - [📝 Notas de Desenvolvimento](#-notas-de-desenvolvimento)
   - [🚀 Deploy e Produção](#-deploy-e-produção)
 
 ---
@@ -159,11 +157,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] `DELETE /api/reviews/[id]` - Deletar review
   - [x] `POST /api/reviews/[id]/like` - Dar like em review
 
-- [ ] **2.7** API - Comentários
-  - [ ] `GET /api/reviews/[reviewId]/comments` - Listar comentários
-  - [ ] `POST /api/reviews/[reviewId]/comments` - Criar comentário
-  - [ ] `PUT /api/comments/[id]` - Atualizar comentário
-  - [ ] `DELETE /api/comments/[id]` - Deletar comentário
+- [x] **2.7** API - Comentários
+  - [x] `GET /api/reviews/[reviewId]/comments` - Listar comentários
+  - [x] `POST /api/reviews/[reviewId]/comments` - Criar comentário
+  - [x] `PUT /api/comments/[id]` - Atualizar comentário
+  - [x] `DELETE /api/comments/[id]` - Deletar comentário
 
 **Tempo Estimado**: 8-12 horas  
 **Prioridade**: 🔴 Crítica
@@ -349,7 +347,7 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ---
 
-## Fase 7: Features Extras
+## Fase 7: Features Extras (Opcional)
 
 **Objetivo**: Implementar funcionalidades avançadas e integrações.
 
@@ -405,36 +403,16 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ### Resumo por Fase
 
-- **Fase 0**: ⬜ 0/3 tarefas concluídas
-- **Fase 1**: ⬜ 0/10 tarefas concluídas
-- **Fase 2**: ⬜ 0/7 tarefas concluídas
+- **Fase 0**: ⬜ 3/3 tarefas concluídas
+- **Fase 1**: ⬜ 10/10 tarefas concluídas
+- **Fase 2**: ⬜ 7/7 tarefas concluídas
 - **Fase 3**: ⬜ 0/5 tarefas concluídas
 - **Fase 4**: ⬜ 0/5 tarefas concluídas
 - **Fase 5**: ⬜ 0/6 tarefas concluídas
 - **Fase 6**: ⬜ 0/7 tarefas concluídas
-- **Fase 7**: ⬜ 0/7 tarefas concluídas
+- **Fase 7 (Opcional)**: ⬜ 0/7 tarefas concluídas
 
-**Total**: 0/50 tarefas principais concluídas
-
----
-
-## 🎯 Próximos Passos Imediatos
-
-1. ✅ **Criar este roadmap** (CONCLUÍDO!)
-2. ⬜ Iniciar Fase 0 - Setup Inicial
-3. ⬜ Configurar repositório Git
-4. ⬜ Inicializar projeto Next.js
-
----
-
-## 📝 Notas de Desenvolvimento
-
-Use este espaço para anotações durante o desenvolvimento:
-
-```
-Data: __/__/____
-Notas: 
-```
+**Total**: 20/50 tarefas principais concluídas
 
 ---
 
@@ -449,4 +427,4 @@ Notas:
 
 ---
 
-**Boa sorte com o desenvolvimento! 🎉📚**
+**Bora pro desenvolvimento! 🎉📚**
