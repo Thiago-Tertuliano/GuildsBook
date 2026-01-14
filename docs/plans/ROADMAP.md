@@ -46,16 +46,16 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Criar `.gitignore` adequado para Next.js/Node
   - [x] Criar estrutura de pastas básica
 
-- [ ] **0.2** Configurar projeto Next.js
+- [x] **0.2** Configurar projeto Next.js
   - [x] Executar `npx create-next-app@latest` com TypeScript
   - [x] Configurar Tailwind CSS
   - [x] Instalar e configurar shadcn/ui
   - [x] Configurar ESLint e Prettier
 
-- [ ] **0.3** Configurar ambiente de desenvolvimento
-  - [ ] Criar arquivo `.env.local` template
-  - [ ] Configurar variáveis de ambiente
-  - [ ] Testar build local do Next.js
+- [x] **0.3** Configurar ambiente de desenvolvimento
+  - [x] Criar arquivo `.env.local` template
+  - [x] Configurar variáveis de ambiente
+  - [x] Testar build local do Next.js
 
 **Tempo Estimado**: 1-2 horas  
 **Prioridade**: 🔴 Crítica
@@ -69,9 +69,9 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 ### ✅ Tarefas
 
 - [ ] **1.1** Configurar Prisma
-  - [ ] Instalar Prisma (`npm install prisma @prisma/client`)
-  - [ ] Inicializar Prisma (`npx prisma init`)
-  - [ ] Configurar conexão com PostgreSQL no `.env`
+  - [x] Instalar Prisma (`npm install prisma @prisma/client`)
+  - [x] Inicializar Prisma (`npx prisma init`)
+  - [x] Configurar conexão com PostgreSQL no `.env.local`
 
 - [ ] **1.2** Criar schema inicial (Entidades Core)
   - [ ] Model `User` (id, email, name, avatar, bio, createdAt, location, preferences)
