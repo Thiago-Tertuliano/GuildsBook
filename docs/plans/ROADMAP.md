@@ -94,10 +94,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Model `Quote` (id, userId, bookId, content, page, chapter, isPublic, likes, createdAt)
   - [x] Model `Bookmark` (id, userId, bookId, page, note, createdAt)
 
-- [ ] **1.6** Criar schema - Clubes de Leitura
-  - [ ] Model `BookClub` (id, name, description, ownerId, isPublic, maxMembers, currentMembers, createdAt)
-  - [ ] Model `BookClubMember` (id, clubId, userId, role, joinedAt)
-  - [ ] Model `BookClubDiscussion` (id, clubId, bookId, title, content, scheduledDate, creatorId, createdAt)
+- [x] **1.6** Criar schema - Clubes de Leitura
+  - [x] Model `BookClub` (id, name, description, ownerId, isPublic, maxMembers, currentMembers, createdAt)
+  - [x] Model `BookClubMember` (id, clubId, userId, role, joinedAt)
+  - [x] Model `BookClubDiscussion` (id, clubId, bookId, title, content, scheduledDate, creatorId, createdAt)
 
 
 - [ ] **1.7** Finalizar schema
