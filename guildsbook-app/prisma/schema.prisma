@@ -94,6 +94,7 @@ model Review {
   book     Book      @relation(fields: [bookId], references: [id], onDelete: Cascade)
   comments Comment[]
 
+  @@unique([userId, bookId])
   @@index([userId])
   @@index([bookId])
   @@index([bookId, createdAt(sort: Desc)])
