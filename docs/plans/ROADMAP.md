@@ -74,10 +74,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Configurar conexão com PostgreSQL no `.env.local`
 
 - [ ] **1.2** Criar schema inicial (Entidades Core)
-  - [ ] Model `User` (id, email, name, avatar, bio, createdAt, location, preferences)
-  - [ ] Model `Book` (id, title, author, isbn, cover, genre, publishedYear, description, pages)
-  - [ ] Model `UserBook` (id, userId, bookId, status, rating, review, readDate, currentPage, createdAt)
-  - [ ] Definir relacionamentos básicos
+  - [x] Model `User` (id, email, name, avatar, bio, createdAt, location, preferences)
+  - [x] Model `Book` (id, title, author, isbn, cover, genre, publishedYear, description, pages)
+  - [x] Model `UserBook` (id, userId, bookId, status, rating, review, readDate, currentPage, createdAt)
+  - [x] Definir relacionamentos básicos
 
 - [ ] **1.3** Criar schema - Sistema de Reviews
   - [ ] Model `Review` (id, userId, bookId, content, rating, likes, createdAt, updatedAt)
