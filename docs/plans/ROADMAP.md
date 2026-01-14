@@ -100,18 +100,18 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Model `BookClubDiscussion` (id, clubId, bookId, title, content, scheduledDate, creatorId, createdAt)
 
 
-- [ ] **1.7** Finalizar schema
+- [x] **1.7** Finalizar schema
   - [x] Adicionar índices necessários
   - [x] Revisar relacionamentos e constraints
   - [x] Gerar primeira migration (`npx prisma migrate dev --name init`)
   - [x] Gerar Prisma Client (`npx prisma generate`)
-  - [ ] Testar conexão com banco
+  - [x] Testar conexão com banco
 
-- [ ] **1.8** Seed do banco (dados de teste)
-  - [ ] Criar script de seed (`prisma/seed.ts`)
-  - [ ] Adicionar alguns usuários de teste
-  - [ ] Adicionar alguns livros de exemplo
-  - [ ] Executar seed
+- [x] **1.8** Seed do banco (dados de teste)
+  - [x] Criar script de seed (`prisma/seed.ts`)
+  - [x] Adicionar alguns usuários de teste
+  - [x] Adicionar alguns livros de exemplo
+  - [x] Executar seed
 
 **Tempo Estimado**: 4-6 horas  
 **Prioridade**: 🔴 Crítica
