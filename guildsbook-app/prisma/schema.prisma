@@ -18,14 +18,18 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  userBooks    UserBook[]
-  reviews      Review[]
-  comments     Comment[]
-  readingLists ReadingList[]
-  followers    Follow[]      @relation("UserFollowers")
-  following    Follow[]      @relation("UserFollowing")
-  quotes       Quote[]
-  bookmarks    Bookmark[]
+  userBooks         UserBook[]
+  reviews           Review[]
+  comments          Comment[]
+  readingLists      ReadingList[]
+  followers         Follow[]            @relation("UserFollowers")
+  following         Follow[]            @relation("UserFollowing")
+  quotes            Quote[]
+  bookmarks         Bookmark[]
+  bookClubs         BookClub[]          @relation("BookClubOwner")
+  bookClubMembers   BookClubMember[]
+  bookClubDiscussions BookClubDiscussion[] @relation("BookClubDiscussionCreator")
+
 
   @@map("users")
 }
@@ -43,11 +47,12 @@ model Book {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  userBooks UserBook[]
-  reviews   Review[]
-  listItems ReadingListItem[]
-  quotes    Quote[]
-  bookmarks Bookmark[]
+  userBooks         UserBook[]
+  reviews           Review[]
+  listItems         ReadingListItem[]
+  quotes            Quote[]
+  bookmarks         Bookmark[]
+  bookClubDiscussions BookClubDiscussion[]
 
   @@map("books")
 }
@@ -173,4 +178,54 @@ model Bookmark {
   book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
 
   @@map("bookmarks")
+}
+
+model BookClub {
+  id              String              @id @default(uuid())
+  name            String
+  description     String?             @db.Text
+  ownerId         String
+  isPublic        Boolean             @default(false)
+  maxMembers      Int?
+  currentMembers  Int                 @default(0)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  owner           User                @relation("BookClubOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members         BookClubMember[]
+  discussions     BookClubDiscussion[]
+
+  @@map("book_clubs")
+}
+
+model BookClubMember {
+  id          String    @id @default(uuid())
+  clubId      String
+  userId      String
+  role        String    @default("MEMBER") // "OWNER", "MODERATOR", "MEMBER"
+  joinedAt    DateTime  @default(now())
+
+  club        BookClub  @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, userId])
+  @@map("book_club_members")
+}
+
+model BookClubDiscussion {
+  id            String    @id @default(uuid())
+  clubId        String
+  bookId        String?
+  title         String
+  content       String?   @db.Text
+  scheduledDate DateTime?
+  creatorId     String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  club          BookClub  @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  book          Book?     @relation(fields: [bookId], references: [id], onDelete: SetNull)
+  creator       User      @relation("BookClubDiscussionCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+
+  @@map("book_club_discussions")
 }
