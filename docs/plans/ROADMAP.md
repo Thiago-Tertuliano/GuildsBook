@@ -124,14 +124,14 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ### ✅ Tarefas
 
-- [ ] **2.1** Configurar Prisma Client
-  - [ ] Criar `src/lib/prisma.ts` (singleton do Prisma)
-  - [ ] Configurar para desenvolvimento e produção
+- [x] **2.1** Configurar Prisma Client
+  - [x] Criar `src/lib/prisma.ts` (singleton do Prisma)
+  - [x] Configurar para desenvolvimento e produção
 
-- [ ] **2.2** Criar utilities e helpers
-  - [ ] Criar `src/lib/api/` para funções utilitárias
-  - [ ] Criar tipos TypeScript (`src/types/`)
-  - [ ] Configurar validação com Zod
+- [x] **2.2** Criar utilities e helpers
+  - [x] Criar `src/lib/api/` para funções utilitárias
+  - [x] Criar tipos TypeScript (`src/types/`)
+  - [x] Configurar validação com Zod
 
 - [ ] **2.3** API - Gestão de Livros
   - [ ] `GET /api/books` - Listar livros (com paginação)
