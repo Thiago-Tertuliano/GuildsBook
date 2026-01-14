@@ -84,15 +84,15 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Model `Comment` (id, userId, reviewId, content, createdAt, updatedAt)
   - [x] Definir relacionamentos
 
-- [ ] **1.4** Criar schema - Listas e Organização
+- [x] **1.4** Criar schema - Listas e Organização
   - [x] Model `ReadingList` (id, userId, name, description, isPublic, createdAt)
-  - [ ] Model `ReadingListItem` (id, listId, bookId, order)
-  - [ ] Definir relacionamentos
+  - [x] Model `ReadingListItem` (id, listId, bookId, order)
+  - [x] Definir relacionamentos
 
-- [ ] **1.5** Criar schema - Comunidade
-  - [ ] Model `Follow` (id, followerId, followingId, createdAt)
-  - [ ] Model `Quote` (id, userId, bookId, content, page, chapter, isPublic, likes, createdAt)
-  - [ ] Model `Bookmark` (id, userId, bookId, page, note, createdAt)
+- [x] **1.5** Criar schema - Comunidade
+  - [x] Model `Follow` (id, followerId, followingId, createdAt)
+  - [x] Model `Quote` (id, userId, bookId, content, page, chapter, isPublic, likes, createdAt)
+  - [x] Model `Bookmark` (id, userId, bookId, page, note, createdAt)
 
 - [ ] **1.6** Criar schema - Clubes de Leitura
   - [ ] Model `BookClub` (id, name, description, ownerId, isPublic, maxMembers, currentMembers, createdAt)
@@ -100,14 +100,14 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [ ] Model `BookClubDiscussion` (id, clubId, bookId, title, content, scheduledDate, creatorId, createdAt)
 
 
-- [ ] **1.9** Finalizar schema
+- [ ] **1.7** Finalizar schema
   - [ ] Adicionar índices necessários
   - [ ] Revisar relacionamentos e constraints
   - [ ] Gerar primeira migration (`npx prisma migrate dev --name init`)
   - [ ] Gerar Prisma Client (`npx prisma generate`)
   - [ ] Testar conexão com banco
 
-- [ ] **1.10** Seed do banco (dados de teste)
+- [ ] **1.8** Seed do banco (dados de teste)
   - [ ] Criar script de seed (`prisma/seed.ts`)
   - [ ] Adicionar alguns usuários de teste
   - [ ] Adicionar alguns livros de exemplo
