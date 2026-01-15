@@ -2,17 +2,17 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { successResponse, errorResponse } from "@/lib/api/utils";
 
-// POST /api/reviews/[id]/like - Dar like em review
+// POST /api/reviews/[reviewId]/like - Dar like em review
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ reviewId: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { reviewId } = await params;
 
     // Buscar a review
     const review = await prisma.review.findUnique({
-      where: { id },
+      where: { id: reviewId },
     });
 
     if (!review) {
@@ -21,7 +21,7 @@ export async function POST(
 
     // Incrementar likes
     const updatedReview = await prisma.review.update({
-      where: { id },
+      where: { id: reviewId },
       data: {
         likes: {
           increment: 1,

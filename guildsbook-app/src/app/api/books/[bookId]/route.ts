@@ -2,15 +2,15 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { successResponse, errorResponse } from "@/lib/api/utils";
 
-// GET /api/books/[id] - Detalhes de um livro
+// GET /api/books/[bookId] - Detalhes de um livro
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }  
+  { params }: { params: Promise<{ bookId: string }> }  
 ) {
   try {
-    const { id } = await params;  
+    const { bookId } = await params;  
     const book = await prisma.book.findUnique({
-      where: { id },
+      where: { id: bookId },
       include: {
         _count: {
           select: {

@@ -180,10 +180,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Configurar providers (Email, Google OAuth)
   - [x] Criar adapter do Prisma para NextAuth
 
-- [ ] **3.2** Configurar banco para autenticação
-  - [ ] Atualizar schema Prisma (tabelas do NextAuth)
-  - [ ] Executar migration
-  - [ ] Testar login/logout
+- [x] **3.2** Configurar banco para autenticação
+  - [x] Atualizar schema Prisma (tabelas do NextAuth)
+  - [x] Executar migration
+  - [x] Testar login/logout
 
 - [ ] **3.3** Criar middleware de autenticação
   - [ ] Middleware para proteger rotas
