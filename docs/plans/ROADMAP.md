@@ -185,10 +185,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Executar migration
   - [x] Testar login/logout
 
-- [ ] **3.3** Criar middleware de autenticação
-  - [ ] Middleware para proteger rotas
-  - [ ] Helpers para verificar sessão
-  - [ ] Tipos TypeScript para sessão
+- [x] **3.3** Criar middleware de autenticação
+  - [x] Middleware para proteger rotas
+  - [x] Helpers para verificar sessão
+  - [x] Tipos TypeScript para sessão
 
 - [ ] **3.4** Páginas de autenticação
   - [ ] Página de login

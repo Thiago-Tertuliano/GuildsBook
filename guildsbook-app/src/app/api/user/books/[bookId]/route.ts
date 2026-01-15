@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { userBookSchema } from "@/lib/api/schemas";
 import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import { getUserId } from "@/lib/auth";
 
 // PUT /api/user/books/[bookId] - Atualizar status/rating/review
 export async function PUT(
@@ -9,13 +10,14 @@ export async function PUT(
   { params }: { params: Promise<{ bookId: string }> }
 ) {
   try {
-    const { bookId } = await params;
-    const body = await request.json();
-    const userId = body.userId; // TODO: Obter da sessão quando autenticação for implementada
+    const userId = await getUserId();
 
     if (!userId) {
-      return errorResponse("userId é obrigatório", 400);
+      return errorResponse("Não autenticado", 401);
     }
+
+    const { bookId } = await params;
+    const body = await request.json();
 
     // Validar dados (remover bookId do body se existir)
     const { bookId: _, ...updateData } = userBookSchema.parse(body);
@@ -51,13 +53,13 @@ export async function DELETE(
   { params }: { params: Promise<{ bookId: string }> }
 ) {
   try {
-    const { bookId } = await params;
-    const searchParams = request.nextUrl.searchParams;
-    const userId = searchParams.get("userId"); // TODO: Obter da sessão quando autenticação for implementada
+    const userId = await getUserId();
 
     if (!userId) {
-      return errorResponse("userId é obrigatório", 400);
+      return errorResponse("Não autenticado", 401);
     }
+
+    const { bookId } = await params;
 
     await prisma.userBook.delete({
       where: {
