@@ -310,11 +310,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Criar/editar/deletar comentários
   - [x] Thread de comentários
 
-- [ ] **6.3** Listas de Leitura
-  - [ ] Criar listas personalizadas
-  - [ ] Adicionar/remover livros de listas
-  - [ ] Compartilhar listas
-  - [ ] Visualizar listas públicas
+- [x] **6.3** Listas de Leitura
+  - [x] Criar listas personalizadas
+  - [x] Adicionar/remover livros de listas
+  - [x] Compartilhar listas
+  - [x] Visualizar listas públicas
 
 - [ ] **6.4** Sistema de Citações
   - [ ] API para citações
@@ -333,7 +333,6 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [ ] Gráficos de livros lidos (por mês/ano)
   - [ ] Gêneros favoritos
   - [ ] Páginas lidas
-  - [ ] Exportação de dados (CSV/JSON)
 
 - [ ] **6.7** Clubes de Leitura (Básico)
   - [ ] Criar clube

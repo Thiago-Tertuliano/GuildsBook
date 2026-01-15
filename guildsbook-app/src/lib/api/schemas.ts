@@ -59,4 +59,18 @@ export const paginationSchema = z.object({
     page: z.number().int().positive().default(1),
     limit: z.number().int().positive().max(100).default(20),
 });
+
+// Schema para ReadingList (criação)
+export const readingListSchema = z.object({
+    name: z.string().min(1, "Nome da lista é obrigatório"),
+    description: z.string().optional(),
+    isPublic: z.boolean().optional().default(false),
+  });
+  
+  // Schema para atualização de ReadingList
+  export const readingListUpdateSchema = z.object({
+    name: z.string().min(1, "Nome da lista é obrigatório").optional(),
+    description: z.string().optional(),
+    isPublic: z.boolean().optional(),
+  });
     
