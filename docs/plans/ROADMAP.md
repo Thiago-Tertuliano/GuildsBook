@@ -265,11 +265,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Ação de atualizar status/rating
   - [x] Remover livro da biblioteca
 
-- [ ] **5.3** Sistema de Avaliações
-  - [ ] Componente de estrelas
-  - [ ] Formulário de review
-  - [ ] Visualização de reviews
-  - [ ] Edição/exclusão de própria review
+- [x] **5.3** Sistema de Avaliações
+  - [x] Componente de estrelas
+  - [x] Formulário de review
+  - [x] Visualização de reviews
+  - [x] Edição/exclusão de própria review
 
 - [ ] **5.4** Página de Perfil
   - [ ] Visualização do próprio perfil
