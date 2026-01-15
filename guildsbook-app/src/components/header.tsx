@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/button";
+import { MobileMenu } from "@/components/mobile-menu";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-6">
+          <MobileMenu />
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-xl font-bold">GuildsBook</span>
           </Link>
@@ -18,10 +20,10 @@ export function Header() {
               Livros
             </Link>
             <Link
-              href="/reviews"
+              href="/feed"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-              Avaliações
+              Feed
             </Link>
             <Link
               href="/clubs"
@@ -33,7 +35,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <Button variant="outline" asChild>
+          <Button variant="outline" size="sm" asChild>
             <Link href="/auth/signin">Entrar</Link>
           </Button>
         </div>

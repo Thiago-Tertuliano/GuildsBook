@@ -283,10 +283,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Atividades de usuários seguidos (se já tiver follow)
 
 - [ ] **5.6** Testes e Ajustes MVP
-  - [ ] Testar fluxo completo
-  - [ ] Corrigir bugs
-  - [ ] Melhorar UX
-  - [ ] Responsividade mobile
+  - [x] Testar fluxo completo
+  - [x] Corrigir bugs
+  - [x] Melhorar UX
+  - [x] Responsividade mobile
 
 **Tempo Estimado**: 12-16 horas  
 **Prioridade**: 🔴 Crítica

@@ -44,68 +44,70 @@ interface FeedResponse {
 type FeedFilter = "all" | "following";
 
 export default function FeedPage() {
-    const { isAuthenticated } = useAuth();
-    const [filter, setFilter] = useState<FeedFilter>("all");
-  
-    const {
-      data: feedData,
-      isLoading,
-      error,
-      refetch,
-    } = useGet<FeedResponse>(
-      ["feed", filter],
-      `/api/feed?filter=${filter}&page=1&limit=20`,
-      true
-    );
-  
-    const activities = feedData?.data?.data || [];
-  
-    const handleFilterChange = (newFilter: FeedFilter) => {
-      // Garantir que apenas usuários autenticados possam ver "following"
-      if (newFilter === "following" && !isAuthenticated) {
-        return;
+  const { isAuthenticated } = useAuth();
+  const [filter, setFilter] = useState<FeedFilter>("all");
+
+  const {
+    data: feedData,
+    isLoading,
+    error,
+    refetch,
+  } = useGet<FeedResponse>(
+    ["feed", filter],
+    `/api/feed?filter=${filter}&page=1&limit=20`,
+    true
+  );
+
+  const activities = feedData?.data?.data || [];
+
+  const handleFilterChange = (newFilter: FeedFilter) => {
+    // Garantir que apenas usuários autenticados possam ver "following"
+    if (newFilter === "following" && !isAuthenticated) {
+      return;
+    }
+    setFilter(newFilter);
+  };
+
+  const handleLike = async (activityId: string) => {
+    try {
+      const response = await fetch(`/api/reviews/${activityId}/like`, {
+        method: "POST",
+      });
+      if (!response.ok) {
+        throw new Error("Erro ao curtir review");
       }
-      setFilter(newFilter);
-    };
-  
-    const handleLike = async (activityId: string) => {
-      try {
-        const response = await fetch(`/api/reviews/${activityId}/like`, {
-          method: "POST",
-        });
-        if (!response.ok) {
-          throw new Error("Erro ao curtir review");
-        }
-        refetch();
-      } catch (error) {
-        console.error("Erro ao curtir:", error);
-      }
-    };
-  
-    return (
-      <Layout withSidebar>
-        <div className="container py-6 space-y-6">
-          <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold">Feed</h1>
-            {isAuthenticated && (
-              <div className="flex gap-2">
-                <Button
-                  variant={filter === "all" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handleFilterChange("all")}
-                >
-                  Todas as Atividades
-                </Button>
-                <Button
-                  variant={filter === "following" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handleFilterChange("following")}
-                >
-                  Pessoas que Sigo
-                </Button>
-              </div>
-            )}
-          </div>
+      refetch();
+    } catch (error) {
+      console.error("Erro ao curtir:", error);
+    }
+  };
+
+  return (
+    <Layout withSidebar>
+      <div className="container py-6 space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <h1 className="text-2xl md:text-3xl font-bold">Feed</h1>
+          {isAuthenticated && (
+            <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+              <Button
+                variant={filter === "all" ? "default" : "outline"}
+                size="sm"
+                onClick={() => handleFilterChange("all")}
+                className="flex-1 sm:flex-none"
+              >
+                Todas
+              </Button>
+              <Button
+                variant={filter === "following" ? "default" : "outline"}
+                size="sm"
+                onClick={() => handleFilterChange("following")}
+                className="flex-1 sm:flex-none"
+              >
+                Seguindo
+              </Button>
+            </div>
+          )}
+        </div>
 
         {isLoading && <Loading text="Carregando feed..." />}
 
