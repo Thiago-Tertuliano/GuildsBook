@@ -234,10 +234,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Página 404
   - [x] Página de erro
 
-- [ ] **4.5** Configurar estado global (se necessário)
-  - [ ] Configurar Zustand ou React Query
-  - [ ] Hooks personalizados básicos
-  - [ ] Context para tema
+- [x] **4.5** Configurar estado global (se necessário)
+  - [x] Configurar Zustand ou React Query
+  - [x] Hooks personalizados básicos
+  - [x] Context para tema
 
 **Tempo Estimado**: 6-8 horas  
 **Prioridade**: 🔴 Crítica
@@ -250,12 +250,12 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ### ✅ Tarefas
 
-- [ ] **5.1** Página de Busca de Livros
-  - [ ] Componente de busca
-  - [ ] Integração com API (Google Books + BD local)
-  - [ ] Lista de resultados
-  - [ ] Página de detalhes do livro
-  - [ ] Filtros básicos
+- [x] **5.1** Página de Busca de Livros
+  - [x] Componente de busca
+  - [x] Integração com API (Google Books + BD local)
+  - [x] Lista de resultados
+  - [x] Página de detalhes do livro
+  - [x] Filtros básicos
 
 - [ ] **5.2** Biblioteca Pessoal
   - [ ] Página principal da biblioteca
