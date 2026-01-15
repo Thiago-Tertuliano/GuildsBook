@@ -194,10 +194,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Página de login
   - [x] Página de erro de autenticação
 
-- [ ] **3.5** API - Perfil de Usuário
-  - [ ] `GET /api/user/profile` - Obter perfil
-  - [ ] `PUT /api/user/profile` - Atualizar perfil
-  - [ ] `GET /api/user/[id]` - Perfil público
+- [x] **3.5** API - Perfil de Usuário
+  - [x] `GET /api/user/profile` - Obter perfil
+  - [x] `PUT /api/user/profile` - Atualizar perfil
+  - [x] `GET /api/user/[id]` - Perfil público
 
 **Tempo Estimado**: 4-6 horas  
 **Prioridade**: 🔴 Crítica

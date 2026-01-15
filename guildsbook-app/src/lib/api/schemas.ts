@@ -44,6 +44,16 @@ export const commentUpdateSchema = z.object({
     content: z.string().min(1, "O comentário não pode ser vazio"),
 });
 
+// Schema para atualização de Perfil de Usuário
+export const userProfileUpdateSchema = z.object({
+    name: z.string().min(1, "Nome não pode ser vazio").optional(),
+    avatar: z.union([z.string().url("URL do avatar inválida"), z.literal("")]).optional(),
+    bio: z.string().max(500, "A bio deve ter no máximo 500 caracteres").optional(),
+    location: z.string().max(100, "Localização deve ter no máximo 100 caracteres").optional(),
+    preferences: z.any().optional(), 
+});
+
+
 // Schema para Paginação
 export const paginationSchema = z.object({
     page: z.number().int().positive().default(1),
