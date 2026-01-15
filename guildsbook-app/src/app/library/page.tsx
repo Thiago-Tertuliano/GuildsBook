@@ -71,12 +71,13 @@ export default function LibraryPage() {
           </Button>
         </div>
 
-        {/* Filtros por Status */}
-        <div className="flex gap-2">
+        {/* Filtros por Status - Responsivos */}
+        <div className="flex flex-wrap gap-2">
           <Button
             variant={statusFilter === "" ? "default" : "outline"}
             size="sm"
             onClick={() => setStatusFilter("")}
+            className="flex-1 sm:flex-none"
           >
             Todos
           </Button>
@@ -84,6 +85,7 @@ export default function LibraryPage() {
             variant={statusFilter === "QUERO_LER" ? "default" : "outline"}
             size="sm"
             onClick={() => setStatusFilter("QUERO_LER")}
+            className="flex-1 sm:flex-none"
           >
             Quero Ler
           </Button>
@@ -91,6 +93,7 @@ export default function LibraryPage() {
             variant={statusFilter === "LENDO" ? "default" : "outline"}
             size="sm"
             onClick={() => setStatusFilter("LENDO")}
+            className="flex-1 sm:flex-none"
           >
             Lendo
           </Button>
@@ -98,6 +101,7 @@ export default function LibraryPage() {
             variant={statusFilter === "LIDO" ? "default" : "outline"}
             size="sm"
             onClick={() => setStatusFilter("LIDO")}
+            className="flex-1 sm:flex-none"
           >
             Lido
           </Button>
