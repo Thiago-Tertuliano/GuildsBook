@@ -282,7 +282,7 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Reviews de outros usuários
   - [x] Atividades de usuários seguidos (se já tiver follow)
 
-- [ ] **5.6** Testes e Ajustes MVP
+- [x] **5.6** Testes e Ajustes MVP
   - [x] Testar fluxo completo
   - [x] Corrigir bugs
   - [x] Melhorar UX
