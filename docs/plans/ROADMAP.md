@@ -174,11 +174,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ### ✅ Tarefas
 
-- [ ] **3.1** Configurar NextAuth.js
-  - [ ] Instalar NextAuth.js (`npm install next-auth`)
-  - [ ] Configurar `src/app/api/auth/[...nextauth]/route.ts`
-  - [ ] Configurar providers (Email, Google OAuth)
-  - [ ] Criar adapter do Prisma para NextAuth
+- [x] **3.1** Configurar NextAuth.js
+  - [x] Instalar NextAuth.js (`npm install next-auth`)
+  - [x] Configurar `src/app/api/auth/[...nextauth]/route.ts`
+  - [x] Configurar providers (Email, Google OAuth)
+  - [x] Criar adapter do Prisma para NextAuth
 
 - [ ] **3.2** Configurar banco para autenticação
   - [ ] Atualizar schema Prisma (tabelas do NextAuth)
