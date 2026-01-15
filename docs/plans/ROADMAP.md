@@ -190,10 +190,9 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Helpers para verificar sessão
   - [x] Tipos TypeScript para sessão
 
-- [ ] **3.4** Páginas de autenticação
-  - [ ] Página de login
-  - [ ] Página de registro (se necessário)
-  - [ ] Página de erro de autenticação
+- [x] **3.4** Páginas de autenticação
+  - [x] Página de login
+  - [x] Página de erro de autenticação
 
 - [ ] **3.5** API - Perfil de Usuário
   - [ ] `GET /api/user/profile` - Obter perfil

@@ -32,11 +32,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
-  // Comentar páginas customizadas temporariamente para usar as páginas padrão
-  // pages: {
-  //   signIn: "/auth/signin",
-  //   error: "/auth/error",
-  // },
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  },
 });
 
 export const { GET, POST } = handlers;
