@@ -257,13 +257,13 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Página de detalhes do livro
   - [x] Filtros básicos
 
-- [ ] **5.2** Biblioteca Pessoal
-  - [ ] Página principal da biblioteca
-  - [ ] Grid/Lista de livros
-  - [ ] Filtros por status (Quero Ler, Lendo, Lido)
-  - [ ] Modal para adicionar livro
-  - [ ] Ação de atualizar status/rating
-  - [ ] Remover livro da biblioteca
+- [x] **5.2** Biblioteca Pessoal
+  - [x] Página principal da biblioteca
+  - [x] Grid/Lista de livros
+  - [x] Filtros por status (Quero Ler, Lendo, Lido)
+  - [x] Modal para adicionar livro
+  - [x] Ação de atualizar status/rating
+  - [x] Remover livro da biblioteca
 
 - [ ] **5.3** Sistema de Avaliações
   - [ ] Componente de estrelas
