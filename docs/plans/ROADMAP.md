@@ -229,10 +229,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Loading states
   - [x] Error states
 
-- [ ] **4.4** Páginas estáticas base
-  - [ ] Página inicial (Landing page simples)
-  - [ ] Página 404
-  - [ ] Página de erro
+- [x] **4.4** Páginas estáticas base
+  - [x] Página inicial (Landing page simples)
+  - [x] Página 404
+  - [x] Página de erro
 
 - [ ] **4.5** Configurar estado global (se necessário)
   - [ ] Configurar Zustand ou React Query
