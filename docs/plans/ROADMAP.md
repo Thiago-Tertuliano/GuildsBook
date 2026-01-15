@@ -277,10 +277,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Estatísticas básicas (livros lidos, etc.)
   - [x] Perfil público de outros usuários
 
-- [ ] **5.5** Feed Básico
-  - [ ] Lista de atividades recentes
-  - [ ] Reviews de outros usuários
-  - [ ] Atividades de usuários seguidos (se já tiver follow)
+- [x] **5.5** Feed Básico
+  - [x] Lista de atividades recentes
+  - [x] Reviews de outros usuários
+  - [x] Atividades de usuários seguidos (se já tiver follow)
 
 - [ ] **5.6** Testes e Ajustes MVP
   - [ ] Testar fluxo completo
