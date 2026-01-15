@@ -305,10 +305,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Botão de seguir no perfil
   - [x] Feed de atividades de seguidos
 
-- [ ] **6.2** Comentários em Reviews
-  - [ ] Componente de comentários
-  - [ ] Criar/editar/deletar comentários
-  - [ ] Thread de comentários
+- [x] **6.2** Comentários em Reviews
+  - [x] Componente de comentários
+  - [x] Criar/editar/deletar comentários
+  - [x] Thread de comentários
 
 - [ ] **6.3** Listas de Leitura
   - [ ] Criar listas personalizadas

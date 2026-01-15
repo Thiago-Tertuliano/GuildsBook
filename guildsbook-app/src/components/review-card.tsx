@@ -1,14 +1,29 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardHeader } from "@/components/card";
 import { Button } from "@/components/button";
 import { StarRating } from "@/components/star-rating";
-import { Edit, Trash2, Heart, MessageCircle } from "lucide-react";
+import { Edit, Trash2, Heart, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useAuth } from "@/hooks/use-auth";
+import { CommentsList } from "@/components/comments-list";
+import { CommentForm } from "@/components/comment-form";
+
+interface Comment {
+  id: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: string;
+    name: string;
+    avatar?: string | null;
+  };
+}
 
 interface Review {
   id: string;
@@ -40,13 +55,26 @@ export function ReviewCard({
   onDelete,
   onLike,
 }: ReviewCardProps) {
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, isAuthenticated } = useAuth();
   const isOwnReview = currentUser?.id === review.user.id;
+  const [showComments, setShowComments] = useState(false);
+  const [editingComment, setEditingComment] = useState<Comment | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const formattedDate = formatDistanceToNow(new Date(review.createdAt), {
     addSuffix: true,
     locale: ptBR,
   });
+
+  const handleCommentSubmit = () => {
+    setEditingComment(null);
+    setRefreshKey((prev) => prev + 1);
+  };
+
+  const handleCommentEdit = (comment: Comment) => {
+    setEditingComment(comment);
+    setShowComments(true);
+  };
 
   return (
     <Card>
@@ -118,11 +146,41 @@ export function ReviewCard({
             <Heart className="h-4 w-4" />
             <span>{review.likes}</span>
           </button>
-          <div className="flex items-center gap-1">
+          <button
+            onClick={() => setShowComments(!showComments)}
+            className="flex items-center gap-1 hover:text-primary transition-colors"
+          >
             <MessageCircle className="h-4 w-4" />
             <span>{review._count.comments}</span>
-          </div>
+            {showComments ? (
+              <ChevronUp className="h-3 w-3 ml-1" />
+            ) : (
+              <ChevronDown className="h-3 w-3 ml-1" />
+            )}
+          </button>
         </div>
+
+        {/* Seção de Comentários Expansível */}
+        {showComments && (
+          <div className="pt-4 border-t space-y-4">
+            {isAuthenticated && (
+              <CommentForm
+                reviewId={review.id}
+                initialContent={editingComment?.content || ""}
+                mode={editingComment ? "edit" : "create"}
+                commentId={editingComment?.id}
+                onSubmit={handleCommentSubmit}
+                onCancel={editingComment ? () => setEditingComment(null) : undefined}
+              />
+            )}
+
+            <CommentsList
+              key={refreshKey}
+              reviewId={review.id}
+              onEdit={handleCommentEdit}
+            />
+          </div>
+        )}
       </CardContent>
     </Card>
   );
