@@ -1,31 +1,29 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { userProfileUpdateSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
-import { getUserId } from "@/lib/auth";
-import { Prisma } from "@prisma/client";
+import { successResponse, errorResponse } from "@/lib/api/utils";
 
-// GET /api/user/profile - Obter perfil do usuário autenticado
-export async function GET(request: NextRequest) {
+// GET /api/user/[id] - Obter perfil público de um usuário
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const userId = await getUserId();
+    const { id } = await params;
 
-    if (!userId) {
-      return errorResponse("Não autenticado", 401);
+    // Validar UUID
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+      return errorResponse("ID de usuário inválido", 400);
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { id },
       select: {
         id: true,
-        email: true,
         name: true,
         avatar: true,
         bio: true,
         location: true,
-        preferences: true,
         createdAt: true,
-        updatedAt: true,
         _count: {
           select: {
             userBooks: true,
@@ -46,57 +44,5 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Erro ao buscar perfil:", error);
     return errorResponse("Erro ao buscar perfil", 500);
-  }
-}
-
-// PUT /api/user/profile - Atualizar perfil do usuário autenticado
-export async function PUT(request: NextRequest) {
-  try {
-    const userId = await getUserId();
-
-    if (!userId) {
-      return errorResponse("Não autenticado", 401);
-    }
-
-    const body = await request.json();
-    const validatedData = userProfileUpdateSchema.parse(body);
-
-    // Preparar dados para atualização, convertendo string vazia em null para avatar
-    const updateData: Prisma.UserUpdateInput = {
-      ...(validatedData.name !== undefined && { name: validatedData.name }),
-      ...(validatedData.bio !== undefined && { bio: validatedData.bio }),
-      ...(validatedData.location !== undefined && { location: validatedData.location }),
-      ...(validatedData.preferences !== undefined && { preferences: validatedData.preferences }),
-      ...(validatedData.avatar !== undefined && {
-        avatar: validatedData.avatar === "" ? null : validatedData.avatar,
-      }),
-    };
-
-    const updatedUser = await prisma.user.update({
-      where: { id: userId },
-      data: updateData,
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        avatar: true,
-        bio: true,
-        location: true,
-        preferences: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
-
-    return successResponse(updatedUser);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
-      return handleValidationError(error);
-    }
-    if (error.code === "P2025") {
-      return errorResponse("Usuário não encontrado", 404);
-    }
-    console.error("Erro ao atualizar perfil:", error);
-    return errorResponse("Erro ao atualizar perfil", 500);
   }
 }

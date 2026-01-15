@@ -271,11 +271,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Visualização de reviews
   - [x] Edição/exclusão de própria review
 
-- [ ] **5.4** Página de Perfil
-  - [ ] Visualização do próprio perfil
-  - [ ] Edição de perfil
-  - [ ] Estatísticas básicas (livros lidos, etc.)
-  - [ ] Perfil público de outros usuários
+- [x] **5.4** Página de Perfil
+  - [x] Visualização do próprio perfil
+  - [x] Edição de perfil
+  - [x] Estatísticas básicas (livros lidos, etc.)
+  - [x] Perfil público de outros usuários
 
 - [ ] **5.5** Feed Básico
   - [ ] Lista de atividades recentes
