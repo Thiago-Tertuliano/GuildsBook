@@ -216,11 +216,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Criar layout base (Header, Footer, Sidebar)
   - [x] Configurar modo escuro/claro (toggle básico)
 
-- [ ] **4.2** Criar componentes de layout
+- [x] **4.2** Criar componentes de layout
   - [x] `Header` - Navegação principal
   - [x] `Footer` - Rodapé
-  - [ ] `Sidebar` - Menu lateral (se necessário)
-  - [ ] `Layout` wrapper principal
+  - [x] `Sidebar` - Menu lateral (se necessário)
+  - [x] `Layout` wrapper principal
 
 - [ ] **4.3** Criar componentes de UI base
   - [ ] Botões e inputs
