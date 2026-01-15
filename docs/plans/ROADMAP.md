@@ -210,15 +210,15 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ### ✅ Tarefas
 
-- [ ] **4.1** Configurar Design System
-  - [ ] Configurar tema (cores, tipografia)
-  - [ ] Instalar componentes shadcn/ui essenciais
-  - [ ] Criar layout base (Header, Footer, Sidebar)
-  - [ ] Configurar modo escuro/claro (toggle básico)
+- [x] **4.1** Configurar Design System
+  - [x] Configurar tema (cores, tipografia)
+  - [x] Instalar componentes shadcn/ui essenciais
+  - [x] Criar layout base (Header, Footer, Sidebar)
+  - [x] Configurar modo escuro/claro (toggle básico)
 
 - [ ] **4.2** Criar componentes de layout
-  - [ ] `Header` - Navegação principal
-  - [ ] `Footer` - Rodapé
+  - [x] `Header` - Navegação principal
+  - [x] `Footer` - Rodapé
   - [ ] `Sidebar` - Menu lateral (se necessário)
   - [ ] `Layout` wrapper principal
 
