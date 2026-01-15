@@ -59,4 +59,34 @@ export const paginationSchema = z.object({
     page: z.number().int().positive().default(1),
     limit: z.number().int().positive().max(100).default(20),
 });
+
+// Schema para ReadingList (criação)
+export const readingListSchema = z.object({
+    name: z.string().min(1, "Nome da lista é obrigatório"),
+    description: z.string().optional(),
+    isPublic: z.boolean().optional().default(false),
+  });
+  
+  // Schema para atualização de ReadingList
+  export const readingListUpdateSchema = z.object({
+    name: z.string().min(1, "Nome da lista é obrigatório").optional(),
+    description: z.string().optional(),
+    isPublic: z.boolean().optional(),
+  });
     
+  // Schema para Quote (criação)
+export const quoteSchema = z.object({
+    bookId: z.string().uuid("ID do livro inválido"),
+    content: z.string().min(1, "A citação não pode ser vazia").max(2000, "A citação deve ter no máximo 2000 caracteres"),
+    page: z.number().int().positive().optional(),
+    chapter: z.string().optional(),
+    isPublic: z.boolean().optional().default(false),
+  });
+  
+  // Schema para atualização de Quote
+  export const quoteUpdateSchema = z.object({
+    content: z.string().min(1, "A citação não pode ser vazia").max(2000, "A citação deve ter no máximo 2000 caracteres").optional(),
+    page: z.number().int().positive().optional(),
+    chapter: z.string().optional(),
+    isPublic: z.boolean().optional(),
+  });
