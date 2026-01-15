@@ -1,15 +1,15 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { successResponse, errorResponse } from "@/lib/api/utils";
+import { getUserId } from "@/lib/auth";
 
 // GET /api/user/books/stats - Estatísticas pessoais
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const userId = searchParams.get("userId"); // TODO: Obter da sessão quando autenticação for implementada
+    const userId = await getUserId();
 
     if (!userId) {
-      return errorResponse("userId é obrigatório", 400);
+      return errorResponse("Não autenticado", 401);
     }
 
     const [

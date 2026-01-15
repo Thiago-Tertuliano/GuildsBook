@@ -3,13 +3,13 @@ import { prisma } from "@/lib/prisma";
 import { reviewUpdateSchema } from "@/lib/api/schemas";
 import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
 
-// PUT /api/reviews/[id] - Atualizar review
+// PUT /api/reviews/[reviewId] - Atualizar review
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ reviewId: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { reviewId } = await params;
     const body = await request.json();
     const userId = body.userId; // TODO: Obter da sessão quando autenticação for implementada
 
@@ -19,7 +19,7 @@ export async function PUT(
 
     // Buscar a review
     const review = await prisma.review.findUnique({
-      where: { id },
+      where: { id: reviewId },
     });
 
     if (!review) {
@@ -40,7 +40,7 @@ export async function PUT(
 
     // Atualizar review
     const updatedReview = await prisma.review.update({
-      where: { id },
+      where: { id: reviewId },
       data: validatedData,
       include: {
         user: {
@@ -70,13 +70,13 @@ export async function PUT(
   }
 }
 
-// DELETE /api/reviews/[id] - Deletar review
+// DELETE /api/reviews/[reviewId] - Deletar review
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ reviewId: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { reviewId } = await params;
     const searchParams = request.nextUrl.searchParams;
     const userId = searchParams.get("userId"); // TODO: Obter da sessão quando autenticação for implementada
 
@@ -86,7 +86,7 @@ export async function DELETE(
 
     // Buscar a review
     const review = await prisma.review.findUnique({
-      where: { id },
+      where: { id: reviewId },
     });
 
     if (!review) {
@@ -100,7 +100,7 @@ export async function DELETE(
 
     // Deletar review (os comentários serão deletados automaticamente devido ao onDelete: Cascade)
     await prisma.review.delete({
-      where: { id },
+      where: { id: reviewId },
     });
 
     return successResponse({ message: "Review deletada com sucesso" });
