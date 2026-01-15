@@ -9,7 +9,11 @@ import { Loading } from "@/components/loading";
 import { Error as ErrorComponent } from "@/components/error";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
 import { Button } from "@/components/button";
-import { ArrowLeft, BookOpen, Calendar, Hash, Users, Star } from "lucide-react";
+import { ArrowLeft, BookOpen, Calendar, Hash, Users, Star, Quote as QuoteIcon, Plus } from "lucide-react";
+import { useState } from "react";
+import { QuoteList } from "@/components/quote-list";
+import { AddQuoteModal } from "@/components/add-quote-modal";
+import { useAuth } from "@/hooks/use-auth";
 
 interface BookDetails {
   id: string;
@@ -29,7 +33,10 @@ interface BookDetails {
 
 export default function BookDetailsPage() {
   const params = useParams();
+  const { user } = useAuth();
   const bookId = params.bookId as string;
+  const [activeTab, setActiveTab] = useState<"details" | "quotes">("details");
+  const [isAddQuoteModalOpen, setIsAddQuoteModalOpen] = useState(false);
 
   const {
     data: bookData,
@@ -176,13 +183,72 @@ export default function BookDetailsPage() {
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href={`/my-books?add=${bookId}`}>
+              <Link href={`/library?add=${bookId}`}>
                   Adicionar à Biblioteca
                 </Link>
               </Button>
             </div>
           </div>
         </div>
+
+        {/* Abas de conteúdo */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                <Button
+                  variant={activeTab === "details" ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setActiveTab("details")}
+                >
+                  Detalhes
+                </Button>
+                <Button
+                  variant={activeTab === "quotes" ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setActiveTab("quotes")}
+                >
+                  <QuoteIcon className="h-4 w-4 mr-2" />
+                  Citações
+                </Button>
+              </div>
+              {activeTab === "quotes" && user && (
+                <Button
+                  size="sm"
+                  onClick={() => setIsAddQuoteModalOpen(true)}
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Adicionar Citação
+                </Button>
+              )}
+            </div>
+          </CardHeader>
+          <CardContent>
+            {activeTab === "details" && (
+              <div className="space-y-4">
+                <p className="text-muted-foreground">
+                  Veja as informações completas do livro acima.
+                </p>
+              </div>
+            )}
+            {activeTab === "quotes" && (
+              <QuoteList bookId={bookId} />
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Modal de adicionar citação */}
+        {user && (
+          <AddQuoteModal
+            isOpen={isAddQuoteModalOpen}
+            onClose={() => setIsAddQuoteModalOpen(false)}
+            bookId={bookId}
+            onSuccess={() => {
+              setIsAddQuoteModalOpen(false);
+              // O QuoteList vai atualizar automaticamente via React Query
+            }}
+          />
+        )}
       </div>
     </Layout>
   );

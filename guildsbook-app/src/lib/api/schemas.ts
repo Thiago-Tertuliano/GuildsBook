@@ -74,3 +74,19 @@ export const readingListSchema = z.object({
     isPublic: z.boolean().optional(),
   });
     
+  // Schema para Quote (criação)
+export const quoteSchema = z.object({
+    bookId: z.string().uuid("ID do livro inválido"),
+    content: z.string().min(1, "A citação não pode ser vazia").max(2000, "A citação deve ter no máximo 2000 caracteres"),
+    page: z.number().int().positive().optional(),
+    chapter: z.string().optional(),
+    isPublic: z.boolean().optional().default(false),
+  });
+  
+  // Schema para atualização de Quote
+  export const quoteUpdateSchema = z.object({
+    content: z.string().min(1, "A citação não pode ser vazia").max(2000, "A citação deve ter no máximo 2000 caracteres").optional(),
+    page: z.number().int().positive().optional(),
+    chapter: z.string().optional(),
+    isPublic: z.boolean().optional(),
+  });
