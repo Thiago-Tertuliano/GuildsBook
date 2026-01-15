@@ -9,17 +9,28 @@ interface ApiResponse<T> {
 
 // Hook genérico para GET
 export function useGet<T>(key: string[], url: string, enabled = true) {
-  return useQuery<ApiResponse<T>>({
+  const query = useQuery<ApiResponse<T>>({
     queryKey: key,
     queryFn: async () => {
+      if (!url) {
+        throw new Error("URL is required");
+      }
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch");
       }
       return response.json();
     },
-    enabled,
+    enabled: enabled && !!url,
   });
+
+  return {
+    ...query,
+    data: query.data,
+    isLoading: query.isLoading,
+    error: query.error,
+    refetch: query.refetch,
+  };
 }
 
 // Hook genérico para POST/PUT/DELETE
