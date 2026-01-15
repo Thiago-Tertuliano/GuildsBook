@@ -299,11 +299,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ### ✅ Tarefas
 
-- [ ] **6.1** Sistema de Seguir Usuários
-  - [ ] API para seguir/deixar de seguir
-  - [ ] Lista de seguidores/seguindo
-  - [ ] Botão de seguir no perfil
-  - [ ] Feed de atividades de seguidos
+- [x] **6.1** Sistema de Seguir Usuários
+  - [x] API para seguir/deixar de seguir
+  - [x] Lista de seguidores/seguindo
+  - [x] Botão de seguir no perfil
+  - [x] Feed de atividades de seguidos
 
 - [ ] **6.2** Comentários em Reviews
   - [ ] Componente de comentários
