@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { BookOpen } from "lucide-react";
 
 export default function SignInPage() {
   const searchParams = useSearchParams();
@@ -58,19 +59,27 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 px-4">
-      <div className="w-full max-w-md space-y-8 rounded-lg bg-white dark:bg-zinc-800 p-8 shadow-lg">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#ffff96]/20 via-[#c39738]/10 to-[#7f4311]/10 dark:from-zinc-950 dark:via-[#361f00]/30 dark:to-[#5e4318]/30 px-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(195,151,56,0.1),transparent_50%)]"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#c39738]/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#7f4311]/10 rounded-full blur-3xl"></div>
+      
+      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-8 shadow-2xl border border-white/20 dark:border-zinc-800 relative z-10">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-50">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#c39738] to-[#5e4318] mb-4 shadow-lg shadow-[#c39738]/50">
+            <BookOpen className="h-8 w-8 text-white" />
+          </div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-[#c39738] to-[#7f4311] bg-clip-text text-transparent">
             GuildsBook
           </h1>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
             Entre com sua conta para continuar
           </p>
         </div>
 
         {error && (
-          <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4">
+          <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4">
             <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
           </div>
         )}
@@ -80,7 +89,7 @@ export default function SignInPage() {
           <button
             onClick={handleGoogleSignIn}
             disabled={isLoading}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 px-4 py-3 text-sm font-medium text-zinc-900 dark:text-zinc-50 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex w-full items-center justify-center gap-3 rounded-xl border-2 border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-50 transition-all hover:bg-[#ffff96]/20 dark:hover:bg-[#5e4318]/20 hover:border-[#c39738] dark:hover:border-[#c39738] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-zinc-800"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
@@ -105,10 +114,10 @@ export default function SignInPage() {
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-zinc-300 dark:border-zinc-600"></div>
+              <div className="w-full border-t border-slate-200 dark:border-zinc-700"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white dark:bg-zinc-800 px-2 text-zinc-500 dark:text-zinc-400">
+              <span className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur px-2 text-slate-500 dark:text-slate-400">
                 ou
               </span>
             </div>
@@ -119,7 +128,7 @@ export default function SignInPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-zinc-700 dark:text-zinc-300"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
               >
                 Email
               </label>
@@ -131,7 +140,7 @@ export default function SignInPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 px-3 py-2 text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="block w-full rounded-xl border-2 border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 py-3 text-slate-900 dark:text-slate-50 placeholder-slate-400 dark:placeholder-slate-500 focus:border-[#c39738] dark:focus:border-[#c39738] focus:outline-none focus:ring-2 focus:ring-[#c39738]/20 transition-colors"
                 placeholder="email@exemplo.com"
               />
             </div>
@@ -139,14 +148,14 @@ export default function SignInPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full rounded-xl bg-gradient-to-r from-[#c39738] to-[#7f4311] px-4 py-3 text-sm font-medium text-white transition-all hover:from-[#b08732] hover:to-[#6f3a0f] focus:outline-none focus:ring-2 focus:ring-[#c39738] focus:ring-offset-2 shadow-lg shadow-[#c39738]/50 hover:shadow-xl hover:shadow-[#7f4311]/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-lg"
             >
               {isLoading ? "Enviando..." : "Entrar com Email"}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400">
           Ao continuar, você concorda com nossos Termos de Serviço e Política de Privacidade.
         </p>
       </div>

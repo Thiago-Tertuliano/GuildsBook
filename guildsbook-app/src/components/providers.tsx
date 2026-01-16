@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
+import { SidebarProvider } from "@/contexts/sidebar-context";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -29,8 +30,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
         disableTransitionOnChange
       >
         <QueryClientProvider client={queryClient}>
-          {children}
-          <ReactQueryDevtools initialIsOpen={false} />
+          <SidebarProvider>
+            {children}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </SidebarProvider>
         </QueryClientProvider>
       </ThemeProvider>
     </SessionProvider>

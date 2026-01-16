@@ -12,13 +12,16 @@ import {
   User,
   Settings,
   BarChart3,
+  X,
 } from "lucide-react";
+import { Button } from "@/components/button";
 import { cn } from "@/lib/utils";
+import { useSidebar } from "@/contexts/sidebar-context";
 
 const navItems = [
   {
     title: "Início",
-    href: "/",
+    href: "/dashboard",
     icon: Home,
   },
   {
@@ -71,16 +74,37 @@ interface SidebarProps {
 }
 
 export function Sidebar({ className }: SidebarProps) {
-    const pathname = usePathname();
-  
-    return (
+  const pathname = usePathname();
+  const { isOpen, close } = useSidebar();
+
+  return (
+    <>
+      {/* Overlay para mobile */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
+          onClick={close}
+        />
+      )}
+      
       <aside
         className={cn(
-          "hidden lg:flex lg:flex-col lg:w-56 lg:border-r lg:bg-background",
+          "fixed lg:static inset-y-0 left-0 z-50 lg:z-auto",
+          "flex flex-col w-64 lg:w-56 border-r bg-background",
+          "transition-transform duration-300 ease-in-out",
+          !isOpen && "-translate-x-full lg:translate-x-0 lg:block",
           className
         )}
       >
       <div className="flex flex-col h-full">
+        {/* Botão de fechar para mobile */}
+        <div className="flex items-center justify-between border-b p-4 lg:hidden">
+          <span className="text-lg font-bold">Menu</span>
+          <Button variant="ghost" size="sm" onClick={close}>
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+        
         <div className="flex-1 px-4 py-6">
           <nav className="space-y-2">
             {navItems.map((item) => {
@@ -130,5 +154,6 @@ export function Sidebar({ className }: SidebarProps) {
         </div>
       </div>
     </aside>
+    </>
   );
 }
