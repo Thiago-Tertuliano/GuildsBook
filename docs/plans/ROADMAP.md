@@ -323,11 +323,11 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Buscar citações
   - [x] Compartilhar citações
 
-- [ ] **6.5** Busca Avançada
-  - [ ] Filtros avançados (ano, editora, idioma)
-  - [ ] Busca por gênero
-  - [ ] Ordenação de resultados
-  - [ ] Salvar buscas favoritas
+- [x] **6.5** Busca Avançada
+  - [x] Filtros avançados (ano, editora, idioma)
+  - [x] Busca por gênero
+  - [x] Ordenação de resultados
+  - [x] Salvar buscas favoritas
 
 - [ ] **6.6** Estatísticas Detalhadas
   - [ ] Gráficos de livros lidos (por mês/ano)
@@ -404,13 +404,13 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 - **Fase 0**: ⬜ 3/3 tarefas concluídas
 - **Fase 1**: ⬜ 10/10 tarefas concluídas
 - **Fase 2**: ⬜ 7/7 tarefas concluídas
-- **Fase 3**: ⬜ 0/5 tarefas concluídas
-- **Fase 4**: ⬜ 0/5 tarefas concluídas
-- **Fase 5**: ⬜ 0/6 tarefas concluídas
-- **Fase 6**: ⬜ 0/7 tarefas concluídas
+- **Fase 3**: ⬜ 5/5 tarefas concluídas
+- **Fase 4**: ⬜ 5/5 tarefas concluídas
+- **Fase 5**: ⬜ 6/6 tarefas concluídas
+- **Fase 6**: ⬜ 4/7 tarefas concluídas
 - **Fase 7 (Opcional)**: ⬜ 0/7 tarefas concluídas
 
-**Total**: 20/50 tarefas principais concluídas
+**Total**: 47/50 tarefas principais concluídas
 
 ---
 
