@@ -11,6 +11,7 @@ import {
   Library,
   User,
   Settings,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,6 +40,11 @@ const navItems = [
     title: "Biblioteca",
     href: "/library",
     icon: Library,
+  },
+  {
+    title: "Estatísticas",
+    href: "/stats",
+    icon: BarChart3,
   },
   {
     title: "Clubes",

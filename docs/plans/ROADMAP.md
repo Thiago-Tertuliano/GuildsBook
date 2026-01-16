@@ -329,10 +329,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
   - [x] Ordenação de resultados
   - [x] Salvar buscas favoritas
 
-- [ ] **6.6** Estatísticas Detalhadas
-  - [ ] Gráficos de livros lidos (por mês/ano)
-  - [ ] Gêneros favoritos
-  - [ ] Páginas lidas
+- [x] **6.6** Estatísticas Detalhadas
+  - [x] Gráficos de livros lidos (por mês/ano)
+  - [x] Gêneros favoritos
+  - [x] Páginas lidas
 
 - [ ] **6.7** Clubes de Leitura (Básico)
   - [ ] Criar clube
