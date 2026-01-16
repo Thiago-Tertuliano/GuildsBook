@@ -407,10 +407,10 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 - **Fase 3**: ⬜ 5/5 tarefas concluídas
 - **Fase 4**: ⬜ 5/5 tarefas concluídas
 - **Fase 5**: ⬜ 6/6 tarefas concluídas
-- **Fase 6**: ⬜ 4/7 tarefas concluídas
+- **Fase 6**: ⬜ 7/7 tarefas concluídas
 - **Fase 7 (Opcional)**: ⬜ 0/7 tarefas concluídas
 
-**Total**: 47/50 tarefas principais concluídas
+**Total**: 50/50 tarefas principais concluídas
 
 ---
 

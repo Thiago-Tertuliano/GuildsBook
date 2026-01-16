@@ -76,7 +76,7 @@ export function Sidebar({ className }: SidebarProps) {
     return (
       <aside
         className={cn(
-          "hidden lg:flex lg:flex-col lg:w-64 lg:border-r lg:bg-background",
+          "hidden lg:flex lg:flex-col lg:w-56 lg:border-r lg:bg-background",
           className
         )}
       >

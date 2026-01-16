@@ -85,7 +85,7 @@ export default function ReadingListsPage() {
 
   return (
     <Layout withSidebar>
-      <div className="container py-6 space-y-6">
+      <div className="px-4 lg:pl-4 lg:pr-8 py-6 space-y-6 w-full">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Listas de Leitura</h1>
           {user && (

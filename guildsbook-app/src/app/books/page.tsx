@@ -191,9 +191,9 @@ export default function BooksPage() {
 
   return (
     <Layout>
-      <div className="container py-6 space-y-6">
+      <div className="container mx-auto px-4 py-6 space-y-6">
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <h1 className="text-2xl md:text-3xl font-bold">Buscar Livros</h1>
             <div className="flex gap-2">
               {/* Botão de buscas salvas */}

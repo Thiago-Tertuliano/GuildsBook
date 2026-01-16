@@ -84,7 +84,7 @@ export default function FeedPage() {
 
   return (
     <Layout withSidebar>
-      <div className="container py-6 space-y-6">
+      <div className="px-4 lg:pl-4 lg:pr-8 py-6 space-y-6 w-full">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h1 className="text-2xl md:text-3xl font-bold">Feed</h1>
           {isAuthenticated && (

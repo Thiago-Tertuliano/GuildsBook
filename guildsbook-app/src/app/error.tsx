@@ -19,7 +19,7 @@ export default function Error({
 
   return (
     <Layout>
-      <div className="container py-20">
+      <div className="container mx-auto px-4 py-20">
         <ErrorComponent
           title="Algo deu errado"
           message={

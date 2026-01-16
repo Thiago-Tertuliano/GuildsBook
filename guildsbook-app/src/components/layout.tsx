@@ -19,7 +19,7 @@ export function Layout({
       <Header />
       <div className="flex flex-1">
         {withSidebar && <Sidebar className={sidebarClassName} />}
-        <main className={cn("flex-1", withSidebar && "lg:ml-64")}>
+        <main className={cn("flex-1 min-w-0", withSidebar && "lg:ml-16 lg:mr-16")}>
           {children}
         </main>
       </div>
