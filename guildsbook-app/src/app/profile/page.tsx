@@ -32,7 +32,7 @@ interface UserProfile {
 }
 
 export default function ProfilePage() {
-  const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const { isAuthenticated, isLoading: authLoading, user: authUser } = useAuth();
   const router = useRouter();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -48,6 +48,9 @@ export default function ProfilePage() {
   );
 
   const profile = profileData?.data;
+  
+  // Usar imagem da sessão (Google, etc.) como fallback se o avatar do banco estiver vazio
+  const userAvatar = profile?.avatar || authUser?.image || null;
 
   // Redirecionar se não autenticado
   if (!authLoading && !isAuthenticated) {
@@ -91,15 +94,16 @@ export default function ProfilePage() {
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row gap-6">
               <div className="relative h-24 w-24 md:h-32 md:w-32 rounded-full overflow-hidden bg-muted flex-shrink-0">
-                {profile.avatar ? (
+                {userAvatar ? (
                   <Image
-                    src={profile.avatar}
+                    src={userAvatar}
                     alt={profile.name}
                     fill
                     className="object-cover"
+                    unoptimized={userAvatar?.startsWith('http')}
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-2xl md:text-4xl font-bold">
+                  <div className="w-full h-full flex items-center justify-center text-2xl md:text-4xl font-bold bg-primary/10 text-primary">
                     {profile.name.charAt(0).toUpperCase()}
                   </div>
                 )}

@@ -97,6 +97,48 @@ export async function GET(request: NextRequest) {
     const avgPagesPerBook =
       totalReadBooks > 0 ? Math.round(totalPages / totalReadBooks) : 0;
 
+    // Livros favoritos (rating >= 4.5 ou os top 10 por rating)
+    const favoriteBooksQuery = await prisma.userBook.findMany({
+      where: {
+        userId,
+        status: "LIDO",
+        rating: { gte: 4.5 },
+      },
+      include: {
+        book: true,
+      },
+      orderBy: {
+        rating: "desc",
+      },
+      take: 10,
+    });
+
+    const favoriteBooks = favoriteBooksQuery.map((userBook) => ({
+      id: userBook.bookId,
+      title: userBook.book.title,
+      author: userBook.book.author,
+      rating: userBook.rating,
+    }));
+
+    // Média de rating
+    const avgRatingQuery = await prisma.userBook.aggregate({
+      where: {
+        userId,
+        status: "LIDO",
+        rating: { not: null },
+      },
+      _avg: {
+        rating: true,
+      },
+    });
+
+    const avgRating = avgRatingQuery._avg.rating
+      ? Math.round(avgRatingQuery._avg.rating * 10) / 10
+      : 0;
+
+    // Contar livros não lidos (QUERO_LER)
+    const totalNotRead = totalWantToRead;
+
     return successResponse({
       booksByMonth: booksByMonthArray,
       booksByYear: booksByYearArray,
@@ -106,6 +148,9 @@ export async function GET(request: NextRequest) {
       totalWantToRead,
       totalReading,
       avgPagesPerBook,
+      favoriteBooks,
+      avgRating,
+      totalNotRead,
     });
   } catch (error: any) {
     console.error("Erro ao buscar estatísticas:", error);

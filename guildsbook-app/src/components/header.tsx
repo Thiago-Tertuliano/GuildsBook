@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useSidebar } from "@/contexts/sidebar-context";
@@ -21,9 +22,15 @@ import {
 import { LogOut, Menu, LogIn } from "lucide-react";
 
 export function Header() {
-  const { user, isAuthenticated, signOut } = useAuth();
+  const { user, isAuthenticated, isLoading, signOut } = useAuth();
   const pathname = usePathname();
   const { toggle } = useSidebar();
+  const [mounted, setMounted] = useState(false);
+  
+  // Evitar hidratação mismatch - só renderizar conteúdo dinâmico após montagem
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   const isLandingPage = pathname === "/";
 
@@ -39,20 +46,33 @@ export function Header() {
   const handleLogout = async () => {
     await signOut({ callbackUrl: "/" });
   };
+  
+  // Durante SSR e carregamento inicial, renderizar versão estática
+  // Só renderizar conteúdo que depende de autenticação após hidratação completa
+  const isClientReady = mounted;
+  const showAuthButton = isClientReady && !isLoading && isAuthenticated;
+  const showLoginButton = isClientReady && !isLoading && !isAuthenticated;
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#ffff96]/90 dark:bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-[#ffff96]/70 dark:supports-[backdrop-filter]:bg-black/80">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-gradient-to-r from-background via-background/95 to-background backdrop-blur-md supports-[backdrop-filter]:backdrop-blur-md shadow-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-7xl">
         <div className="flex items-center gap-6">
-          {isAuthenticated && !isLandingPage && (
+          {/* Botão hambúrguer - sempre renderizar espaço para evitar layout shift */}
+          <div className={cn(
+            "w-10 h-10 flex items-center justify-center",
+            (!isClientReady || isLoading || isLandingPage || !isAuthenticated) && "invisible"
+          )}>
             <Button
               variant="ghost"
               size="sm"
               onClick={toggle}
+              className={cn(
+                !isClientReady && "pointer-events-none opacity-0"
+              )}
             >
               <Menu className="h-5 w-5" />
             </Button>
-          )}
+          </div>
           <Link href="/" className="flex items-center">
             <Image 
               src="/logo.png" 
@@ -64,22 +84,22 @@ export function Header() {
             />
           </Link>
           {!isLandingPage && (
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-2">
               <Link
                 href="/books"
-                className="text-sm font-medium text-[#5e4318] dark:text-muted-foreground transition-colors hover:text-[#7f4311] dark:hover:text-foreground"
+                className="text-sm font-medium px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-all duration-200"
               >
                 Livros
               </Link>
               <Link
                 href="/feed"
-                className="text-sm font-medium text-[#5e4318] dark:text-muted-foreground transition-colors hover:text-[#7f4311] dark:hover:text-foreground"
+                className="text-sm font-medium px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-all duration-200"
               >
                 Feed
               </Link>
               <Link
                 href="/clubs"
-                className="text-sm font-medium text-[#5e4318] dark:text-muted-foreground transition-colors hover:text-[#7f4311] dark:hover:text-foreground"
+                className="text-sm font-medium px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-all duration-200"
               >
                 Clubes
               </Link>
@@ -87,8 +107,7 @@ export function Header() {
           )}
         </div>
         <div className="flex items-center gap-4">
-          <ThemeToggle />
-          {isAuthenticated ? (
+          {showAuthButton ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="outline-none focus:outline-none">
@@ -105,7 +124,7 @@ export function Header() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
+          ) : showLoginButton ? (
             <Button 
               size="sm" 
               className="bg-gradient-to-r from-[#c39738] to-[#7f4311] hover:from-[#b08732] hover:to-[#6f3a0f] text-white shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" 
@@ -116,6 +135,9 @@ export function Header() {
                 Entrar
               </Link>
             </Button>
+          ) : (
+            // Placeholder durante carregamento - mesmo tamanho do botão/login para evitar layout shift
+            <div className="h-8 w-[73px]" />
           )}
         </div>
       </div>
