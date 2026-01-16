@@ -63,7 +63,7 @@ export default function HomePage() {
           
           <div className="relative z-10 container mx-auto flex flex-col items-center justify-center gap-6">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              Bem-vindo ao{" "}
+              <span className="text-white">Bem-vindo ao </span>
               <span className="bg-gradient-to-r from-[#c39738] via-[#7f4311] to-[#5e4318] bg-clip-text text-transparent">
                 GuildsBook
               </span>
@@ -93,7 +93,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c39738] to-[#7f4311] bg-clip-text text-transparent">
                 Por que escolher o GuildsBook?
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-lg">
+              <p className="text-[#5e4318] dark:text-slate-300 max-w-2xl mx-auto text-lg">
                 Tudo que você precisa para organizar sua leitura e se conectar com outros leitores
               </p>
             </div>
@@ -153,7 +153,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c39738] to-[#5e4318] bg-clip-text text-transparent">
                 Como Funciona
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-lg">
+              <p className="text-[#5e4318] dark:text-slate-300 max-w-2xl mx-auto text-lg">
                 Em poucos passos, você começa a organizar sua leitura e se conectar com a comunidade
               </p>
             </div>
@@ -162,8 +162,8 @@ export default function HomePage() {
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#c39738] to-[#7f4311] text-white mb-4 shadow-lg shadow-[#c39738]/50 group-hover:scale-110 transition-transform">
                   <UserPlus className="h-10 w-10" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-slate-200">Crie sua conta</h3>
-                <p className="text-slate-600 dark:text-slate-400">
+                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">Crie sua conta</h3>
+                <p className="text-[#5e4318] dark:text-slate-400">
                   Cadastre-se gratuitamente e comece a organizar sua biblioteca pessoal
                 </p>
               </div>
@@ -174,8 +174,8 @@ export default function HomePage() {
                     <BookPlus className="h-4 w-4" />
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-slate-200">Adicione livros</h3>
-                <p className="text-slate-600 dark:text-slate-400">
+                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">Adicione livros</h3>
+                <p className="text-[#5e4318] dark:text-slate-400">
                   Busque e adicione livros à sua biblioteca, acompanhe seu progresso
                 </p>
               </div>
@@ -183,8 +183,8 @@ export default function HomePage() {
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#7f4311] to-[#5e4318] text-white mb-4 shadow-lg shadow-[#7f4311]/50 group-hover:scale-110 transition-transform">
                   <Network className="h-10 w-10" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-slate-800 dark:text-slate-200">Conecte-se</h3>
-                <p className="text-slate-600 dark:text-slate-400">
+                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">Conecte-se</h3>
+                <p className="text-[#5e4318] dark:text-slate-400">
                   Compartilhe reviews, participe de clubes e descubra novos leitores
                 </p>
               </div>
@@ -208,8 +208,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-slate-800 dark:text-slate-200">Busca Avançada</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Busca Avançada</h3>
+                  <p className="text-[#5e4318] dark:text-slate-400">
                     Filtre por gênero, ano, editora, idioma e muito mais
                   </p>
                 </div>
@@ -221,8 +221,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-slate-800 dark:text-slate-200">Listas de Leitura</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Listas de Leitura</h3>
+                  <p className="text-[#5e4318] dark:text-slate-400">
                     Crie e compartilhe listas personalizadas de livros
                   </p>
                 </div>
@@ -234,8 +234,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-slate-800 dark:text-slate-200">Citações</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Citações</h3>
+                  <p className="text-[#5e4318] dark:text-slate-400">
                     Salve e compartilhe suas citações favoritas dos livros
                   </p>
                 </div>
@@ -247,8 +247,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-slate-800 dark:text-slate-200">Estatísticas</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Estatísticas</h3>
+                  <p className="text-[#5e4318] dark:text-slate-400">
                     Acompanhe seu progresso com gráficos e métricas detalhadas
                   </p>
                 </div>
@@ -260,8 +260,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-slate-800 dark:text-slate-200">Seguir Leitores</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Seguir Leitores</h3>
+                  <p className="text-[#5e4318] dark:text-slate-400">
                     Conecte-se com outros leitores e descubra recomendações
                   </p>
                 </div>
@@ -273,8 +273,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-slate-800 dark:text-slate-200">Avaliações</h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Avaliações</h3>
+                  <p className="text-[#5e4318] dark:text-slate-400">
                     Deixe reviews e comente nas avaliações de outros leitores
                   </p>
                 </div>
