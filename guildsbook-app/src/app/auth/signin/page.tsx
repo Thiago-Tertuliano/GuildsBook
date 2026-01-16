@@ -59,13 +59,22 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#ffff96]/20 via-[#c39738]/10 to-[#7f4311]/10 dark:from-zinc-950 dark:via-[#361f00]/30 dark:to-[#5e4318]/30 px-4 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(195,151,56,0.1),transparent_50%)]"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#c39738]/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#7f4311]/10 rounded-full blur-3xl"></div>
+    <div className="flex min-h-screen items-center justify-center px-4 relative overflow-hidden">
+      {/* Vídeo de fundo */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/landing-page.mp4" type="video/mp4" />
+      </video>
+      {/* Overlay escuro para destacar o card */}
+      <div className="absolute inset-0 bg-black/70 z-[1]"></div>
       
-      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl p-8 shadow-2xl border border-white/20 dark:border-zinc-800 relative z-10">
+      {/* Card de login */}
+      <div className="w-full max-w-md space-y-8 rounded-3xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl p-10 shadow-2xl border border-white/30 dark:border-zinc-700/50 relative z-10">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#c39738] to-[#5e4318] mb-4 shadow-lg shadow-[#c39738]/50">
             <BookOpen className="h-8 w-8 text-white" />

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/button";
@@ -17,7 +18,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
-import { LogOut, Menu } from "lucide-react";
+import { LogOut, Menu, LogIn } from "lucide-react";
 
 export function Header() {
   const { user, isAuthenticated, signOut } = useAuth();
@@ -26,7 +27,7 @@ export function Header() {
   
   const isLandingPage = pathname === "/";
 
-  const userAvatar = user?.image || user?.avatar;
+  const userAvatar = user?.image;
   const userName = user?.name || user?.email?.split("@")[0] || "U";
   const initials = userName
     .split(" ")
@@ -40,7 +41,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-[#ffff96]/90 dark:bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-[#ffff96]/70 dark:supports-[backdrop-filter]:bg-black/80">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-7xl">
         <div className="flex items-center gap-6">
           {isAuthenticated && !isLandingPage && (
@@ -52,26 +53,33 @@ export function Header() {
               <Menu className="h-5 w-5" />
             </Button>
           )}
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold">GuildsBook</span>
+          <Link href="/" className="flex items-center">
+            <Image 
+              src="/logo.png" 
+              alt="GuildsBook" 
+              width={150} 
+              height={80} 
+              className="h-14 w-auto object-contain"
+              priority
+            />
           </Link>
           {!isLandingPage && (
             <nav className="hidden md:flex items-center gap-6">
               <Link
                 href="/books"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="text-sm font-medium text-[#5e4318] dark:text-muted-foreground transition-colors hover:text-[#7f4311] dark:hover:text-foreground"
               >
                 Livros
               </Link>
               <Link
                 href="/feed"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="text-sm font-medium text-[#5e4318] dark:text-muted-foreground transition-colors hover:text-[#7f4311] dark:hover:text-foreground"
               >
                 Feed
               </Link>
               <Link
                 href="/clubs"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="text-sm font-medium text-[#5e4318] dark:text-muted-foreground transition-colors hover:text-[#7f4311] dark:hover:text-foreground"
               >
                 Clubes
               </Link>
@@ -98,8 +106,15 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/auth/signin">Entrar</Link>
+            <Button 
+              size="sm" 
+              className="bg-gradient-to-r from-[#c39738] to-[#7f4311] hover:from-[#b08732] hover:to-[#6f3a0f] text-white shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" 
+              asChild
+            >
+              <Link href="/auth/signin" className="flex items-center gap-2">
+                <LogIn className="h-4 w-4" />
+                Entrar
+              </Link>
             </Button>
           )}
         </div>
