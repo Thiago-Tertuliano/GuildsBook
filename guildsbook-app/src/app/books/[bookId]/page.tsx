@@ -50,7 +50,7 @@ export default function BookDetailsPage() {
   if (isLoading) {
     return (
       <Layout>
-        <div className="container py-6">
+        <div className="container mx-auto px-4 py-6">
           <Loading text="Carregando detalhes do livro..." />
         </div>
       </Layout>
@@ -60,7 +60,7 @@ export default function BookDetailsPage() {
   if (error || !book) {
     return (
       <Layout>
-        <div className="container py-6">
+        <div className="container mx-auto px-4 py-6">
           <ErrorComponent
             title="Livro não encontrado"
             message="Não foi possível carregar os detalhes do livro."
@@ -73,7 +73,7 @@ export default function BookDetailsPage() {
 
   return (
     <Layout>
-      <div className="container py-6 space-y-6">
+      <div className="container mx-auto px-4 py-6 space-y-6">
         <Link href="/books">
           <Button variant="ghost" size="sm" className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />

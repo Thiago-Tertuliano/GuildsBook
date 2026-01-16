@@ -58,7 +58,7 @@ export default function PublicProfilePage() {
   if (isLoading) {
     return (
       <Layout withSidebar>
-        <div className="container py-6">
+        <div className="px-4 lg:pl-4 lg:pr-8 py-6 w-full">
           <Loading text="Carregando perfil..." />
         </div>
       </Layout>
@@ -68,7 +68,7 @@ export default function PublicProfilePage() {
   if (error || !profile) {
     return (
       <Layout withSidebar>
-        <div className="container py-6">
+        <div className="px-4 lg:pl-4 lg:pr-8 py-6 w-full">
           <ErrorComponent
             message="Erro ao carregar perfil do usuário"
             onRetry={refetch}
@@ -87,7 +87,7 @@ export default function PublicProfilePage() {
 
   return (
     <Layout withSidebar>
-      <div className="container py-6 space-y-6">
+      <div className="px-4 lg:pl-4 lg:pr-8 py-6 space-y-6 w-full">
         {/* Header do Perfil */}
         <Card>
           <CardContent className="p-6">

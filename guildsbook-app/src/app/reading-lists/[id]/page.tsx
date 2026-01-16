@@ -72,7 +72,7 @@ export default function ReadingListDetailsPage() {
 
   return (
     <Layout withSidebar>
-      <div className="container py-6 space-y-6">
+      <div className="px-4 lg:pl-4 lg:pr-8 py-6 space-y-6 w-full">
         <Button variant="outline" size="sm" asChild>
           <Link href="/reading-lists">
             <ArrowLeft className="h-4 w-4 mr-2" />

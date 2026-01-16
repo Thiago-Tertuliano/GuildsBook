@@ -126,7 +126,7 @@ export default function ClubDetailsPage() {
   if (isLoadingClub) {
     return (
       <Layout withSidebar>
-        <div className="container py-6">
+        <div className="px-4 lg:pl-4 lg:pr-8 py-6 w-full">
           <Loading text="Carregando clube..." />
         </div>
       </Layout>
@@ -136,7 +136,7 @@ export default function ClubDetailsPage() {
   if (clubError || !club) {
     return (
       <Layout withSidebar>
-        <div className="container py-6">
+        <div className="px-4 lg:pl-4 lg:pr-8 py-6 w-full">
           <ErrorComponent
             onRetry={() => {
               refetchClub();
@@ -149,7 +149,7 @@ export default function ClubDetailsPage() {
 
   return (
     <Layout withSidebar>
-      <div className="container py-6 space-y-6">
+      <div className="px-4 lg:pl-4 lg:pr-8 py-6 space-y-6 w-full">
         {/* Header do Clube */}
         <Card>
           <CardHeader>
