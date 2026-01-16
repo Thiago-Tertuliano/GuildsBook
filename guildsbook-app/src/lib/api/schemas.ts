@@ -92,3 +92,28 @@ export const quoteSchema = z.object({
     chapter: z.string().optional(),
     isPublic: z.boolean().optional(),
   });
+
+// Schema para BookClub (criação)
+export const bookClubSchema = z.object({
+  name: z.string().min(1, "Nome do clube é obrigatório").max(100, "Nome deve ter no máximo 100 caracteres"),
+  description: z.string().max(1000, "Descrição deve ter no máximo 1000 caracteres").optional(),
+  isPublic: z.boolean().optional().default(true),
+  maxMembers: z.number().int().positive().max(1000, "Máximo de membros não pode exceder 1000").optional(),
+});
+
+// Schema para atualização de BookClub
+export const bookClubUpdateSchema = z.object({
+  name: z.string().min(1, "Nome do clube é obrigatório").max(100, "Nome deve ter no máximo 100 caracteres").optional(),
+  description: z.string().max(1000, "Descrição deve ter no máximo 1000 caracteres").optional(),
+  isPublic: z.boolean().optional(),
+  maxMembers: z.number().int().positive().max(1000, "Máximo de membros não pode exceder 1000").optional(),
+});
+
+// Schema para BookClubDiscussion (criação)
+export const bookClubDiscussionSchema = z.object({
+  clubId: z.string().uuid("ID do clube inválido"),
+  bookId: z.string().uuid("ID do livro inválido").optional(),
+  title: z.string().min(1, "Título é obrigatório").max(200, "Título deve ter no máximo 200 caracteres"),
+  content: z.string().max(5000, "Conteúdo deve ter no máximo 5000 caracteres").optional(),
+  scheduledDate: z.string().datetime().optional(),
+});
