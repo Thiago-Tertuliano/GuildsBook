@@ -13,13 +13,23 @@ export const bookSchema = z.object({
     description: z.string().optional(),
 });
 
-// Schema para UserBook (status de leitura)
+// Schema para UserBook (status de leitura) - criação
 export const userBookSchema = z.object({
   bookId: z.string().uuid("ID do livro inválido"),
   status: z.enum(["QUERO_LER", "LENDO", "LIDO"]).optional(),
   rating: z.number().int().min(1).max(5).optional(),
   review: z.string().optional(),
   currentPage: z.number().int().positive().optional(),
+});
+
+// Schema para atualização de UserBook (sem bookId, pois vem da URL)
+export const userBookUpdateSchema = z.object({
+  status: z.enum(["QUERO_LER", "LENDO", "LIDO"]).optional(),
+  rating: z.number().int().min(1).max(5).optional(),
+  review: z.string().optional(),
+  currentPage: z.number().int().positive().optional(),
+}).refine((data) => Object.keys(data).length > 0, {
+  message: "Pelo menos um campo deve ser fornecido para atualização",
 });
 
 // Schema para Review (criação)

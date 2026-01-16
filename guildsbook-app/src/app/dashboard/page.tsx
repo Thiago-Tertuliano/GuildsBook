@@ -261,7 +261,7 @@ export default function DashboardPage() {
                 <CardDescription className="text-base">Acesse rapidamente as principais funcionalidades</CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <Button 
                     variant="outline" 
                     asChild 
@@ -272,18 +272,6 @@ export default function DashboardPage() {
                         <BookOpen className="h-6 w-6 text-primary" />
                       </div>
                       <span className="font-semibold text-primary group-hover:text-primary/90">Buscar Livros</span>
-                    </Link>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    asChild 
-                    className="h-auto flex-col py-6 gap-3 hover:bg-gradient-to-br hover:from-accent/10 hover:to-accent/5 hover:border-accent/40 transition-all group border-2"
-                  >
-                    <Link href="/stats">
-                      <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/20 transition-all shadow-md group-hover:shadow-lg group-hover:scale-110">
-                        <BarChart3 className="h-6 w-6 text-accent" />
-                      </div>
-                      <span className="font-semibold text-accent group-hover:text-accent/90">Estatísticas</span>
                     </Link>
                   </Button>
                 </div>

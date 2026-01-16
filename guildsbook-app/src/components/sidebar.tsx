@@ -8,10 +8,8 @@ import {
   Star,
   Users,
   Bookmark,
-  Library,
   User,
   Settings,
-  BarChart3,
   X,
 } from "lucide-react";
 import { Button } from "@/components/button";
@@ -25,8 +23,8 @@ const navItems = [
     icon: Home,
   },
   {
-    title: "Meus Livros",
-    href: "/my-books",
+    title: "Biblioteca",
+    href: "/library",
     icon: BookOpen,
   },
   {
@@ -38,16 +36,6 @@ const navItems = [
     title: "Listas de Leitura",
     href: "/reading-lists",
     icon: Bookmark,
-  },
-  {
-    title: "Biblioteca",
-    href: "/library",
-    icon: Library,
-  },
-  {
-    title: "Estatísticas",
-    href: "/stats",
-    icon: BarChart3,
   },
   {
     title: "Clubes",
@@ -97,7 +85,7 @@ export function Sidebar({ className }: SidebarProps) {
           className
         )}
       >
-      <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex flex-col h-full">
         {/* Botão de fechar para mobile */}
         <div className="flex items-center justify-between border-b border-border/40 p-4 lg:hidden bg-gradient-to-r from-primary/5 to-accent/5 flex-shrink-0">
           <span className="text-lg font-bold text-foreground">Menu</span>
@@ -106,7 +94,7 @@ export function Sidebar({ className }: SidebarProps) {
           </Button>
         </div>
         
-        <div className="flex-1 px-3 py-6 overflow-y-auto overflow-x-hidden overscroll-contain">
+        <div className="flex-1 px-3 py-6">
           <nav className="space-y-1.5">
             {navItems.map((item) => {
               const Icon = item.icon;

@@ -91,28 +91,62 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
                 </Link>
               </div>
 
-              {/* Status Badge */}
+              {/* Status Badge com bolinha colorida */}
               <div>
-                <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
+                  userBook.status === "LIDO" 
+                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                    : userBook.status === "LENDO"
+                    ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                    : "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                }`}>
+                  <span className={`h-2 w-2 rounded-full ${
+                    userBook.status === "LIDO" 
+                      ? "bg-green-400"
+                      : userBook.status === "LENDO"
+                      ? "bg-yellow-400"
+                      : "bg-blue-400"
+                  }`} />
                   {statusLabels[userBook.status]}
                 </span>
               </div>
 
-              {/* Rating */}
-              {userBook.rating && (
+              {/* Rating - Apenas se não for "QUERO_LER" */}
+              {userBook.status !== "QUERO_LER" && userBook.rating && (
                 <div className="flex items-center gap-1 text-sm">
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   <span>{userBook.rating}/5</span>
                 </div>
               )}
 
-              {/* Current Page */}
-              {userBook.currentPage && userBook.book.pages && (
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <BookOpen className="h-3 w-3" />
-                  <span>
-                    Página {userBook.currentPage} de {userBook.book.pages}
-                  </span>
+              {/* Current Page - Barra de Progresso - Apenas se não for "QUERO_LER" */}
+              {userBook.status !== "QUERO_LER" && userBook.currentPage && userBook.book.pages && (
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground font-medium">
+                      Progresso
+                    </span>
+                    <span className="text-muted-foreground font-semibold">
+                      {Math.round((userBook.currentPage / userBook.book.pages) * 100)}%
+                    </span>
+                  </div>
+                  <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
+                    <div 
+                      className="h-full rounded-full transition-all duration-300"
+                      style={{
+                        width: `${Math.min(100, (userBook.currentPage / userBook.book.pages) * 100)}%`,
+                        backgroundColor: userBook.status === "LENDO" 
+                          ? '#fbbf24' // yellow-400
+                          : userBook.status === "LIDO"
+                          ? '#4ade80' // green-400
+                          : '#60a5fa' // blue-400
+                      }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>Página {userBook.currentPage}</span>
+                    <span>de {userBook.book.pages}</span>
+                  </div>
                 </div>
               )}
 
@@ -141,7 +175,7 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
                   className="flex-1"
                 >
                   <Edit className="h-3 w-3 mr-1" />
-                  Editar
+                  Atualizar
                 </Button>
                 <Button
                   variant="outline"

@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { userBookSchema } from "@/lib/api/schemas";
+import { userBookUpdateSchema } from "@/lib/api/schemas";
 import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 
@@ -19,8 +19,8 @@ export async function PUT(
     const { bookId } = await params;
     const body = await request.json();
 
-    // Validar dados (remover bookId do body se existir)
-    const { bookId: _, ...updateData } = userBookSchema.parse(body);
+    // Validar dados (usar schema de atualização que não exige bookId)
+    const updateData = userBookUpdateSchema.parse(body);
 
     const userBook = await prisma.userBook.update({
       where: {
@@ -34,6 +34,63 @@ export async function PUT(
         book: true,
       },
     });
+
+    // Se houver review e rating, criar ou atualizar a entidade Review
+    if (updateData.review && updateData.rating && updateData.review.trim()) {
+      try {
+        // Verificar se já existe uma Review para este livro e usuário
+        const existingReview = await prisma.review.findUnique({
+          where: {
+            userId_bookId: {
+              userId,
+              bookId,
+            },
+          },
+        });
+
+        if (existingReview) {
+          // Atualizar review existente
+          await prisma.review.update({
+            where: {
+              userId_bookId: {
+                userId,
+                bookId,
+              },
+            },
+            data: {
+              content: updateData.review.trim(),
+              rating: updateData.rating,
+            },
+          });
+        } else {
+          // Criar nova review
+          await prisma.review.create({
+            data: {
+              userId,
+              bookId,
+              content: updateData.review.trim(),
+              rating: updateData.rating,
+            },
+          });
+        }
+      } catch (error) {
+        // Se falhar ao criar/atualizar review, apenas logar mas não falhar a atualização do UserBook
+        console.error("Erro ao criar/atualizar Review:", error);
+      }
+    } else if (updateData.review === null || updateData.review === "") {
+      // Se a review foi removida, remover a Review também
+      try {
+        await prisma.review.deleteMany({
+          where: {
+            userId,
+            bookId,
+          },
+        });
+      } catch (error) {
+        // Se falhar, apenas logar
+        console.error("Erro ao remover Review:", error);
+      }
+    }
 
     return successResponse(userBook);
   } catch (error: any) {
