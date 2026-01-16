@@ -21,19 +21,24 @@ export function Layout({
   const shouldShowSidebar = withSidebar && isOpen;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="h-screen flex flex-col bg-gradient-to-br from-background via-background to-background/95 overflow-hidden">
       <Header />
-      <div className="flex flex-1">
+      <div className="flex flex-1 relative min-h-0">
         {shouldShowSidebar && <Sidebar className={sidebarClassName} />}
         <main className={cn(
-          "flex-1 min-w-0 transition-all",
-          withSidebar && shouldShowSidebar && "lg:ml-16 lg:mr-16",
-          withSidebar && !shouldShowSidebar && "lg:ml-4 lg:mr-4"
+          "flex-1 min-w-0 transition-all duration-300 ease-in-out",
+          "bg-gradient-to-br from-background via-background/98 to-background",
+          "overflow-y-auto overflow-x-hidden", // Apenas o main tem scroll
+          withSidebar && shouldShowSidebar && "ml-64", // Margem para o sidebar fixo
+          withSidebar && !shouldShowSidebar && "ml-0"
         )}>
-          {children}
+          <div className="min-h-full">
+            {children}
+          </div>
         </main>
       </div>
-      <Footer />
+      {/* Footer apenas quando não há sidebar (páginas públicas) */}
+      {!withSidebar && <Footer />}
     </div>
   );
 }
