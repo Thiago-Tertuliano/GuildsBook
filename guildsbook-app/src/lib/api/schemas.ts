@@ -7,6 +7,8 @@ export const bookSchema = z.object({
     isbn: z.string().optional(),
     genre: z.string().optional(),
     publishedYear: z.number().int().positive().optional(),
+    publisher: z.string().optional(),
+    language: z.string().optional(),
     pages: z.number().positive().optional(),
     description: z.string().optional(),
 });

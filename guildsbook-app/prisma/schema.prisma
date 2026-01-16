@@ -84,6 +84,8 @@ model Book {
   cover         String?
   genre         String?
   publishedYear Int?
+  publisher     String?
+  language      String?
   description   String?  @db.Text
   pages         Int?
   createdAt     DateTime @default(now())
