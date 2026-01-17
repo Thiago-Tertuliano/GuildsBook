@@ -10,6 +10,7 @@ import {
 import { BookClubForm } from "@/components/book-club-form";
 import { useMutationApi } from "@/hooks/use-api";
 import { useRouter } from "next/navigation";
+import { Users } from "lucide-react";
 
 interface CreateClubModalProps {
   isOpen: boolean;
@@ -37,12 +38,21 @@ export function CreateClubModal({ isOpen, onClose }: CreateClubModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle>Criar Novo Clube de Leitura</DialogTitle>
-          <DialogDescription>
-            Crie um clube para discutir livros com outros leitores.
-          </DialogDescription>
+      <DialogContent className="max-w-4xl shadow-2xl overflow-hidden" style={{ backgroundColor: '#8d6f29' }}>
+        <DialogHeader className="space-y-3 pb-6 border-b border-white/10">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-xl" style={{ backgroundColor: '#7a5f23' }}>
+              <Users className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <DialogTitle className="text-2xl text-white font-bold leading-tight">
+                Criar Novo Clube de Leitura
+              </DialogTitle>
+              <DialogDescription className="text-base mt-3" style={{ color: '#f5ead9' }}>
+                Crie um clube para discutir livros com outros leitores e compartilhar suas experiências de leitura.
+              </DialogDescription>
+            </div>
+          </div>
         </DialogHeader>
         <BookClubForm
           onSubmit={handleSubmit}
