@@ -84,10 +84,10 @@ export function StatsCards({
         return (
           <Card 
             key={stat.label}
-            className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/20"
+            className="rounded-2xl border-border/40 bg-gradient-to-br from-card via-card/98 to-card text-card-foreground shadow-lg shadow-primary/5 hover:shadow-primary/10 backdrop-blur-sm group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/20"
           >
             <CardContent className="p-6 relative overflow-hidden">
-              {/* Gradiente de fundo sutil */}
+              {/* Gradiente de fundo sutil no hover */}
               <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
               
               <div className="relative flex items-center justify-between">
