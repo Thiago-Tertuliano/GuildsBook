@@ -7,16 +7,19 @@ import { prisma } from "@/lib/prisma";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   trustHost: true, // Permite confiar no host em produção (Railway, Vercel, etc.)
+  useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://") ?? false,
   providers: [
     Email({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: parseInt(process.env.EMAIL_SERVER_PORT || "587"),
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
+      server: process.env.EMAIL_SERVER_HOST
+        ? {
+            host: process.env.EMAIL_SERVER_HOST,
+            port: parseInt(process.env.EMAIL_SERVER_PORT || "587"),
+            auth: {
+              user: process.env.EMAIL_SERVER_USER,
+              pass: process.env.EMAIL_SERVER_PASSWORD,
+            },
+          }
+        : undefined,
       from: process.env.EMAIL_FROM,
     }),
     Google({
