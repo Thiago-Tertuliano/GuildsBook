@@ -13,13 +13,15 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
-import { LogOut, Menu, LogIn } from "lucide-react";
+import { LogOut, Menu, LogIn, User as UserIcon, Settings } from "lucide-react";
 
 export function Header() {
   const { user, isAuthenticated, isLoading, signOut } = useAuth();
@@ -111,16 +113,53 @@ export function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="outline-none focus:outline-none">
-                  <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-primary transition-all">
+                  <Avatar className="h-9 w-9 cursor-pointer hover:ring-2 hover:ring-primary/50 transition-all duration-200 hover:scale-105">
                     <AvatarImage src={userAvatar || undefined} alt={userName} />
-                    <AvatarFallback>{initials}</AvatarFallback>
+                    <AvatarFallback className="bg-primary/10 text-primary font-semibold">{initials}</AvatarFallback>
                   </Avatar>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Sair</span>
+              <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-xl border-border/50 shadow-xl">
+                {/* Informações do Usuário */}
+                <DropdownMenuLabel className="px-3 py-2.5">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-semibold text-foreground leading-none truncate">
+                      {userName}
+                    </p>
+                    {user?.email && (
+                      <p className="text-xs text-muted-foreground truncate leading-none">
+                        {user.email}
+                      </p>
+                    )}
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                
+                {/* Menu Items */}
+                <DropdownMenuItem asChild className="px-3 py-2.5 cursor-pointer hover:bg-accent/50 transition-colors duration-200">
+                  <Link href="/profile" className="flex items-center gap-3 w-full">
+                    <UserIcon className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm">Meu Perfil</span>
+                  </Link>
+                </DropdownMenuItem>
+                
+                <DropdownMenuItem asChild className="px-3 py-2.5 cursor-pointer hover:bg-accent/50 transition-colors duration-200">
+                  <Link href="/settings" className="flex items-center gap-3 w-full">
+                    <Settings className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm">Configurações</span>
+                  </Link>
+                </DropdownMenuItem>
+                
+                <DropdownMenuSeparator />
+                
+                {/* Logout */}
+                <DropdownMenuItem 
+                  onClick={handleLogout}
+                  variant="destructive"
+                  className="px-3 py-2.5 cursor-pointer hover:bg-destructive/10 transition-colors duration-200"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span className="text-sm">Sair</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
