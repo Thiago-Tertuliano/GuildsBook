@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { BookOpen } from "lucide-react";
+import Image from "next/image";
 
 function SignInForm() {
   const searchParams = useSearchParams();
@@ -72,8 +72,15 @@ function SignInForm() {
       
       <div className="w-full max-w-md space-y-8 rounded-3xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl p-10 shadow-2xl border border-white/30 dark:border-zinc-700/50 relative z-10">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#c39738] to-[#5e4318] mb-4 shadow-lg shadow-[#c39738]/50">
-            <BookOpen className="h-8 w-8 text-white" />
+          <div className="inline-flex items-center justify-center mb-4">
+            <Image
+              src="/logo.png"
+              alt="GuildsBook Logo"
+              width={80}
+              height={80}
+              className="object-contain"
+              priority
+            />
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-[#c39738] to-[#7f4311] bg-clip-text text-transparent">
             GuildsBook
