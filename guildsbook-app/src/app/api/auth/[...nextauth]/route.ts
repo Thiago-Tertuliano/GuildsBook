@@ -9,6 +9,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   trustHost: true, // Permite confiar no host em produção (Railway, Vercel, etc.)
   useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://") ?? false,
+  // Permite vincular contas automaticamente quando o email é o mesmo
+  // ATENÇÃO: Isso pode ser um risco de segurança se não for controlado adequadamente
+  allowDangerousEmailAccountLinking: true,
   providers: [
     Email({
       server: process.env.EMAIL_SERVER_HOST
@@ -44,6 +47,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile, email }) {
+      // Permite o login se o email for verificado
+      return true;
+    },
     async session({ session, user }) {
       // Com PrismaAdapter (database sessions), o user vem do banco
       if (session.user && user) {

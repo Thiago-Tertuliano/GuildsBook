@@ -59,30 +59,30 @@ export function CreateDiscussionModal({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl shadow-2xl overflow-hidden" style={{ backgroundColor: '#8d6f29' }}>
-        <DialogHeader className="space-y-3 pb-6 border-b border-white/10">
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl" style={{ backgroundColor: '#7a5f23' }}>
-              <MessageSquare className="h-6 w-6 text-white" />
+        <DialogHeader className="space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-white/10">
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="p-2 sm:p-3 rounded-xl flex-shrink-0" style={{ backgroundColor: '#7a5f23' }}>
+              <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </div>
-            <div className="flex-1">
-              <DialogTitle className="text-2xl text-white font-bold leading-tight">
+            <div className="flex-1 min-w-0">
+              <DialogTitle className="text-lg sm:text-2xl text-white font-bold leading-tight">
                 Nova Discussão
               </DialogTitle>
-              <DialogDescription className="text-base mt-3" style={{ color: '#f5ead9' }}>
+              <DialogDescription className="text-sm sm:text-base mt-2 sm:mt-3" style={{ color: '#f5ead9' }}>
                 Inicie uma nova discussão no clube de leitura e compartilhe suas ideias com outros membros.
               </DialogDescription>
             </div>
           </div>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="pt-6">
-          <div className="grid grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="pt-4 sm:pt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Coluna Esquerda */}
-            <div className="space-y-5">
+            <div className="space-y-4 sm:space-y-5">
               {/* Título */}
-              <div className="space-y-4 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
+              <div className="space-y-3 sm:space-y-4 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
                 <div className="flex items-center gap-2">
-                  <Edit3 className="h-5 w-5" style={{ color: '#e8d9b8' }} />
-                  <label htmlFor="title" className="text-base font-bold" style={{ color: '#f5ead9' }}>
+                  <Edit3 className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: '#e8d9b8' }} />
+                  <label htmlFor="title" className="text-sm sm:text-base font-bold" style={{ color: '#f5ead9' }}>
                     Título da Discussão *
                   </label>
                 </div>
@@ -99,12 +99,12 @@ export function CreateDiscussionModal({
             </div>
 
             {/* Coluna Direita */}
-            <div className="space-y-5">
+            <div className="space-y-4 sm:space-y-5">
               {/* Conteúdo */}
-              <div className="space-y-4 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.01] h-full" style={{ backgroundColor: '#7a5f23' }}>
+              <div className="space-y-3 sm:space-y-4 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
                 <div className="flex items-center gap-2">
-                  <MessageSquare className="h-5 w-5" style={{ color: '#e8d9b8' }} />
-                  <label htmlFor="content" className="text-base font-bold" style={{ color: '#f5ead9' }}>
+                  <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: '#e8d9b8' }} />
+                  <label htmlFor="content" className="text-sm sm:text-base font-bold" style={{ color: '#f5ead9' }}>
                     Conteúdo (opcional)
                   </label>
                 </div>
@@ -113,7 +113,7 @@ export function CreateDiscussionModal({
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Adicione detalhes sobre a discussão, suas perguntas, tópicos que gostaria de abordar..."
-                  className="w-full min-h-[280px] rounded-xl border-0 bg-white/10 focus:ring-2 focus:ring-white/40 text-white placeholder:text-gray-300 text-base px-4 py-3 transition-all duration-200 resize-none"
+                  className="w-full min-h-[200px] sm:min-h-[280px] rounded-lg sm:rounded-xl border-0 bg-white/10 focus:ring-2 focus:ring-white/40 text-white placeholder:text-gray-300 text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-3 transition-all duration-200 resize-none"
                   style={{ backgroundColor: '#6b5420' }}
                 />
                 {content.length > 0 && (
@@ -126,12 +126,12 @@ export function CreateDiscussionModal({
           </div>
 
           {/* Footer */}
-          <div className="flex gap-3 justify-end pt-6 border-t border-white/10 mt-6">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 justify-end pt-4 sm:pt-6 border-t border-white/10 mt-4 sm:mt-6">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
-              className="px-6 py-2.5 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 flex items-center gap-2 border-0 hover:bg-white/10 text-white"
+              className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-sm sm:text-base font-medium transition-all duration-200 transform hover:scale-105 flex items-center justify-center gap-2 border-0 hover:bg-white/10 text-white"
             >
               <X className="h-4 w-4" />
               Cancelar
@@ -139,7 +139,7 @@ export function CreateDiscussionModal({
             <Button
               type="submit"
               disabled={createMutation.isPending || !title.trim()}
-              className="px-6 py-2.5 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2 text-white shadow-lg"
+              className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-sm sm:text-base font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 text-white shadow-lg"
               style={{ backgroundColor: createMutation.isPending || !title.trim() ? '#6b5420' : '#5e4318' }}
             >
               {createMutation.isPending ? (

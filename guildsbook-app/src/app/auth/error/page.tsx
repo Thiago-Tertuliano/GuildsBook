@@ -17,6 +17,14 @@ const errorMessages: Record<string, { title: string; message: string }> = {
     title: "Link Expirado",
     message: "O link de verificação expirou ou já foi usado. Solicite um novo link.",
   },
+  OAuthAccountNotLinked: {
+    title: "Conta Não Vinculada",
+    message: "Este email já está associado a outra conta. Use o método de login original ou entre em contato com o suporte para vincular as contas.",
+  },
+  OAuthCallback: {
+    title: "Erro no Callback",
+    message: "Ocorreu um erro ao processar o login. Tente novamente ou use outro método de autenticação.",
+  },
   Default: {
     title: "Erro ao Fazer Login",
     message: "Ocorreu um erro ao fazer login. Tente novamente.",
