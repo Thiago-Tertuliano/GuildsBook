@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/card";
 import { Button } from "@/components/button";
-import { BookOpen, Calendar, Star, Edit, Trash2 } from "lucide-react";
+import { BookOpen, Calendar, Star, Edit, Trash2, CheckCircle2, AlertCircle } from "lucide-react";
 import { BookStatus } from "@/types";
 
 
@@ -65,20 +65,37 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
       {books.map((userBook) => (
         <Card key={userBook.id} className="h-full hover:shadow-lg transition-shadow">
           <CardContent className="p-4 flex gap-4">
-            <Link href={`/books/${userBook.book.id}`} className="relative w-20 h-28 flex-shrink-0 bg-muted rounded overflow-hidden">
-              {userBook.book.cover ? (
-                <Image
-                  src={userBook.book.cover}
-                  alt={userBook.book.title}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <BookOpen className="h-8 w-8 text-muted-foreground" />
+            <div className="relative w-20 h-28 flex-shrink-0">
+              <Link href={`/books/${userBook.book.id}`} className="relative w-full h-full bg-muted rounded overflow-hidden block">
+                {userBook.book.cover ? (
+                  <Image
+                    src={userBook.book.cover}
+                    alt={userBook.book.title}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <BookOpen className="h-8 w-8 text-muted-foreground" />
+                  </div>
+                )}
+              </Link>
+              
+              {/* Badge de Resenha - Canto superior direito - Apenas se não for "QUERO_LER" */}
+              {userBook.status !== "QUERO_LER" && (
+                <div className="absolute -top-2 -right-2 z-10">
+                  {userBook.review && userBook.review.trim() ? (
+                    <div className="h-7 w-7 rounded-full bg-green-500 shadow-lg flex items-center justify-center">
+                      <CheckCircle2 className="h-4 w-4 text-white" />
+                    </div>
+                  ) : (
+                    <div className="h-7 w-7 rounded-full bg-yellow-500 shadow-lg flex items-center justify-center">
+                      <AlertCircle className="h-4 w-4 text-white" />
+                    </div>
+                  )}
                 </div>
               )}
-            </Link>
+            </div>
             <div className="flex-1 min-w-0 space-y-2">
               <div className="flex items-start justify-between gap-2">
                 <Link href={`/books/${userBook.book.id}`} className="flex-1 min-w-0">
@@ -119,8 +136,8 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
                 </div>
               )}
 
-              {/* Current Page - Barra de Progresso - Apenas se não for "QUERO_LER" */}
-              {userBook.status !== "QUERO_LER" && userBook.currentPage && userBook.book.pages && (
+              {/* Current Page - Barra de Progresso - Apenas se estiver "LENDO" */}
+              {userBook.status === "LENDO" && userBook.currentPage && userBook.book.pages && (
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-muted-foreground font-medium">
