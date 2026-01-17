@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  trustHost: true, // Permite confiar no host em produção (Railway, Vercel, etc.)
   providers: [
     Email({
       server: {
