@@ -150,25 +150,25 @@ export default function DashboardPage() {
 
   return (
     <Layout withSidebar>
-      <div className="px-4 lg:pl-4 lg:pr-8 py-6 space-y-6 w-full min-h-screen relative overflow-hidden">
+      <div className="px-4 lg:pl-4 lg:pr-8 py-8 space-y-8 w-full min-h-screen relative overflow-hidden">
         {/* Background com gradientes coloridos */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-secondary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse delay-500" />
         </div>
 
-        {/* Header melhorado com mais cores */}
-        <div className="flex items-center justify-between relative">
+        {/* Header */}
+        <div className="relative mb-8">
           <div className="flex items-center gap-4">
-            <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-accent/10 flex items-center justify-center border-2 border-primary/30 shadow-lg">
-              <Home className="h-7 w-7 text-primary" />
+            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary/40 via-primary/30 to-accent/30 flex items-center justify-center shadow-xl">
+              <Home className="h-8 w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-foreground">
+              <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-2">
                 Dashboard
               </h1>
-              <p className="text-muted-foreground flex items-center gap-2 mt-2 text-base">
+              <p className="text-muted-foreground flex items-center gap-2 text-base">
                 <TrendingUp className="h-5 w-5 text-primary" />
                 Bem-vindo de volta! Aqui está um resumo da sua atividade
               </p>
@@ -176,7 +176,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Cards de Estatísticas Rápidas */}
+        {/* Cards de Estatísticas */}
         {statsLoading && <Loading text="Carregando estatísticas..." />}
         
         {statsError && (
@@ -198,25 +198,23 @@ export default function DashboardPage() {
           />
         )}
 
-        {/* Grid de Conteúdo Principal */}
+        {/* Layout Principal */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Gráficos - Ocupa 2 colunas */}
+          {/* Coluna Esquerda - Gráficos */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Gráfico com filtros - mais colorido */}
+            {/* Gráfico de Barras */}
             {!statsLoading && !statsError && stats && (
-              <Card className="border-2 border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 shadow-xl hover:shadow-2xl transition-all duration-300">
-                <CardHeader className="space-y-4 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 rounded-t-lg border-b border-primary/10">
-                  <div className="flex items-center justify-between">
+              <Card className="border-2 border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 shadow-xl">
+                <CardHeader className="space-y-4 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 rounded-t-lg border-b border-primary/20">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                      <BarChart3 className="h-6 w-6 text-white" />
+                    </div>
                     <div>
-                      <CardTitle className="flex items-center gap-2 text-xl">
-                        <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md">
-                          <BarChart3 className="h-5 w-5 text-white" />
-                        </div>
-                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                          Análise de Leitura
-                        </span>
+                      <CardTitle className="text-xl font-bold text-foreground">
+                        Análise de Leitura
                       </CardTitle>
-                      <CardDescription className="mt-1 text-base">
+                      <CardDescription className="mt-1">
                         Visualize seus dados de diferentes formas
                       </CardDescription>
                     </div>
@@ -238,7 +236,7 @@ export default function DashboardPage() {
               </Card>
             )}
 
-            {/* Gráfico de Pizza - Lidos vs Não Lidos */}
+            {/* Gráfico de Pizza */}
             {!statsLoading && !statsError && stats && (
               <PieChart
                 data={pieChartData}
@@ -246,75 +244,39 @@ export default function DashboardPage() {
                 description=""
               />
             )}
-
-            {/* Atalhos Rápidos melhorados - mais coloridos */}
-            <Card className="border-2 border-secondary/30 bg-gradient-to-br from-card via-card to-secondary/5 hover:shadow-xl transition-all duration-300 hover:border-primary/30">
-              <CardHeader className="bg-gradient-to-r from-secondary/10 via-transparent to-primary/10 rounded-t-lg border-b border-secondary/20">
-                <CardTitle className="flex items-center gap-2 text-xl">
-                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-secondary to-primary flex items-center justify-center shadow-md">
-                    <ArrowRight className="h-5 w-5 text-white" />
-                  </div>
-                  <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-                    Atalhos Rápidos
-                  </span>
-                </CardTitle>
-                <CardDescription className="text-base">Acesse rapidamente as principais funcionalidades</CardDescription>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <Button 
-                    variant="outline" 
-                    asChild 
-                    className="h-auto flex-col py-6 gap-3 hover:bg-gradient-to-br hover:from-primary/10 hover:to-primary/5 hover:border-primary/40 transition-all group border-2"
-                  >
-                    <Link href="/books">
-                      <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/20 transition-all shadow-md group-hover:shadow-lg group-hover:scale-110">
-                        <BookOpen className="h-6 w-6 text-primary" />
-                      </div>
-                      <span className="font-semibold text-primary group-hover:text-primary/90">Buscar Livros</span>
-                    </Link>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    asChild 
-                    className="h-auto flex-col py-6 gap-3 hover:bg-gradient-to-br hover:from-accent/10 hover:to-accent/5 hover:border-accent/40 transition-all group border-2"
-                  >
-                    <Link href="/stats">
-                      <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:from-accent/30 group-hover:to-accent/20 transition-all shadow-md group-hover:shadow-lg group-hover:scale-110">
-                        <BarChart3 className="h-6 w-6 text-accent" />
-                      </div>
-                      <span className="font-semibold text-accent group-hover:text-accent/90">Estatísticas</span>
-                    </Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
-          {/* Feed Recente - Ocupa 1 coluna - mais colorido */}
-          <div className="space-y-4">
-            <Card className="border-2 border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 hover:shadow-xl transition-all duration-300 shadow-lg">
+          {/* Coluna Direita - Sidebar */}
+          <div className="space-y-6">
+            {/* Atividade Recente */}
+            <Card className="border-2 border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 shadow-xl sticky top-24">
               <CardHeader className="bg-gradient-to-r from-primary/10 via-transparent to-accent/10 rounded-t-lg border-b border-primary/20">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center gap-2 text-xl">
-                    <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
-                      <TrendingUp className="h-5 w-5 text-white" />
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                      <TrendingUp className="h-6 w-6 text-white" />
                     </div>
-                    <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    <span className="text-foreground font-bold">
                       Atividade Recente
                     </span>
                   </CardTitle>
                   <Button variant="ghost" size="sm" asChild className="hover:bg-primary/10 hover:text-primary transition-colors rounded-lg">
-                    <Link href="/feed" className="flex items-center gap-1 font-medium">
+                    <Link href="/feed" className="flex items-center gap-1 font-medium text-sm">
                       Ver tudo
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
-                <CardDescription className="text-base">Últimas atividades da comunidade</CardDescription>
+                <CardDescription className="text-base mt-2">
+                  Últimas atividades da comunidade
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                {feedLoading && <Loading text="Carregando..." />}
+              <CardContent className="pt-6">
+                {feedLoading && (
+                  <div className="py-8">
+                    <Loading text="Carregando..." />
+                  </div>
+                )}
                 
                 {feedError && (
                   <ErrorComponent
@@ -334,6 +296,9 @@ export default function DashboardPage() {
 
                 {!feedLoading && !feedError && recentActivities.length === 0 && (
                   <div className="text-center py-8">
+                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-muted/20 to-muted/10 flex items-center justify-center mx-auto mb-3">
+                      <TrendingUp className="h-6 w-6 text-muted-foreground" />
+                    </div>
                     <p className="text-sm text-muted-foreground">
                       Nenhuma atividade recente
                     </p>
@@ -344,23 +309,23 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Estado vazio quando não há dados - mais colorido */}
+        {/* Estado vazio quando não há dados */}
         {!statsLoading && !statsError && !stats && (
           <Card className="border-2 border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 shadow-xl">
-            <CardContent className="py-12 text-center">
-              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-primary/20 via-primary/10 to-accent/10 flex items-center justify-center mx-auto mb-6 border-2 border-primary/30 shadow-lg">
-                <BookOpen className="h-10 w-10 text-primary" />
+            <CardContent className="py-16 text-center">
+              <div className="h-24 w-24 rounded-full bg-gradient-to-br from-primary/30 via-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-6 border-2 border-primary/40 shadow-xl">
+                <BookOpen className="h-12 w-12 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Bem-vindo ao GuildsBook!
               </h3>
-              <p className="text-muted-foreground mb-6 text-base max-w-md mx-auto">
+              <p className="text-muted-foreground mb-8 text-lg max-w-md mx-auto leading-relaxed">
                 Comece adicionando livros à sua biblioteca para ver estatísticas e acompanhar seu progresso.
               </p>
-              <Button asChild className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl transition-all">
+              <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl transition-all px-8 py-6 text-base">
                 <Link href="/books" className="flex items-center gap-2">
                   Buscar Livros
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-5 w-5" />
                 </Link>
               </Button>
             </CardContent>

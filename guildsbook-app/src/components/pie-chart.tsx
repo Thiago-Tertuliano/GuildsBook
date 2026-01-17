@@ -68,9 +68,9 @@ export function PieChart({ data, title, description }: PieChartProps) {
     <Card className="border-2 border-primary/20 bg-gradient-to-br from-card via-card to-secondary/5 shadow-xl hover:shadow-2xl transition-all duration-300">
       {title && (
         <CardHeader className="bg-gradient-to-r from-secondary/10 via-transparent to-primary/10 rounded-t-lg border-b border-secondary/20">
-          <CardTitle className="text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md">
-              <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <CardTitle className="text-xl text-foreground font-bold flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+              <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 9a1 1 0 112 0v4a1 1 0 11-2 0V9zm0-3a1 1 0 112 0 1 1 0 01-2 0z" />
               </svg>
             </div>
@@ -79,71 +79,71 @@ export function PieChart({ data, title, description }: PieChartProps) {
           {description && <p className="text-sm text-muted-foreground mt-2">{description}</p>}
         </CardHeader>
       )}
-      <CardContent>
-        <div className="flex flex-col lg:flex-row items-center gap-8">
-          {/* Gráfico SVG */}
-          <div className="relative">
-            <svg width="200" height="200" viewBox="0 0 200 200" className="transform -rotate-90">
+      <CardContent className="p-6">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+          {/* Gráfico SVG - Centralizado */}
+          <div className="relative flex-shrink-0">
+            <svg width="220" height="220" viewBox="0 0 200 200" className="transform -rotate-90">
               {chartData.map((item, index) => (
                 <path
                   key={index}
                   d={item.pathData}
                   fill={item.color}
                   stroke="hsl(var(--background))"
-                  strokeWidth="2"
-                  className="transition-all hover:opacity-80 cursor-pointer"
+                  strokeWidth="3"
+                  className="transition-all hover:opacity-90 hover:scale-105 cursor-pointer"
                   style={{
-                    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))",
+                    filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.15))",
+                    transformOrigin: "100px 100px",
                   }}
                 />
               ))}
             </svg>
             
-            {/* Número total no centro */}
+            {/* Número total no centro - Melhorado */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="text-center">
-                <div className="text-2xl font-bold">{total}</div>
-                <div className="text-xs text-muted-foreground">total</div>
+              <div className="text-center bg-card/80 backdrop-blur-sm rounded-full p-4 border-2 border-primary/20 shadow-lg">
+                <div className="text-3xl font-bold text-foreground">{total}</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">total</div>
               </div>
             </div>
           </div>
 
-          {/* Legenda com mais cores */}
-          <div className="flex-1 space-y-3 w-full">
+          {/* Legenda - Melhorada */}
+          <div className="flex-1 space-y-3 w-full min-w-0">
             {chartData.map((item, index) => {
               const colors = [
-                "from-primary/20 to-primary/10 border-primary/30",
-                "from-accent/20 to-accent/10 border-accent/30",
-                "from-secondary/20 to-secondary/10 border-secondary/30",
-              ];
-              const textColors = [
-                "text-primary",
-                "text-accent",
-                "text-secondary",
+                "from-primary/25 to-primary/15 border-primary/40 text-primary",
+                "from-accent/25 to-accent/15 border-accent/40 text-accent",
+                "from-secondary/25 to-secondary/15 border-secondary/40 text-secondary",
               ];
               
               return (
                 <div
                   key={index}
-                  className={`flex items-center justify-between gap-4 p-4 rounded-xl bg-gradient-to-r ${colors[index % colors.length]} border-2 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]`}
+                  className={`flex items-center justify-between gap-4 p-4 rounded-xl bg-gradient-to-r ${colors[index % colors.length]} border-2 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group`}
                 >
-                  <div className="flex items-center gap-3 flex-1">
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
                     <div
-                      className="w-5 h-5 rounded-full flex-shrink-0 shadow-md ring-2 ring-white/50"
+                      className="w-6 h-6 rounded-full flex-shrink-0 shadow-lg ring-2 ring-white/60 group-hover:ring-white/80 transition-all"
                       style={{ backgroundColor: item.color }}
                     />
                     {item.icon && (
-                      <div className={`${textColors[index % textColors.length]}`}>{item.icon}</div>
+                      <div className={`flex-shrink-0 ${colors[index % colors.length].split(' ')[3]}`}>
+                        {item.icon}
+                      </div>
                     )}
-                    <div className="flex-1">
-                      <div className={`font-semibold ${textColors[index % textColors.length]}`}>{item.label}</div>
-                      <div className="text-sm text-muted-foreground font-medium">
+                    <div className="flex-1 min-w-0">
+                      <div className={`font-bold text-base ${colors[index % colors.length].split(' ')[3]}`}>
+                        {item.label}
+                      </div>
+                      <div className="text-sm text-muted-foreground font-medium mt-0.5">
                         {item.value} {item.value === 1 ? "livro" : "livros"}
                       </div>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className={`text-lg font-bold ${textColors[index % textColors.length]}`}>
+                  <div className="text-right flex-shrink-0">
+                    <div className={`text-xl font-bold ${colors[index % colors.length].split(' ')[3]}`}>
                       {item.percentage.toFixed(1)}%
                     </div>
                   </div>

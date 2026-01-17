@@ -69,7 +69,8 @@ type GoogleBookVolume = {
       const params = new URLSearchParams({
         q: query,
         maxResults: maxResults.toString(),
-        langRestrict: "pt", // Opcional: restringir a português
+        // Removido langRestrict para buscar livros em todos os idiomas
+        // Isso aumenta as chances de encontrar livros populares
       });
   
       if (apiKey) {

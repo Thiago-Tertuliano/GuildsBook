@@ -190,7 +190,7 @@ export default function BooksPage() {
   ]);
 
   return (
-    <Layout>
+    <Layout withSidebar>
       <div className="container mx-auto px-4 py-6 space-y-6">
         <div className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-4">

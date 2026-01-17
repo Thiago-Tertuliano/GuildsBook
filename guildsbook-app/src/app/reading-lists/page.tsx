@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/dialog";
-import { Plus, Globe, Lock } from "lucide-react";
+import { Plus, Globe, Lock, BookOpen } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 interface ReadingList {
@@ -157,12 +157,21 @@ export default function ReadingListsPage() {
 
         {/* Modal de Criação */}
         <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
-          <DialogContent className="max-w-lg">
-            <DialogHeader>
-              <DialogTitle>Criar Nova Lista</DialogTitle>
-              <DialogDescription>
-                Crie uma lista personalizada para organizar seus livros.
-              </DialogDescription>
+          <DialogContent className="max-w-4xl shadow-2xl overflow-hidden" style={{ backgroundColor: '#8d6f29' }}>
+            <DialogHeader className="space-y-3 pb-6 border-b border-white/10">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-xl" style={{ backgroundColor: '#7a5f23' }}>
+                  <BookOpen className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <DialogTitle className="text-2xl text-white font-bold leading-tight">
+                    Criar Nova Lista
+                  </DialogTitle>
+                  <DialogDescription className="text-base mt-3" style={{ color: '#f5ead9' }}>
+                    Crie uma lista personalizada para organizar seus livros.
+                  </DialogDescription>
+                </div>
+              </div>
             </DialogHeader>
 
             <ReadingListForm

@@ -2,15 +2,16 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 // Função para tratar erros de validação
-export function handleValidationError(error: ZodError) {
+export function handleValidationError(error: ZodError | any) {
+  const errors = error?.errors || error?.issues || [];
   return NextResponse.json(
     {
       success: false,
       error: "Erro de validação",
-      details: error.errors.map((err) => ({
-        path: err.path.join("."),
-        message: err.message,
-      })),
+      details: Array.isArray(errors) ? errors.map((err: any) => ({
+        path: Array.isArray(err?.path) ? err.path.join(".") : String(err?.path || ""),
+        message: err?.message || "Erro de validação",
+      })) : [],
     },
     { status: 400 }
   );

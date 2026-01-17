@@ -18,15 +18,22 @@ export function BookSearchBar({
 }: BookSearchBarProps) {
   const [query, setQuery] = useState(defaultValue);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
     if (query.trim()) {
       onSearch(query.trim());
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 w-full">
+    <div className="flex gap-2 w-full">
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
@@ -34,10 +41,11 @@ export function BookSearchBar({
           placeholder={placeholder}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           className="pl-10"
         />
       </div>
-      <Button type="submit">Buscar</Button>
-    </form>
+      <Button type="button" onClick={() => handleSubmit()}>Buscar</Button>
+    </div>
   );
 }
