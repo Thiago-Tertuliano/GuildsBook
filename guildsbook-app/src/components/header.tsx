@@ -38,12 +38,13 @@ export function Header() {
 
   const userAvatar = user?.image;
   const userName = user?.name || user?.email?.split("@")[0] || "U";
-  const initials = userName
+  const initials = (userName || "U")
     .split(" ")
-    .map((n) => n[0])
+    .map((n) => n && n.length > 0 ? n[0] : "")
+    .filter(Boolean)
     .join("")
     .toUpperCase()
-    .slice(0, 2);
+    .slice(0, 2) || "U";
 
   const handleLogout = async () => {
     await signOut({ callbackUrl: "/" });
