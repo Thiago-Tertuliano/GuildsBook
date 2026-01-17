@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -H 0.0.0.0",
+    "clean": "rm -rf .next",
+    "clean:win": "if exist .next rmdir /s /q .next",
     "postbuild": "prisma generate",
     "prestart": "prisma migrate deploy",
     "lint": "eslint",

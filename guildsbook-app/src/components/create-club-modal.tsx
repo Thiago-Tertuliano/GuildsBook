@@ -39,16 +39,16 @@ export function CreateClubModal({ isOpen, onClose }: CreateClubModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl shadow-2xl overflow-hidden" style={{ backgroundColor: '#8d6f29' }}>
-        <DialogHeader className="space-y-3 pb-6 border-b border-white/10">
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl" style={{ backgroundColor: '#7a5f23' }}>
-              <Users className="h-6 w-6 text-white" />
+        <DialogHeader className="space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-white/10">
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="p-2 sm:p-3 rounded-xl flex-shrink-0" style={{ backgroundColor: '#7a5f23' }}>
+              <Users className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </div>
-            <div className="flex-1">
-              <DialogTitle className="text-2xl text-white font-bold leading-tight">
+            <div className="flex-1 min-w-0">
+              <DialogTitle className="text-lg sm:text-2xl text-white font-bold leading-tight">
                 Criar Novo Clube de Leitura
               </DialogTitle>
-              <DialogDescription className="text-base mt-3" style={{ color: '#f5ead9' }}>
+              <DialogDescription className="text-sm sm:text-base mt-2 sm:mt-3" style={{ color: '#f5ead9' }}>
                 Crie um clube para discutir livros com outros leitores e compartilhar suas experiências de leitura.
               </DialogDescription>
             </div>

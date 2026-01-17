@@ -77,31 +77,31 @@ export function EditProfileModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl p-0 gap-0 overflow-hidden" style={{ backgroundColor: '#c39738' }}>
         {/* Header Personalizado */}
-        <div className="px-6 pt-6 pb-4 border-b border-white/10" style={{ backgroundColor: '#8d6f29' }}>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="h-10 w-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#7a5f23' }}>
-              <UserIcon className="h-5 w-5 text-white" />
+        <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-white/10" style={{ backgroundColor: '#8d6f29' }}>
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#7a5f23' }}>
+              <UserIcon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <div>
-              <DialogTitle className="text-xl font-bold text-white">
+            <div className="min-w-0 flex-1">
+              <DialogTitle className="text-lg sm:text-xl font-bold text-white">
                 Editar Perfil
               </DialogTitle>
-              <DialogDescription className="text-sm mt-1" style={{ color: '#e8d9b8' }}>
+              <DialogDescription className="text-xs sm:text-sm mt-1" style={{ color: '#e8d9b8' }}>
                 Atualize suas informações pessoais.
               </DialogDescription>
             </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6">
-          <div className="grid grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Coluna Esquerda */}
-            <div className="space-y-5">
+            <div className="space-y-4 sm:space-y-5">
               {/* Nome */}
-              <div className="space-y-3 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
+              <div className="space-y-2 sm:space-y-3 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
                 <div className="flex items-center gap-2">
-                  <UserIcon className="h-5 w-5" style={{ color: '#e8d9b8' }} />
-                  <label htmlFor="name" className="text-base font-bold" style={{ color: '#f5ead9' }}>
+                  <UserIcon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: '#e8d9b8' }} />
+                  <label htmlFor="name" className="text-sm sm:text-base font-bold" style={{ color: '#f5ead9' }}>
                     Nome Completo
                   </label>
                 </div>
@@ -119,13 +119,13 @@ export function EditProfileModal({
             </div>
 
             {/* Coluna Direita */}
-            <div className="space-y-5">
+            <div className="space-y-4 sm:space-y-5">
               {/* Bio */}
-              <div className="space-y-3 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
+              <div className="space-y-2 sm:space-y-3 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <FileText className="h-5 w-5" style={{ color: '#e8d9b8' }} />
-                    <label htmlFor="bio" className="text-base font-bold" style={{ color: '#f5ead9' }}>
+                    <FileText className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: '#e8d9b8' }} />
+                    <label htmlFor="bio" className="text-sm sm:text-base font-bold" style={{ color: '#f5ead9' }}>
                       Bio
                     </label>
                   </div>
@@ -133,7 +133,7 @@ export function EditProfileModal({
                     {bio.length}/500
                   </span>
                 </div>
-                <div className="bg-white/10 rounded-xl p-2" style={{ backgroundColor: '#6b5420' }}>
+                <div className="bg-white/10 rounded-lg sm:rounded-xl p-2" style={{ backgroundColor: '#6b5420' }}>
                   <textarea
                     id="bio"
                     value={bio}
@@ -143,7 +143,7 @@ export function EditProfileModal({
                         setBio(value);
                       }
                     }}
-                    className="w-full min-h-[120px] rounded-lg border-0 bg-transparent text-white placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-0 resize-none text-sm"
+                    className="w-full min-h-[100px] sm:min-h-[120px] rounded-lg border-0 bg-transparent text-white placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-0 resize-none text-sm"
                     placeholder="Conte um pouco sobre você, seus interesses de leitura, gêneros favoritos..."
                     maxLength={500}
                   />
@@ -151,10 +151,10 @@ export function EditProfileModal({
               </div>
 
               {/* Localização */}
-              <div className="space-y-3 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
+              <div className="space-y-2 sm:space-y-3 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5" style={{ color: '#e8d9b8' }} />
-                  <label htmlFor="location" className="text-base font-bold" style={{ color: '#f5ead9' }}>
+                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: '#e8d9b8' }} />
+                  <label htmlFor="location" className="text-sm sm:text-base font-bold" style={{ color: '#f5ead9' }}>
                     Localização
                   </label>
                 </div>
@@ -178,12 +178,12 @@ export function EditProfileModal({
           )}
 
           {/* Footer */}
-          <div className="flex gap-3 justify-end pt-6 mt-6 border-t border-white/10">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 justify-end pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-white/10">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
-              className="px-6 py-2.5 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 flex items-center gap-2 border-0 hover:bg-white/10 text-white"
+              className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-sm sm:text-base font-medium transition-all duration-200 transform hover:scale-105 flex items-center justify-center gap-2 border-0 hover:bg-white/10 text-white"
             >
               <X className="h-4 w-4" />
               Cancelar
@@ -191,7 +191,7 @@ export function EditProfileModal({
             <Button
               type="submit"
               disabled={updateMutation.isPending}
-              className="px-6 py-2.5 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2 text-white shadow-lg"
+              className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-sm sm:text-base font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 text-white shadow-lg"
               style={{ backgroundColor: (!updateMutation.isPending) ? '#5e4318' : '#6b5420' }}
             >
               {updateMutation.isPending ? (
