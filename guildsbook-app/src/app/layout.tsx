@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "GuildsBook",
   description: "Plataforma social para leitores e amantes de livros",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
