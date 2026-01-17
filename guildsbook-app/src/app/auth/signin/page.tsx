@@ -1,11 +1,11 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { BookOpen } from "lucide-react";
 
-export default function SignInPage() {
+function SignInForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -42,7 +42,6 @@ export default function SignInPage() {
       if (result?.error) {
         setError("Erro ao enviar email. Verifique o endereço e tente novamente.");
       } else if (result?.ok) {
-        // Email enviado com sucesso
         router.push(`/auth/verify-request?email=${encodeURIComponent(email)}`);
       }
     } catch (err) {
@@ -60,7 +59,6 @@ export default function SignInPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 relative overflow-hidden">
-      {/* Vídeo de fundo */}
       <video
         autoPlay
         loop
@@ -70,10 +68,8 @@ export default function SignInPage() {
       >
         <source src="/landing-page.mp4" type="video/mp4" />
       </video>
-      {/* Overlay escuro para destacar o card */}
       <div className="absolute inset-0 bg-black/70 z-[1]"></div>
       
-      {/* Card de login */}
       <div className="w-full max-w-md space-y-8 rounded-3xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl p-10 shadow-2xl border border-white/30 dark:border-zinc-700/50 relative z-10">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#c39738] to-[#5e4318] mb-4 shadow-lg shadow-[#c39738]/50">
@@ -94,7 +90,6 @@ export default function SignInPage() {
         )}
 
         <div className="space-y-4">
-          {/* Login com Google */}
           <button
             onClick={handleGoogleSignIn}
             disabled={isLoading}
@@ -132,7 +127,6 @@ export default function SignInPage() {
             </div>
           </div>
 
-          {/* Login com Email */}
           <form onSubmit={handleEmailSignIn} className="space-y-4">
             <div>
               <label
@@ -169,5 +163,20 @@ export default function SignInPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#c39738] border-r-transparent"></div>
+          <p className="mt-4 text-slate-600 dark:text-slate-400">Carregando...</p>
+        </div>
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   );
 }
