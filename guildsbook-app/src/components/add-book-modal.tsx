@@ -82,23 +82,28 @@ interface Book {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl shadow-2xl overflow-hidden" style={{ backgroundColor: '#8d6f29' }}>
-        <DialogHeader className="space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-white/10">
-          <div className="flex items-start gap-3 sm:gap-4">
-            <div className="p-2 sm:p-3 rounded-xl flex-shrink-0" style={{ backgroundColor: '#7a5f23' }}>
-              <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+        {/* Mobile: estrutura flex para scroll adequado */}
+        <div className="flex flex-col h-full sm:h-auto">
+          {/* Header fixo no mobile */}
+          <DialogHeader className="space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-white/10 flex-shrink-0 px-4 pt-4 sm:px-0 sm:pt-0">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="p-2 sm:p-3 rounded-xl flex-shrink-0" style={{ backgroundColor: '#7a5f23' }}>
+                <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <DialogTitle className="text-lg sm:text-2xl text-white font-bold leading-tight">
+                  Adicionar Livro à Biblioteca
+                </DialogTitle>
+                <DialogDescription className="text-sm sm:text-base mt-2 sm:mt-3" style={{ color: '#f5ead9' }}>
+                  Busque e selecione um livro para adicionar à sua biblioteca pessoal.
+                </DialogDescription>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-lg sm:text-2xl text-white font-bold leading-tight">
-                Adicionar Livro à Biblioteca
-              </DialogTitle>
-              <DialogDescription className="text-sm sm:text-base mt-2 sm:mt-3" style={{ color: '#f5ead9' }}>
-                Busque e selecione um livro para adicionar à sua biblioteca pessoal.
-              </DialogDescription>
-            </div>
-          </div>
-        </DialogHeader>
+          </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="pt-4 sm:pt-6">
+          {/* Conteúdo scrollável no mobile */}
+          <div className="flex-1 overflow-y-auto overscroll-contain min-h-0 px-4 sm:px-0">
+            <form id="add-book-form" onSubmit={handleSubmit} className="pt-4 sm:pt-6 pb-4 sm:pb-0">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Coluna Esquerda - Busca e Status */}
             <div className="md:col-span-1 space-y-4 sm:space-y-5">
@@ -251,23 +256,61 @@ interface Book {
                 </div>
               )}
             </div>
+            </div>
+
+            {/* Footer - escondido no mobile (mostrado fora) */}
+            <div className="hidden sm:flex sm:flex-row gap-3 justify-end pt-6 border-t border-white/10 mt-6">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onClose}
+                className="px-6 py-2.5 rounded-xl text-base font-medium transition-all duration-200 transform hover:scale-105 flex items-center gap-2 border-0 hover:bg-white/10 text-white"
+              >
+                <X className="h-4 w-4" />
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                disabled={!selectedBookId || addBookMutation.isPending}
+                className="px-6 py-2.5 rounded-xl text-base font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2 text-white shadow-lg"
+                style={{ backgroundColor: (!selectedBookId || addBookMutation.isPending) ? '#6b5420' : '#5e4318' }}
+              >
+                {addBookMutation.isPending ? (
+                  <>
+                    <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Adicionando...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="h-4 w-4" />
+                    Adicionar à Biblioteca
+                  </>
+                )}
+              </Button>
+            </div>
+          </form>
           </div>
 
-          {/* Footer */}
-          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 justify-end pt-4 sm:pt-6 border-t border-white/10 mt-4 sm:mt-6">
+          {/* Footer fixo no mobile - visível apenas no mobile */}
+          <div className="flex sm:hidden flex-col-reverse gap-2 justify-end px-4 pb-4 pt-3 border-t border-white/10 flex-shrink-0 bg-[#8d6f29]">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
-              className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-sm sm:text-base font-medium transition-all duration-200 transform hover:scale-105 flex items-center justify-center gap-2 border-0 hover:bg-white/10 text-white"
+              className="w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 border-0 hover:bg-white/10 text-white"
             >
               <X className="h-4 w-4" />
               Cancelar
             </Button>
             <Button
-              type="submit"
+              onClick={() => {
+                const form = document.getElementById("add-book-form") as HTMLFormElement;
+                if (form && !(!selectedBookId || addBookMutation.isPending)) {
+                  form.requestSubmit();
+                }
+              }}
               disabled={!selectedBookId || addBookMutation.isPending}
-              className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-sm sm:text-base font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 text-white shadow-lg"
+              className="w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-white shadow-lg"
               style={{ backgroundColor: (!selectedBookId || addBookMutation.isPending) ? '#6b5420' : '#5e4318' }}
             >
               {addBookMutation.isPending ? (
@@ -283,7 +326,7 @@ interface Book {
               )}
             </Button>
           </div>
-        </form>
+        </div>
       </DialogContent>
     </Dialog>
   );
