@@ -21,6 +21,7 @@ function SignInForm() {
         Configuration: "Há um problema com a configuração do servidor.",
         AccessDenied: "Você não tem permissão para fazer login.",
         Verification: "O link de verificação expirou ou já foi usado.",
+        InvalidCheck: "Erro de verificação. Por favor, limpe os cookies e tente novamente.",
         Default: "Ocorreu um erro ao fazer login. Tente novamente.",
       };
       setError(errorMessages[errorParam] || errorMessages.Default);
@@ -40,11 +41,16 @@ function SignInForm() {
       });
 
       if (result?.error) {
-        setError("Erro ao enviar email. Verifique o endereço e tente novamente.");
+        if (result.error === "InvalidCheck") {
+          setError("Erro de verificação. Por favor, limpe os cookies do navegador e tente novamente.");
+        } else {
+          setError("Erro ao enviar email. Verifique o endereço e tente novamente.");
+        }
       } else if (result?.ok) {
         router.push(`/auth/verify-request?email=${encodeURIComponent(email)}`);
       }
     } catch (err) {
+      console.error("Erro no login:", err);
       setError("Erro ao enviar email. Tente novamente.");
     } finally {
       setIsLoading(false);
