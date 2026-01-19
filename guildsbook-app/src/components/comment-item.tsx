@@ -51,7 +51,7 @@ export function CommentItem({ comment, onEdit, onDelete }: CommentItemProps) {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-xs font-medium">
-                  {comment.user.name.charAt(0).toUpperCase()}
+                  {(comment.user.name && comment.user.name.length > 0 ? comment.user.name.charAt(0) : "U").toUpperCase()}
                 </div>
               )}
             </div>

@@ -92,7 +92,7 @@ export function ReviewCard({
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-sm font-medium">
-                    {review.user.name.charAt(0).toUpperCase()}
+                    {(review.user.name && review.user.name.length > 0 ? review.user.name.charAt(0) : "U").toUpperCase()}
                   </div>
                 )}
               </div>
