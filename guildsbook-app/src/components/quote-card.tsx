@@ -84,7 +84,7 @@ export function QuoteCard({
                 ) : (
                   <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
                     <span className="text-sm font-medium">
-                      {quote.user.name.charAt(0).toUpperCase()}
+                      {(quote.user.name && quote.user.name.length > 0 ? quote.user.name.charAt(0) : "U").toUpperCase()}
                     </span>
                   </div>
                 )}

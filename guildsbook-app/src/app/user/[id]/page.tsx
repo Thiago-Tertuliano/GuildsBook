@@ -102,7 +102,7 @@ export default function PublicProfilePage() {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-2xl md:text-4xl font-bold">
-                    {profile.name.charAt(0).toUpperCase()}
+                    {(profile.name && profile.name.length > 0 ? profile.name.charAt(0) : "U").toUpperCase()}
                   </div>
                 )}
               </div>
