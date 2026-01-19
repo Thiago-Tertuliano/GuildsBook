@@ -22,8 +22,6 @@ const nextConfig: NextConfig = {
   },
   // Compressão
   compress: true,
-  // Swc minify é mais rápido (já é padrão no Next.js 13+)
-  swcMinify: true,
 };
 
 export default nextConfig;
