@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+.next
+
+# Development files
+.git
+.env.local
+.env*.local
+
+# Testing
+test
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Documentation
+docs
+README.md
+*.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+.cache
+.turbo
+
+# Build artifacts
+dist
+build
