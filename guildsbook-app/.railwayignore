@@ -1,11 +1,18 @@
 # Dependencies
 node_modules
 .next
+.pnp
+.pnp.*
 
 # Development files
 .git
 .env.local
 .env*.local
+.vscode
+.idea
+*.swp
+*.swo
+*~
 
 # Testing
 test
@@ -13,18 +20,12 @@ test
 *.test.tsx
 *.spec.ts
 *.spec.tsx
+coverage
 
 # Documentation
 docs
 README.md
 *.md
-
-# IDE
-.vscode
-.idea
-*.swp
-*.swo
-*~
 
 # OS
 .DS_Store
@@ -33,7 +34,23 @@ Thumbs.db
 # Cache
 .cache
 .turbo
+*.tsbuildinfo
 
 # Build artifacts
 dist
 build
+out
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Railway cache (não precisa copiar)
+/root/.cache
+/root/.local
+
+# Nota: Arquivos grandes como landing-page.mp4 (84MB) estão em public/
+# Se o build continuar lento, considere mover para um CDN externo
+# ou usar uma versão otimizada/comprimida do vídeo
