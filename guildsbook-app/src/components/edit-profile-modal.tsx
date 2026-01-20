@@ -93,7 +93,7 @@ export function EditProfileModal({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 overflow-y-auto overscroll-contain max-h-[calc(100vh-200px)] sm:max-h-[calc(85vh-120px)]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Coluna Esquerda */}
             <div className="space-y-4 sm:space-y-5">
