@@ -1,7 +1,7 @@
 # 🗺️ Roadmap de Desenvolvimento - GuildsBook
 
-> **Status**: 🟡 Planejamento  
-> **Última Atualização**: Janeiro 2025
+> **Status**: 🟢 Piloto  
+> **Última Atualização**: 17 Janeiro de 2026
 
 Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma organizada e progressiva. Cada etapa pode ser concluída em sessões de desenvolvimento, permitindo um progresso constante e mensurável.
 
@@ -416,13 +416,12 @@ Este roadmap foi criado para guiar o desenvolvimento do GuildsBook de forma orga
 
 ## 🚀 Deploy e Produção
 
-- [ ] Configurar Railway
-- [ ] Configurar PostgreSQL no Railway
-- [ ] Configurar variáveis de ambiente
-- [ ] Deploy inicial
+- [x] Configurar Railway
+- [x] Configurar PostgreSQL no Railway
+- [x] Configurar variáveis de ambiente
+- [x] Deploy inicial
 - [ ] Configurar domínio personalizado
 - [ ] Monitoramento e logs
 
 ---
 
-**Bora pro desenvolvimento! 🎉📚**

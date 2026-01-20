@@ -58,8 +58,8 @@ export function CreateDiscussionModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl shadow-2xl overflow-hidden" style={{ backgroundColor: '#8d6f29' }}>
-        <DialogHeader className="space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-white/10">
+      <DialogContent className="max-w-4xl shadow-2xl overflow-hidden p-0 gap-0" style={{ backgroundColor: '#8d6f29' }}>
+        <DialogHeader className="space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-white/10 px-4 pt-4 sm:px-6 sm:pt-6">
           <div className="flex items-start gap-3 sm:gap-4">
             <div className="p-2 sm:p-3 rounded-xl flex-shrink-0" style={{ backgroundColor: '#7a5f23' }}>
               <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
@@ -74,7 +74,7 @@ export function CreateDiscussionModal({
             </div>
           </div>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="pt-4 sm:pt-6">
+        <form onSubmit={handleSubmit} className="pt-4 sm:pt-6 px-4 sm:px-6 pb-4 sm:pb-6 overflow-y-auto overscroll-contain max-h-[calc(100vh-200px)] sm:max-h-[calc(85vh-120px)]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Coluna Esquerda */}
             <div className="space-y-4 sm:space-y-5">

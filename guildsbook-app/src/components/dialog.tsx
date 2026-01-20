@@ -38,23 +38,21 @@ const DialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed z-50 w-full border bg-background shadow-lg duration-200",
-        // Mobile: quase fullscreen com flexbox para scroll adequado
-        "left-0 top-0 h-full max-h-screen w-full translate-x-0 translate-y-0 rounded-none",
+        // Mobile: quase fullscreen
+        "left-0 top-0 h-full max-h-screen w-full translate-x-0 translate-y-0 rounded-none p-4",
         "flex flex-col",
         // Desktop: centralizado como antes
-        "sm:left-[50%] sm:top-[50%] sm:h-auto sm:max-h-[90vh] sm:max-w-lg sm:translate-x-[-50%] sm:translate-y-[-50%] sm:rounded-lg sm:grid sm:gap-4",
-        // Padding mobile ajustado nos modais
-        "p-0 sm:p-6",
+        "sm:left-[50%] sm:top-[50%] sm:h-auto sm:max-h-[90vh] sm:max-w-lg sm:translate-x-[-50%] sm:translate-y-[-50%] sm:rounded-lg sm:p-6",
+        // Desktop usa display block (padrão), mobile usa flex
+        "sm:block",
         // Animações
         "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
         // Mobile animations: slide up from bottom
         "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
         // Desktop animations: zoom + slide
         "sm:data-[state=closed]:zoom-out-95 sm:data-[state=open]:zoom-in-95 sm:data-[state=closed]:slide-out-to-left-1/2 sm:data-[state=closed]:slide-out-to-top-[48%] sm:data-[state=open]:slide-in-from-left-1/2 sm:data-[state=open]:slide-in-from-top-[48%]",
-        // Mobile: sem overflow no container
-        "overflow-hidden",
-        // Desktop: overflow normal
-        "sm:overflow-y-auto sm:overscroll-contain",
+        // Overflow - mobile com scroll interno, desktop com scroll do container
+        "overflow-hidden sm:overflow-y-auto sm:overscroll-contain",
         className
       )}
       {...props}
