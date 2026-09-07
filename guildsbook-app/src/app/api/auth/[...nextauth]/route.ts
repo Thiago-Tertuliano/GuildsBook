@@ -10,39 +10,49 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true, // Permite confiar no host em produção (Railway, Vercel, etc.)
   useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://") ?? false,
   providers: [
-    Email({
-      server: process.env.EMAIL_SERVER_HOST
-        ? {
-            host: process.env.EMAIL_SERVER_HOST,
-            port: parseInt(process.env.EMAIL_SERVER_PORT || "587"),
-            auth: {
-              user: process.env.EMAIL_SERVER_USER,
-              pass: process.env.EMAIL_SERVER_PASSWORD,
+    ...(process.env.EMAIL_SERVER_HOST
+      ? [
+          Email({
+            server: {
+              host: process.env.EMAIL_SERVER_HOST,
+              port: parseInt(process.env.EMAIL_SERVER_PORT || "587"),
+              auth: {
+                user: process.env.EMAIL_SERVER_USER,
+                pass: process.env.EMAIL_SERVER_PASSWORD,
+              },
             },
-          }
-        : undefined,
-      from: process.env.EMAIL_FROM,
-      // Customizar o envio de email para usar template dinâmico do SendGrid
-      ...(process.env.SENDGRID_TEMPLATE_ID || process.env.SENDGRID_API_KEY
-        ? {
-            async sendVerificationRequest({ identifier: email, url }) {
-              const baseUrl =
-                process.env.NEXTAUTH_URL || "http://localhost:3000";
+            from: process.env.EMAIL_FROM,
+            ...(process.env.SENDGRID_TEMPLATE_ID || process.env.SENDGRID_API_KEY
+              ? {
+                  async sendVerificationRequest({
+                    identifier: email,
+                    url,
+                  }: {
+                    identifier: string;
+                    url: string;
+                  }) {
+                    const baseUrl =
+                      process.env.NEXTAUTH_URL || "http://localhost:3000";
 
-              // Usa SendGrid API com template dinâmico
-              await sendVerificationEmail({
-                to: email,
-                url,
-                baseUrl,
-              });
-            },
-          }
-        : {}),
-    }),
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    }),
+                    await sendVerificationEmail({
+                      to: email,
+                      url,
+                      baseUrl,
+                    });
+                  },
+                }
+              : {}),
+          }),
+        ]
+      : []),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          Google({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
   ],
   callbacks: {
     async session({ session, user }) {
