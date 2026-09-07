@@ -9,7 +9,16 @@ import { Loading } from "@/components/loading";
 import { Error as ErrorComponent } from "@/components/error";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
 import { Button } from "@/components/button";
-import { ArrowLeft, BookOpen, Calendar, Hash, Users, Star, Quote as QuoteIcon, Plus } from "lucide-react";
+import {
+  ArrowLeft,
+  BookOpen,
+  Calendar,
+  Hash,
+  Users,
+  Star,
+  Quote as QuoteIcon,
+  Plus,
+} from "lucide-react";
 import { useState } from "react";
 import { QuoteList } from "@/components/quote-list";
 import { AddQuoteModal } from "@/components/add-quote-modal";
@@ -178,12 +187,10 @@ export default function BookDetailsPage() {
             {/* Ações */}
             <div className="flex gap-4">
               <Button asChild>
-                <Link href={`/books/${bookId}/reviews`}>
-                  Ver Avaliações
-                </Link>
+                <Link href={`/books/${bookId}/reviews`}>Ver Avaliações</Link>
               </Button>
               <Button variant="outline" asChild>
-              <Link href={`/library?add=${bookId}`}>
+                <Link href={`/library?add=${bookId}`}>
                   Adicionar à Biblioteca
                 </Link>
               </Button>
@@ -213,10 +220,7 @@ export default function BookDetailsPage() {
                 </Button>
               </div>
               {activeTab === "quotes" && user && (
-                <Button
-                  size="sm"
-                  onClick={() => setIsAddQuoteModalOpen(true)}
-                >
+                <Button size="sm" onClick={() => setIsAddQuoteModalOpen(true)}>
                   <Plus className="h-4 w-4 mr-2" />
                   Adicionar Citação
                 </Button>
@@ -231,9 +235,7 @@ export default function BookDetailsPage() {
                 </p>
               </div>
             )}
-            {activeTab === "quotes" && (
-              <QuoteList bookId={bookId} />
-            )}
+            {activeTab === "quotes" && <QuoteList bookId={bookId} />}
           </CardContent>
         </Card>
 

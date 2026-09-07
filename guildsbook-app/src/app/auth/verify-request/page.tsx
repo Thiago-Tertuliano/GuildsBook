@@ -40,8 +40,8 @@ function VerifyRequestContent() {
 
         <div className="rounded-lg bg-zinc-50 dark:bg-zinc-700/50 p-4">
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Clique no link no email para fazer login. Se você não recebeu o email, verifique sua
-            pasta de spam.
+            Clique no link no email para fazer login. Se você não recebeu o
+            email, verifique sua pasta de spam.
           </p>
         </div>
 
@@ -58,14 +58,18 @@ function VerifyRequestContent() {
 
 export default function VerifyRequestPage() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
-          <p className="mt-4 text-zinc-600 dark:text-zinc-400">Carregando...</p>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+            <p className="mt-4 text-zinc-600 dark:text-zinc-400">
+              Carregando...
+            </p>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <VerifyRequestContent />
     </Suspense>
   );

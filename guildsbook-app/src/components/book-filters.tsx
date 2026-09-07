@@ -5,7 +5,15 @@ import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { Filter, X } from "lucide-react";
 
-export type SortOption = "title_asc" | "title_desc" | "author_asc" | "author_desc" | "year_asc" | "year_desc" | "created_desc" | "created_asc";
+export type SortOption =
+  | "title_asc"
+  | "title_desc"
+  | "author_asc"
+  | "author_desc"
+  | "year_asc"
+  | "year_desc"
+  | "created_desc"
+  | "created_asc";
 
 interface BookFiltersProps {
   filters: {
@@ -15,7 +23,13 @@ interface BookFiltersProps {
     language: string;
     sort: SortOption;
   };
-  onFiltersChange: (filters: { genre: string; year: string; publisher: string; language: string; sort: SortOption }) => void;
+  onFiltersChange: (filters: {
+    genre: string;
+    year: string;
+    publisher: string;
+    language: string;
+    sort: SortOption;
+  }) => void;
 }
 
 const commonGenres = [
@@ -53,7 +67,12 @@ const commonLanguages = [
 ];
 
 export function BookFilters({ filters, onFiltersChange }: BookFiltersProps) {
-  const hasActiveFilters = filters.genre || filters.year || filters.publisher || filters.language || filters.sort !== "created_desc";
+  const hasActiveFilters =
+    filters.genre ||
+    filters.year ||
+    filters.publisher ||
+    filters.language ||
+    filters.sort !== "created_desc";
 
   const handleGenreChange = (genre: string) => {
     onFiltersChange({
@@ -91,7 +110,13 @@ export function BookFilters({ filters, onFiltersChange }: BookFiltersProps) {
   };
 
   const clearFilters = () => {
-    onFiltersChange({ genre: "", year: "", publisher: "", language: "", sort: "created_desc" });
+    onFiltersChange({
+      genre: "",
+      year: "",
+      publisher: "",
+      language: "",
+      sort: "created_desc",
+    });
   };
 
   return (

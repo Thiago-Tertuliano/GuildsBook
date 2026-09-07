@@ -22,42 +22,48 @@ export function PieChart({ data, title, description }: PieChartProps) {
   }, [data]);
 
   const chartData = useMemo(() => {
-    let currentAngle = -90; // Começar no topo
-    
-    return data.map((item) => {
+    return data.reduce<
+      Array<
+        PieChartData & { percentage: number; pathData: string; angle: number }
+      >
+    >((acc, item) => {
+      const startAngle =
+        acc.length === 0
+          ? -90
+          : acc.reduce(
+              (angle, prev) => angle + (prev.percentage / 100) * 360,
+              -90
+            );
+
       const percentage = total > 0 ? (item.value / total) * 100 : 0;
-      const angle = (percentage / 100) * 360;
-      
-      const startAngle = currentAngle;
-      const endAngle = currentAngle + angle;
-      
+      const sliceAngle = (percentage / 100) * 360;
+      const endAngle = startAngle + sliceAngle;
+
       const startRad = (startAngle * Math.PI) / 180;
       const endRad = (endAngle * Math.PI) / 180;
-      
+
       const x1 = 100 + 80 * Math.cos(startRad);
       const y1 = 100 + 80 * Math.sin(startRad);
       const x2 = 100 + 80 * Math.cos(endRad);
       const y2 = 100 + 80 * Math.sin(endRad);
-      
-      const largeArcFlag = angle > 180 ? 1 : 0;
-      
+
+      const largeArcFlag = sliceAngle > 180 ? 1 : 0;
+
       const pathData = [
         `M 100 100`,
         `L ${x1} ${y1}`,
         `A 80 80 0 ${largeArcFlag} 1 ${x2} ${y2}`,
         `Z`,
       ].join(" ");
-      
-      const currentAngleCopy = currentAngle;
-      currentAngle += angle;
-      
-      return {
+
+      acc.push({
         ...item,
         percentage,
         pathData,
-        angle: currentAngleCopy,
-      };
-    });
+        angle: startAngle,
+      });
+      return acc;
+    }, []);
   }, [data, total]);
 
   if (total === 0) {
@@ -70,20 +76,31 @@ export function PieChart({ data, title, description }: PieChartProps) {
         <CardHeader className="bg-gradient-to-r from-secondary/10 via-transparent to-primary/10 rounded-t-lg border-b border-secondary/20">
           <CardTitle className="text-xl text-foreground font-bold flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-              <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                className="h-6 w-6 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 9a1 1 0 112 0v4a1 1 0 11-2 0V9zm0-3a1 1 0 112 0 1 1 0 01-2 0z" />
               </svg>
             </div>
             {title}
           </CardTitle>
-          {description && <p className="text-sm text-muted-foreground mt-2">{description}</p>}
+          {description && (
+            <p className="text-sm text-muted-foreground mt-2">{description}</p>
+          )}
         </CardHeader>
       )}
       <CardContent className="p-6">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
           {/* Gráfico SVG - Centralizado */}
           <div className="relative flex-shrink-0">
-            <svg width="220" height="220" viewBox="0 0 200 200" className="transform -rotate-90">
+            <svg
+              width="220"
+              height="220"
+              viewBox="0 0 200 200"
+              className="transform -rotate-90"
+            >
               {chartData.map((item, index) => (
                 <path
                   key={index}
@@ -99,12 +116,16 @@ export function PieChart({ data, title, description }: PieChartProps) {
                 />
               ))}
             </svg>
-            
+
             {/* Número total no centro - Melhorado */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="text-center bg-card/80 backdrop-blur-sm rounded-full p-4 border-2 border-primary/20 shadow-lg">
-                <div className="text-3xl font-bold text-foreground">{total}</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">total</div>
+                <div className="text-3xl font-bold text-foreground">
+                  {total}
+                </div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">
+                  total
+                </div>
               </div>
             </div>
           </div>
@@ -117,7 +138,7 @@ export function PieChart({ data, title, description }: PieChartProps) {
                 "from-accent/25 to-accent/15 border-accent/40 text-accent",
                 "from-secondary/25 to-secondary/15 border-secondary/40 text-secondary",
               ];
-              
+
               return (
                 <div
                   key={index}
@@ -129,12 +150,16 @@ export function PieChart({ data, title, description }: PieChartProps) {
                       style={{ backgroundColor: item.color }}
                     />
                     {item.icon && (
-                      <div className={`flex-shrink-0 ${colors[index % colors.length].split(' ')[3]}`}>
+                      <div
+                        className={`flex-shrink-0 ${colors[index % colors.length].split(" ")[3]}`}
+                      >
                         {item.icon}
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
-                      <div className={`font-bold text-base ${colors[index % colors.length].split(' ')[3]}`}>
+                      <div
+                        className={`font-bold text-base ${colors[index % colors.length].split(" ")[3]}`}
+                      >
                         {item.label}
                       </div>
                       <div className="text-sm text-muted-foreground font-medium mt-0.5">
@@ -143,7 +168,9 @@ export function PieChart({ data, title, description }: PieChartProps) {
                     </div>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <div className={`text-xl font-bold ${colors[index % colors.length].split(' ')[3]}`}>
+                    <div
+                      className={`text-xl font-bold ${colors[index % colors.length].split(" ")[3]}`}
+                    >
                       {item.percentage.toFixed(1)}%
                     </div>
                   </div>

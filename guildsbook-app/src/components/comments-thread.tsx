@@ -25,7 +25,10 @@ interface CommentsThreadProps {
   commentCount?: number;
 }
 
-export function CommentsThread({ reviewId, commentCount = 0 }: CommentsThreadProps) {
+export function CommentsThread({
+  reviewId,
+  commentCount = 0,
+}: CommentsThreadProps) {
   const { isAuthenticated } = useAuth();
   const [isExpanded, setIsExpanded] = useState(false);
   const [editingComment, setEditingComment] = useState<Comment | null>(null);
@@ -90,11 +93,17 @@ export function CommentsThread({ reviewId, commentCount = 0 }: CommentsThreadPro
             mode={editingComment ? "edit" : "create"}
             commentId={editingComment?.id}
             onSubmit={handleSubmit}
-            onCancel={editingComment ? () => setEditingComment(null) : undefined}
+            onCancel={
+              editingComment ? () => setEditingComment(null) : undefined
+            }
           />
         )}
 
-        <CommentsList key={refreshKey} reviewId={reviewId} onEdit={handleEdit} />
+        <CommentsList
+          key={refreshKey}
+          reviewId={reviewId}
+          onEdit={handleEdit}
+        />
       </CardContent>
     </Card>
   );

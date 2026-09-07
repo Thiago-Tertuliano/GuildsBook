@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { useMutationApi } from "@/hooks/use-api";
@@ -36,18 +36,7 @@ export function QuoteForm({
   const [isPublic, setIsPublic] = useState(initialIsPublic);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    setContent(initialContent);
-    setPage(initialPage?.toString() || "");
-    setChapter(initialChapter || "");
-    setIsPublic(initialIsPublic ?? false);
-  }, [initialContent, initialPage, initialChapter, initialIsPublic]);
-
-  const createMutation = useMutationApi(
-    ["quotes"],
-    "/api/quotes",
-    "POST"
-  );
+  const createMutation = useMutationApi(["quotes"], "/api/quotes", "POST");
 
   const updateMutation = useMutationApi(
     ["quotes", quoteId || ""],
@@ -75,7 +64,13 @@ export function QuoteForm({
     }
 
     try {
-      const data: any = {
+      const data: {
+        bookId: string;
+        content: string;
+        isPublic: boolean;
+        page?: number;
+        chapter?: string;
+      } = {
         bookId,
         content: content.trim(),
         isPublic,
@@ -95,8 +90,9 @@ export function QuoteForm({
         await createMutation.mutateAsync(data);
       }
       onSubmit();
-    } catch (err: any) {
-      setError(err.message || "Erro ao salvar citação");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : undefined;
+      setError(message || "Erro ao salvar citação");
     }
   };
 
@@ -159,14 +155,15 @@ export function QuoteForm({
           onChange={(e) => setIsPublic(e.target.checked)}
           className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
         />
-        <label htmlFor="isPublic" className="text-sm font-medium cursor-pointer">
+        <label
+          htmlFor="isPublic"
+          className="text-sm font-medium cursor-pointer"
+        >
           Citação pública (outros usuários podem ver)
         </label>
       </div>
 
-      {error && (
-        <p className="text-sm text-destructive">{error}</p>
-      )}
+      {error && <p className="text-sm text-destructive">{error}</p>}
 
       <div className="flex gap-2 justify-end">
         {onCancel && (
@@ -178,8 +175,8 @@ export function QuoteForm({
           {isLoading
             ? "Salvando..."
             : mode === "edit"
-            ? "Atualizar"
-            : "Criar Citação"}
+              ? "Atualizar"
+              : "Criar Citação"}
         </Button>
       </div>
     </form>

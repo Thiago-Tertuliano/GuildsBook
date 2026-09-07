@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { reviewSchema, paginationSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 
 // GET /api/books/[bookId]/reviews - Listar reviews de um livro
 export async function GET(
@@ -59,8 +64,9 @@ export async function GET(
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
     return errorResponse("Erro ao listar reviews", 500);
@@ -104,7 +110,10 @@ export async function POST(
     });
 
     if (existingReview) {
-      return errorResponse("Você já tem uma review para este livro. Use PUT para atualizar.", 409);
+      return errorResponse(
+        "Você já tem uma review para este livro. Use PUT para atualizar.",
+        409
+      );
     }
 
     // Criar review
@@ -132,11 +141,12 @@ export async function POST(
     });
 
     return successResponse(review, 201);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
-    if (error.code === "P2002") {
+    if (err.code === "P2002") {
       return errorResponse("Você já tem uma review para este livro", 409);
     }
     return errorResponse("Erro ao criar review", 500);

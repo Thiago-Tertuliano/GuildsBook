@@ -6,7 +6,14 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader } from "@/components/card";
 import { Button } from "@/components/button";
 import { StarRating } from "@/components/star-rating";
-import { Edit, Trash2, Heart, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Edit,
+  Trash2,
+  Heart,
+  MessageCircle,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useAuth } from "@/hooks/use-auth";
@@ -92,7 +99,10 @@ export function ReviewCard({
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-sm font-medium">
-                    {(review.user.name && review.user.name.length > 0 ? review.user.name.charAt(0) : "U").toUpperCase()}
+                    {(review.user.name && review.user.name.length > 0
+                      ? review.user.name.charAt(0)
+                      : "U"
+                    ).toUpperCase()}
                   </div>
                 )}
               </div>
@@ -134,9 +144,7 @@ export function ReviewCard({
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        {review.rating && (
-          <StarRating rating={review.rating} size="sm" />
-        )}
+        {review.rating && <StarRating rating={review.rating} size="sm" />}
         <p className="text-sm whitespace-pre-wrap">{review.content}</p>
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <button
@@ -170,7 +178,9 @@ export function ReviewCard({
                 mode={editingComment ? "edit" : "create"}
                 commentId={editingComment?.id}
                 onSubmit={handleCommentSubmit}
-                onCancel={editingComment ? () => setEditingComment(null) : undefined}
+                onCancel={
+                  editingComment ? () => setEditingComment(null) : undefined
+                }
               />
             )}
 

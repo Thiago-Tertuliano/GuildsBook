@@ -1,0 +1,81 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "guildsbook-app/**"
+      - ".github/workflows/cd.yml"
+      - ".github/workflows/ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: cd-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  APP_DIR: guildsbook-app
+  NODE_VERSION: "20"
+  DATABASE_URL: "postgresql://ci:ci@localhost:5432/guildsbook_ci?schema=public"
+  NEXTAUTH_URL: "http://localhost:3000"
+  NEXTAUTH_SECRET: "ci-nextauth-secret-not-for-production"
+  AUTH_SECRET: "ci-auth-secret-not-for-production"
+
+jobs:
+  # Gate de produção: só segue se o mesmo critério do CI passar em main
+  verify:
+    name: verify-production-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ env.APP_DIR }}/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prisma generate
+        run: npx prisma generate
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
+
+  deploy:
+    name: deploy
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Railway auto-deploy
+        env:
+          HAS_TOKEN: ${{ secrets.RAILWAY_TOKEN != '' }}
+        run: |
+          echo "## Deploy" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$HAS_TOKEN" = "true" ]; then
+            echo "RAILWAY_TOKEN presente — deploy explícito via CLI pode ser ligado depois." >> "$GITHUB_STEP_SUMMARY"
+            echo "::notice::Secrets.RAILWAY_TOKEN configurado. O serviço no Railway já deve estar linkado ao GitHub (push em main)."
+          else
+            echo "Deploy de produção fica no **Railway** (integração GitHub → branch \`main\`)." >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Este job confirma que o build de \`main\` passou no gate. Sem \`RAILWAY_TOKEN\`, o push no Railway continua sendo a fonte do deploy." >> "$GITHUB_STEP_SUMMARY"
+            echo "::notice::Gate CD OK. Confirme no dashboard Railway que o deploy de main iniciou."
+          fi
+
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Commit: \`${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Ref: \`${{ github.ref_name }}\`" >> "$GITHUB_STEP_SUMMARY"

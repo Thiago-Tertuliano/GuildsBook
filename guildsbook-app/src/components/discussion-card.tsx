@@ -75,15 +75,21 @@ export function DiscussionCard({ discussion }: DiscussionCardProps) {
                 <Calendar className="h-4 w-4" />
                 <span>
                   Agendada para{" "}
-                  {format(new Date(discussion.scheduledDate), "dd 'de' MMMM 'de' yyyy", {
-                    locale: ptBR,
-                  })}
+                  {format(
+                    new Date(discussion.scheduledDate),
+                    "dd 'de' MMMM 'de' yyyy",
+                    {
+                      locale: ptBR,
+                    }
+                  )}
                 </span>
               </div>
             )}
           </div>
           <span>
-            {format(new Date(discussion.createdAt), "dd/MM/yyyy", { locale: ptBR })}
+            {format(new Date(discussion.createdAt), "dd/MM/yyyy", {
+              locale: ptBR,
+            })}
           </span>
         </div>
       </CardContent>

@@ -9,7 +9,12 @@ import { Button } from "@/components/button";
 import { ReadingListItems } from "@/components/reading-list-items";
 import { AddBookToListModal } from "@/components/add-book-to-list-modal";
 import { EditReadingListModal } from "@/components/edit-reading-list-modal";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/card";
 import { Plus, Globe, Lock, Edit, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
@@ -95,7 +100,7 @@ export default function ReadingListDetailsPage() {
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-2">
                       <CardTitle className="text-2xl">{list.name}</CardTitle>
                       {list.isPublic ? (
                         <span title="Pública">
@@ -128,10 +133,7 @@ export default function ReadingListDetailsPage() {
                         <Edit className="h-4 w-4 mr-2" />
                         Editar
                       </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => setIsAddModalOpen(true)}
-                      >
+                      <Button size="sm" onClick={() => setIsAddModalOpen(true)}>
                         <Plus className="h-4 w-4 mr-2" />
                         Adicionar Livro
                       </Button>

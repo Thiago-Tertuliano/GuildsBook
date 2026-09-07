@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import { successResponse, errorResponse, getErrorProps } from "@/lib/api/utils";
 import { paginationSchema } from "@/lib/api/schemas";
 
 // GET /api/user/[id]/followers - Listar seguidores de um usuário
@@ -12,7 +12,11 @@ export async function GET(
     const { id } = await params;
 
     // Validar UUID
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+    if (
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        id
+      )
+    ) {
       return errorResponse("ID de usuário inválido", 400);
     }
 
@@ -63,8 +67,9 @@ export async function GET(
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return errorResponse("Parâmetros de paginação inválidos", 400);
     }
     console.error("Erro ao listar seguidores:", error);

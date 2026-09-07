@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import { successResponse, errorResponse, getErrorProps } from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 
 // POST /api/user/[id]/follow - Seguir um usuário
@@ -18,7 +18,11 @@ export async function POST(
     const { id: followingId } = await params;
 
     // Validar UUID
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(followingId)) {
+    if (
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        followingId
+      )
+    ) {
       return errorResponse("ID de usuário inválido", 400);
     }
 
@@ -68,8 +72,9 @@ export async function POST(
     });
 
     return successResponse(follow, 201);
-  } catch (error: any) {
-    if (error.code === "P2002") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2002") {
       return errorResponse("Você já segue este usuário", 409);
     }
     console.error("Erro ao seguir usuário:", error);
@@ -92,7 +97,11 @@ export async function DELETE(
     const { id: followingId } = await params;
 
     // Validar UUID
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(followingId)) {
+    if (
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        followingId
+      )
+    ) {
       return errorResponse("ID de usuário inválido", 400);
     }
 
@@ -117,8 +126,9 @@ export async function DELETE(
     });
 
     return successResponse({ message: "Deixou de seguir com sucesso" });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2025") {
       return errorResponse("Você não segue este usuário", 404);
     }
     console.error("Erro ao deixar de seguir:", error);
@@ -141,7 +151,11 @@ export async function GET(
     const { id: followingId } = await params;
 
     // Validar UUID
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(followingId)) {
+    if (
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        followingId
+      )
+    ) {
       return errorResponse("ID de usuário inválido", 400);
     }
 

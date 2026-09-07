@@ -9,18 +9,24 @@ import { BooksChart } from "@/components/books-chart";
 import { PieChart } from "@/components/pie-chart";
 import { ChartFilter, ChartType } from "@/components/chart-filter";
 import { ActivityItem } from "@/components/activity-item";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/card";
 import { Button } from "@/components/button";
 import Link from "next/link";
-import { 
-  Home, 
-  BookOpen, 
-  BarChart3, 
-  ArrowRight, 
+import {
+  Home,
+  BookOpen,
+  BarChart3,
+  ArrowRight,
   Star,
   TrendingUp,
   BookCheck,
-  BookMarked
+  BookMarked,
 } from "lucide-react";
 import { useState, useMemo } from "react";
 
@@ -33,7 +39,12 @@ interface StatsResponse {
   totalWantToRead: number;
   totalReading: number;
   avgPagesPerBook: number;
-  favoriteBooks?: Array<{ id: string; title: string; author: string; rating: number }>;
+  favoriteBooks?: Array<{
+    id: string;
+    title: string;
+    author: string;
+    rating: number;
+  }>;
   avgRating?: number;
   totalNotRead?: number;
 }
@@ -84,7 +95,11 @@ export default function DashboardPage() {
     isLoading: feedLoading,
     error: feedError,
     refetch: refetchFeed,
-  } = useGet<FeedResponse>(["feed", "all", "1"], "/api/feed?page=1&limit=5", true);
+  } = useGet<FeedResponse>(
+    ["feed", "all", "1"],
+    "/api/feed?page=1&limit=5",
+    true
+  );
 
   const stats = statsData?.data;
   const recentActivities = (feedData?.data?.data || []).slice(0, 5);
@@ -92,7 +107,7 @@ export default function DashboardPage() {
   // Dados para o gráfico de pizza (lidos vs não lidos)
   const pieChartData = useMemo(() => {
     if (!stats) return [];
-    
+
     return [
       {
         label: "Livros Lidos",
@@ -178,7 +193,7 @@ export default function DashboardPage() {
 
         {/* Cards de Estatísticas */}
         {statsLoading && <Loading text="Carregando estatísticas..." />}
-        
+
         {statsError && (
           <ErrorComponent
             onRetry={() => {
@@ -238,11 +253,7 @@ export default function DashboardPage() {
 
             {/* Gráfico de Pizza */}
             {!statsLoading && !statsError && stats && (
-              <PieChart
-                data={pieChartData}
-                title=""
-                description=""
-              />
+              <PieChart data={pieChartData} title="" description="" />
             )}
           </div>
 
@@ -260,8 +271,16 @@ export default function DashboardPage() {
                       Atividade Recente
                     </span>
                   </CardTitle>
-                  <Button variant="ghost" size="sm" asChild className="hover:bg-primary/10 hover:text-primary transition-colors rounded-lg">
-                    <Link href="/feed" className="flex items-center gap-1 font-medium text-sm">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className="hover:bg-primary/10 hover:text-primary transition-colors rounded-lg"
+                  >
+                    <Link
+                      href="/feed"
+                      className="flex items-center gap-1 font-medium text-sm"
+                    >
                       Ver tudo
                       <ArrowRight className="h-4 w-4" />
                     </Link>
@@ -277,7 +296,7 @@ export default function DashboardPage() {
                     <Loading text="Carregando..." />
                   </div>
                 )}
-                
+
                 {feedError && (
                   <ErrorComponent
                     onRetry={() => {
@@ -294,16 +313,18 @@ export default function DashboardPage() {
                   </div>
                 )}
 
-                {!feedLoading && !feedError && recentActivities.length === 0 && (
-                  <div className="text-center py-8">
-                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-muted/20 to-muted/10 flex items-center justify-center mx-auto mb-3">
-                      <TrendingUp className="h-6 w-6 text-muted-foreground" />
+                {!feedLoading &&
+                  !feedError &&
+                  recentActivities.length === 0 && (
+                    <div className="text-center py-8">
+                      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-muted/20 to-muted/10 flex items-center justify-center mx-auto mb-3">
+                        <TrendingUp className="h-6 w-6 text-muted-foreground" />
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Nenhuma atividade recente
+                      </p>
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      Nenhuma atividade recente
-                    </p>
-                  </div>
-                )}
+                  )}
               </CardContent>
             </Card>
           </div>
@@ -320,9 +341,14 @@ export default function DashboardPage() {
                 Bem-vindo ao GuildsBook!
               </h3>
               <p className="text-muted-foreground mb-8 text-lg max-w-md mx-auto leading-relaxed">
-                Comece adicionando livros à sua biblioteca para ver estatísticas e acompanhar seu progresso.
+                Comece adicionando livros à sua biblioteca para ver estatísticas
+                e acompanhar seu progresso.
               </p>
-              <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl transition-all px-8 py-6 text-base">
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl transition-all px-8 py-6 text-base"
+              >
                 <Link href="/books" className="flex items-center gap-2">
                   Buscar Livros
                   <ArrowRight className="h-5 w-5" />

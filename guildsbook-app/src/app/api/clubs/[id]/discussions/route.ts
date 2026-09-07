@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { bookClubDiscussionSchema, paginationSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 
 // GET /api/clubs/[id]/discussions - Listar discussões do clube
@@ -86,8 +91,9 @@ export async function GET(
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
     console.error("Erro ao listar discussões:", error);
@@ -137,7 +143,10 @@ export async function POST(
     });
 
     if (!isOwner && !isMember) {
-      return errorResponse("Apenas membros do clube podem criar discussões", 403);
+      return errorResponse(
+        "Apenas membros do clube podem criar discussões",
+        403
+      );
     }
 
     // Criar discussão
@@ -173,8 +182,9 @@ export async function POST(
     });
 
     return successResponse(discussion, 201);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
     console.error("Erro ao criar discussão:", error);

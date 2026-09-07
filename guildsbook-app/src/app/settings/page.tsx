@@ -1,7 +1,13 @@
 "use client";
 
 import { Layout } from "@/components/layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/card";
 import { Settings as SettingsIcon, Bell, Shield } from "lucide-react";
 
 export default function SettingsPage() {
@@ -23,7 +29,9 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <CardTitle>Notificações</CardTitle>
-                  <CardDescription>Gerencie suas preferências de notificações</CardDescription>
+                  <CardDescription>
+                    Gerencie suas preferências de notificações
+                  </CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -44,7 +52,9 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <CardTitle>Privacidade e Segurança</CardTitle>
-                  <CardDescription>Gerencie suas configurações de privacidade</CardDescription>
+                  <CardDescription>
+                    Gerencie suas configurações de privacidade
+                  </CardDescription>
                 </div>
               </div>
             </CardHeader>

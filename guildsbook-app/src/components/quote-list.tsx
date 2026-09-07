@@ -108,10 +108,7 @@ export function QuoteList({ bookId }: QuoteListProps) {
 
   if (error) {
     return (
-      <ErrorComponent
-        message="Erro ao carregar citações"
-        onRetry={refetch}
-      />
+      <ErrorComponent message="Erro ao carregar citações" onRetry={refetch} />
     );
   }
 
@@ -119,7 +116,8 @@ export function QuoteList({ bookId }: QuoteListProps) {
     return (
       <Card className="p-8 text-center">
         <p className="text-muted-foreground">
-          Ainda não há citações para este livro. Seja o primeiro a compartilhar uma citação!
+          Ainda não há citações para este livro. Seja o primeiro a compartilhar
+          uma citação!
         </p>
       </Card>
     );

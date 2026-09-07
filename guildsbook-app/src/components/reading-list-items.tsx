@@ -63,7 +63,9 @@ export function ReadingListItems({
     return (
       <div className="text-center py-12">
         <BookOpen className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-        <p className="text-muted-foreground">Esta lista ainda não tem livros.</p>
+        <p className="text-muted-foreground">
+          Esta lista ainda não tem livros.
+        </p>
       </div>
     );
   }
@@ -71,7 +73,10 @@ export function ReadingListItems({
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
-        <Card key={item.id} className="h-full hover:shadow-lg transition-shadow">
+        <Card
+          key={item.id}
+          className="h-full hover:shadow-lg transition-shadow"
+        >
           <CardContent className="p-4 flex gap-4">
             <Link
               href={`/books/${item.book.id}`}

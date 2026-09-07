@@ -37,7 +37,7 @@ export function StarRating({
       {Array.from({ length: maxRating }, (_, i) => {
         const value = i + 1;
         const filled = value <= rating;
-        
+
         return (
           <button
             key={value}

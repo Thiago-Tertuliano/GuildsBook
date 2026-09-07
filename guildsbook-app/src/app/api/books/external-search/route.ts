@@ -1,5 +1,8 @@
 import { NextRequest } from "next/server";
-import { searchGoogleBooks, syncGoogleBookToDatabase } from "@/lib/api/google-books";
+import {
+  searchGoogleBooks,
+  syncGoogleBookToDatabase,
+} from "@/lib/api/google-books";
 import { successResponse, errorResponse } from "@/lib/api/utils";
 
 // GET /api/books/external-search - Buscar livros na API do Google Books
@@ -34,7 +37,7 @@ export async function GET(request: NextRequest) {
       totalItems: result.totalItems,
       synced: false,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Erro na busca externa:", error);
     return errorResponse("Erro ao buscar livros na API externa", 500);
   }

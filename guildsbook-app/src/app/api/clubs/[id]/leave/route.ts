@@ -28,7 +28,10 @@ export async function DELETE(
 
     // Não permitir que o dono saia do clube (deveria deletar o clube)
     if (club.ownerId === userId) {
-      return errorResponse("O dono do clube não pode sair. Delete o clube se necessário.", 400);
+      return errorResponse(
+        "O dono do clube não pode sair. Delete o clube se necessário.",
+        400
+      );
     }
 
     // Verificar se é membro
@@ -66,7 +69,7 @@ export async function DELETE(
     ]);
 
     return successResponse({ message: "Você saiu do clube com sucesso" });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Erro ao sair do clube:", error);
     return errorResponse("Erro ao sair do clube", 500);
   }

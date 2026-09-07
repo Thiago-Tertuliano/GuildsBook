@@ -11,45 +11,45 @@ export async function GET(
     const { id } = await params;
 
     // Validar UUID
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+    if (
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        id
+      )
+    ) {
       return errorResponse("ID de usuário inválido", 400);
     }
 
-    const [
-      totalBooks,
-      booksByStatus,
-      averageRating,
-      booksReadData,
-    ] = await Promise.all([
-      prisma.userBook.count({
-        where: { userId: id },
-      }),
-      prisma.userBook.groupBy({
-        by: ["status"],
-        where: { userId: id, status: { not: null } },
-        _count: true,
-      }),
-      prisma.userBook.aggregate({
-        where: {
-          userId: id,
-          rating: { not: null },
-        },
-        _avg: {
-          rating: true,
-        },
-      }),
-      prisma.userBook.findMany({
-        where: {
-          userId: id,
-          status: "LIDO",
-        },
-        include: {
-          book: {
-            select: { pages: true },
+    const [totalBooks, booksByStatus, averageRating, booksReadData] =
+      await Promise.all([
+        prisma.userBook.count({
+          where: { userId: id },
+        }),
+        prisma.userBook.groupBy({
+          by: ["status"],
+          where: { userId: id, status: { not: null } },
+          _count: true,
+        }),
+        prisma.userBook.aggregate({
+          where: {
+            userId: id,
+            rating: { not: null },
           },
-        },
-      }),
-    ]);
+          _avg: {
+            rating: true,
+          },
+        }),
+        prisma.userBook.findMany({
+          where: {
+            userId: id,
+            status: "LIDO",
+          },
+          include: {
+            book: {
+              select: { pages: true },
+            },
+          },
+        }),
+      ]);
 
     const totalPages = booksReadData.reduce(
       (sum, userBook) => sum + (userBook.book.pages || 0),

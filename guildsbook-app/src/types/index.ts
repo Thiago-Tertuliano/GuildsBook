@@ -7,24 +7,24 @@ export type BookClubRole = "OWNER" | "MODERATOR" | "MEMBER";
 
 // Tipos de resposta da API
 export type ApiResponse<T> = {
-    success: boolean;
-    data?: T;
-    error?: string;
-    message?: string;
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
 };
 
 // Tipos para paginacão
 export type PaginationParams = {
-    page?: number;
-    limit?: number;
+  page?: number;
+  limit?: number;
 };
 
 export type PaginatedResponse<T> = {
-    data: T[];
-    pagination: {
-        page: number;
-        limit: number;
-        total: number;
-        totalPages: number;
-    }
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
 };

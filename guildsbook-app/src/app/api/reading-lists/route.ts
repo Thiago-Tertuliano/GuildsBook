@@ -1,6 +1,12 @@
 import { NextRequest } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  getErrorProps,
+  handleValidationError,
+} from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 import { z } from "zod";
 import { paginationSchema } from "@/lib/api/schemas";
@@ -23,7 +29,7 @@ export async function GET(request: NextRequest) {
     const pagination = paginationSchema.parse({ page, limit });
     const skip = (pagination.page - 1) * pagination.limit;
 
-    let where: any = {};
+    const where: Prisma.ReadingListWhereInput = {};
 
     if (filter === "my" && userId) {
       where.userId = userId;
@@ -79,8 +85,9 @@ export async function GET(request: NextRequest) {
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return errorResponse("Parâmetros inválidos", 400);
     }
     console.error("Erro ao listar listas:", error);
@@ -122,9 +129,10 @@ export async function POST(request: NextRequest) {
     });
 
     return successResponse(list, 201);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
-      return errorResponse(error.errors[0].message, 400);
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
+      return handleValidationError(error);
     }
     console.error("Erro ao criar lista:", error);
     return errorResponse("Erro ao criar lista de leitura", 500);

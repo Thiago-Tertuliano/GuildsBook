@@ -114,8 +114,8 @@ export default function ClubsPage() {
                   {filter === "public"
                     ? "Nenhum clube público encontrado."
                     : filter === "my"
-                    ? "Você ainda não faz parte de nenhum clube."
-                    : "Nenhum clube encontrado."}
+                      ? "Você ainda não faz parte de nenhum clube."
+                      : "Nenhum clube encontrado."}
                 </p>
                 {isAuthenticated && filter === "public" && (
                   <Button

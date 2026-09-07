@@ -98,7 +98,7 @@ export async function GET(
       memberCount: club._count.members,
       discussionCount: club._count.discussions,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Erro ao buscar clube:", error);
     return errorResponse("Erro ao buscar clube", 500);
   }

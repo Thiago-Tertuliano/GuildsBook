@@ -1,6 +1,11 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  getErrorProps,
+  handleValidationError,
+} from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 import { z } from "zod";
 
@@ -95,7 +100,10 @@ export async function PUT(
     }
 
     if (list.userId !== userId) {
-      return errorResponse("Você não tem permissão para atualizar esta lista", 403);
+      return errorResponse(
+        "Você não tem permissão para atualizar esta lista",
+        403
+      );
     }
 
     const updatedList = await prisma.readingList.update({
@@ -118,11 +126,12 @@ export async function PUT(
     });
 
     return successResponse(updatedList);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
-      return errorResponse(error.errors[0].message, 400);
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
+      return handleValidationError(error);
     }
-    if (error.code === "P2025") {
+    if (err.code === "P2025") {
       return errorResponse("Lista não encontrada", 404);
     }
     console.error("Erro ao atualizar lista:", error);
@@ -154,7 +163,10 @@ export async function DELETE(
     }
 
     if (list.userId !== userId) {
-      return errorResponse("Você não tem permissão para deletar esta lista", 403);
+      return errorResponse(
+        "Você não tem permissão para deletar esta lista",
+        403
+      );
     }
 
     await prisma.readingList.delete({
@@ -162,8 +174,9 @@ export async function DELETE(
     });
 
     return successResponse({ message: "Lista deletada com sucesso" });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2025") {
       return errorResponse("Lista não encontrada", 404);
     }
     console.error("Erro ao deletar lista:", error);

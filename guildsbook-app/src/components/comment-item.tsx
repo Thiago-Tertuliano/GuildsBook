@@ -51,7 +51,10 @@ export function CommentItem({ comment, onEdit, onDelete }: CommentItemProps) {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-xs font-medium">
-                  {(comment.user.name && comment.user.name.length > 0 ? comment.user.name.charAt(0) : "U").toUpperCase()}
+                  {(comment.user.name && comment.user.name.length > 0
+                    ? comment.user.name.charAt(0)
+                    : "U"
+                  ).toUpperCase()}
                 </div>
               )}
             </div>
@@ -65,7 +68,9 @@ export function CommentItem({ comment, onEdit, onDelete }: CommentItemProps) {
                 >
                   {comment.user.name}
                 </Link>
-                <span className="text-xs text-muted-foreground">{formattedDate}</span>
+                <span className="text-xs text-muted-foreground">
+                  {formattedDate}
+                </span>
               </div>
               {isOwnComment && (onEdit || onDelete) && (
                 <div className="flex gap-1">

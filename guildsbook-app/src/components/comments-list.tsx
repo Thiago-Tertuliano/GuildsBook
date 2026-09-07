@@ -57,9 +57,12 @@ export function CommentsList({ reviewId, onEdit }: CommentsListProps) {
     }
 
     try {
-      const response = await fetch(`/api/comments/${commentId}?userId=${user?.id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `/api/comments/${commentId}?userId=${user?.id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         throw new Error("Erro ao deletar comentário");
       }

@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import { successResponse, errorResponse, getErrorProps } from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 
 // POST /api/quotes/[id]/like - Curtir/descurtir citação
@@ -42,8 +42,9 @@ export async function POST(
     });
 
     return successResponse(updatedQuote);
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2025") {
       return errorResponse("Citação não encontrada", 404);
     }
     console.error("Erro ao curtir citação:", error);

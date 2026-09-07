@@ -70,8 +70,9 @@ export function ReviewForm({
         });
       }
       onSubmit();
-    } catch (err: any) {
-      setError(err.message || "Erro ao salvar review");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : undefined;
+      setError(message || "Erro ao salvar review");
     }
   };
 
@@ -104,9 +105,7 @@ export function ReviewForm({
         </p>
       </div>
 
-      {error && (
-        <p className="text-sm text-destructive">{error}</p>
-      )}
+      {error && <p className="text-sm text-destructive">{error}</p>}
 
       <div className="flex gap-2">
         {onCancel && (
@@ -125,8 +124,8 @@ export function ReviewForm({
           {createMutation.isPending || updateMutation.isPending
             ? "Salvando..."
             : mode === "edit"
-            ? "Atualizar"
-            : "Publicar Review"}
+              ? "Atualizar"
+              : "Publicar Review"}
         </Button>
       </div>
     </form>

@@ -1,9 +1,21 @@
 import { NextRequest } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { successResponse, errorResponse } from "@/lib/api/utils";
-import { searchGoogleBooks, syncGoogleBookToDatabase } from "@/lib/api/google-books";
+import {
+  searchGoogleBooks,
+  syncGoogleBookToDatabase,
+} from "@/lib/api/google-books";
 
-type SortOption = "title_asc" | "title_desc" | "author_asc" | "author_desc" | "year_asc" | "year_desc" | "created_desc" | "created_asc";
+type SortOption =
+  | "title_asc"
+  | "title_desc"
+  | "author_asc"
+  | "author_desc"
+  | "year_asc"
+  | "year_desc"
+  | "created_desc"
+  | "created_asc";
 
 // GET /api/books/search - Buscar livros com filtros avançados (local + Google Books como fallback)
 export async function GET(request: NextRequest) {
@@ -21,7 +33,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     // Construir where clause
-    let where: any = {};
+    const where: Prisma.BookWhereInput = {};
 
     // Busca por texto (título, autor ou ISBN)
     if (query) {
@@ -62,7 +74,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Ordenação
-    let orderBy: any = {};
+    let orderBy: Prisma.BookOrderByWithRelationInput = {};
     switch (sort) {
       case "title_asc":
         orderBy = { title: "asc" };
@@ -105,7 +117,8 @@ export async function GET(request: NextRequest) {
     // Apenas buscar na API externa se não houver filtros específicos (genre, year, publisher, language)
     // e se houver uma query de busca
     const hasSpecificFilters = genre || year || publisher || language;
-    const shouldSearchExternal = query && books.length === 0 && !hasSpecificFilters;
+    const shouldSearchExternal =
+      query && books.length === 0 && !hasSpecificFilters;
 
     if (shouldSearchExternal) {
       try {
@@ -115,7 +128,9 @@ export async function GET(request: NextRequest) {
         if (externalResults.books.length > 0) {
           // Sincronizar os livros encontrados com o banco de dados
           const syncedBooks = await Promise.all(
-            externalResults.books.map((bookData) => syncGoogleBookToDatabase(bookData))
+            externalResults.books.map((bookData) =>
+              syncGoogleBookToDatabase(bookData)
+            )
           );
 
           // Retornar os livros sincronizados (formato do Prisma)

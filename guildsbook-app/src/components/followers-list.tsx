@@ -43,7 +43,11 @@ export function FollowersList({ userId, type }: FollowersListProps) {
   const users = usersData?.data?.data || [];
 
   if (isLoading) {
-    return <Loading text={`Carregando ${type === "followers" ? "seguidores" : "seguindo"}...`} />;
+    return (
+      <Loading
+        text={`Carregando ${type === "followers" ? "seguidores" : "seguindo"}...`}
+      />
+    );
   }
 
   if (error) {

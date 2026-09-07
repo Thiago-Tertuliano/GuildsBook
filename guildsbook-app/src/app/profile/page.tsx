@@ -48,7 +48,7 @@ export default function ProfilePage() {
   );
 
   const profile = profileData?.data;
-  
+
   // Usar imagem da sessão (Google, etc.) como fallback se o avatar do banco estiver vazio
   const userAvatar = profile?.avatar || authUser?.image || null;
 
@@ -72,10 +72,7 @@ export default function ProfilePage() {
     return (
       <Layout withSidebar>
         <div className="px-4 lg:pl-4 lg:pr-8 py-6 w-full">
-          <ErrorComponent
-            message="Erro ao carregar perfil"
-            onRetry={refetch}
-          />
+          <ErrorComponent message="Erro ao carregar perfil" onRetry={refetch} />
         </div>
       </Layout>
     );
@@ -100,11 +97,14 @@ export default function ProfilePage() {
                     alt={profile.name}
                     fill
                     className="object-cover"
-                    unoptimized={userAvatar?.startsWith('http')}
+                    unoptimized={userAvatar?.startsWith("http")}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-2xl md:text-4xl font-bold bg-primary/10 text-primary">
-                    {(profile.name && profile.name.length > 0 ? profile.name.charAt(0) : "U").toUpperCase()}
+                    {(profile.name && profile.name.length > 0
+                      ? profile.name.charAt(0)
+                      : "U"
+                    ).toUpperCase()}
                   </div>
                 )}
               </div>
@@ -114,7 +114,9 @@ export default function ProfilePage() {
                   <div>
                     <h1 className="text-3xl font-bold">{profile.name}</h1>
                     {profile.bio && (
-                      <p className="text-muted-foreground mt-2">{profile.bio}</p>
+                      <p className="text-muted-foreground mt-2">
+                        {profile.bio}
+                      </p>
                     )}
                   </div>
                   <Button
@@ -146,20 +148,32 @@ export default function ProfilePage() {
 
                 <div className="flex gap-6 pt-4 border-t">
                   <div>
-                    <div className="text-2xl font-bold">{profile._count.userBooks}</div>
+                    <div className="text-2xl font-bold">
+                      {profile._count.userBooks}
+                    </div>
                     <div className="text-xs text-muted-foreground">Livros</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">{profile._count.reviews}</div>
+                    <div className="text-2xl font-bold">
+                      {profile._count.reviews}
+                    </div>
                     <div className="text-xs text-muted-foreground">Reviews</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">{profile._count.followers}</div>
-                    <div className="text-xs text-muted-foreground">Seguidores</div>
+                    <div className="text-2xl font-bold">
+                      {profile._count.followers}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Seguidores
+                    </div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">{profile._count.following}</div>
-                    <div className="text-xs text-muted-foreground">Seguindo</div>
+                    <div className="text-2xl font-bold">
+                      {profile._count.following}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Seguindo
+                    </div>
                   </div>
                 </div>
               </div>

@@ -45,7 +45,9 @@ export function BookSearchBar({
           className="pl-10"
         />
       </div>
-      <Button type="button" onClick={() => handleSubmit()}>Buscar</Button>
+      <Button type="button" onClick={() => handleSubmit()}>
+        Buscar
+      </Button>
     </div>
   );
 }

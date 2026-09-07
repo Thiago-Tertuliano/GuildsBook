@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { userBookUpdateSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 
 // PUT /api/user/books/[bookId] - Atualizar status/rating/review
@@ -93,11 +98,12 @@ export async function PUT(
     }
 
     return successResponse(userBook);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
-    if (error.code === "P2025") {
+    if (err.code === "P2025") {
       return errorResponse("Livro não encontrado na biblioteca", 404);
     }
     return errorResponse("Erro ao atualizar livro", 500);
@@ -127,9 +133,12 @@ export async function DELETE(
       },
     });
 
-    return successResponse({ message: "Livro removido da biblioteca com sucesso" });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+    return successResponse({
+      message: "Livro removido da biblioteca com sucesso",
+    });
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2025") {
       return errorResponse("Livro não encontrado na biblioteca", 404);
     }
     return errorResponse("Erro ao remover livro da biblioteca", 500);

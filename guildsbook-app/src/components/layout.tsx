@@ -21,26 +21,30 @@ export function Layout({
   const shouldShowSidebar = withSidebar && isOpen;
 
   return (
-    <div className={cn(
-      "flex flex-col bg-gradient-to-br from-background via-background to-background/95",
-      withSidebar ? "h-screen overflow-hidden" : "min-h-screen"
-    )}>
+    <div
+      className={cn(
+        "flex flex-col bg-gradient-to-br from-background via-background to-background/95",
+        withSidebar ? "h-screen overflow-hidden" : "min-h-screen"
+      )}
+    >
       <Header />
-      <div className={cn(
-        "flex relative",
-        withSidebar ? "flex-1 min-h-0" : "flex-1"
-      )}>
+      <div
+        className={cn(
+          "flex relative",
+          withSidebar ? "flex-1 min-h-0" : "flex-1"
+        )}
+      >
         {shouldShowSidebar && <Sidebar className={sidebarClassName} />}
-        <main className={cn(
-          "flex-1 min-w-0 transition-all duration-300 ease-in-out",
-          "bg-gradient-to-br from-background via-background/98 to-background",
-          withSidebar && "overflow-y-auto overflow-x-hidden", // Apenas o main tem scroll quando há sidebar
-          withSidebar && shouldShowSidebar && "ml-64", // Margem para o sidebar fixo
-          withSidebar && !shouldShowSidebar && "ml-0"
-        )}>
-          <div className={withSidebar ? "min-h-full" : ""}>
-            {children}
-          </div>
+        <main
+          className={cn(
+            "flex-1 min-w-0 transition-all duration-300 ease-in-out",
+            "bg-gradient-to-br from-background via-background/98 to-background",
+            withSidebar && "overflow-y-auto overflow-x-hidden", // Apenas o main tem scroll quando há sidebar
+            withSidebar && shouldShowSidebar && "ml-64", // Margem para o sidebar fixo
+            withSidebar && !shouldShowSidebar && "ml-0"
+          )}
+        >
+          <div className={withSidebar ? "min-h-full" : ""}>{children}</div>
         </main>
       </div>
       {/* Footer apenas quando não há sidebar (páginas públicas) */}

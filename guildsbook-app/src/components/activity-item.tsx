@@ -56,7 +56,10 @@ export function ActivityItem({ activity, onLike }: ActivityItemProps) {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-sm font-medium">
-                    {(activity.user.name && activity.user.name.length > 0 ? activity.user.name.charAt(0) : "U").toUpperCase()}
+                    {(activity.user.name && activity.user.name.length > 0
+                      ? activity.user.name.charAt(0)
+                      : "U"
+                    ).toUpperCase()}
                   </div>
                 )}
               </div>

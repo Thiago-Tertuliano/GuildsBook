@@ -21,7 +21,8 @@ function SignInForm() {
         Configuration: "Há um problema com a configuração do servidor.",
         AccessDenied: "Você não tem permissão para fazer login.",
         Verification: "O link de verificação expirou ou já foi usado.",
-        InvalidCheck: "Erro de verificação. Por favor, limpe os cookies e tente novamente.",
+        InvalidCheck:
+          "Erro de verificação. Por favor, limpe os cookies e tente novamente.",
         Default: "Ocorreu um erro ao fazer login. Tente novamente.",
       };
       setError(errorMessages[errorParam] || errorMessages.Default);
@@ -42,9 +43,13 @@ function SignInForm() {
 
       if (result?.error) {
         if (result.error === "InvalidCheck") {
-          setError("Erro de verificação. Por favor, limpe os cookies do navegador e tente novamente.");
+          setError(
+            "Erro de verificação. Por favor, limpe os cookies do navegador e tente novamente."
+          );
         } else {
-          setError("Erro ao enviar email. Verifique o endereço e tente novamente.");
+          setError(
+            "Erro ao enviar email. Verifique o endereço e tente novamente."
+          );
         }
       } else if (result?.ok) {
         router.push(`/auth/verify-request?email=${encodeURIComponent(email)}`);
@@ -75,7 +80,7 @@ function SignInForm() {
         <source src="/landing-page.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/70 z-[1]"></div>
-      
+
       <div className="w-full max-w-md space-y-8 rounded-3xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl p-10 shadow-2xl border border-white/30 dark:border-zinc-700/50 relative z-10">
         <div className="text-center">
           <div className="inline-flex items-center justify-center mb-4">
@@ -172,7 +177,8 @@ function SignInForm() {
         </div>
 
         <p className="text-center text-xs text-slate-500 dark:text-slate-400">
-          Ao continuar, você concorda com nossos Termos de Serviço e Política de Privacidade.
+          Ao continuar, você concorda com nossos Termos de Serviço e Política de
+          Privacidade.
         </p>
       </div>
     </div>
@@ -181,14 +187,18 @@ function SignInForm() {
 
 export default function SignInPage() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#c39738] border-r-transparent"></div>
-          <p className="mt-4 text-slate-600 dark:text-slate-400">Carregando...</p>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#c39738] border-r-transparent"></div>
+            <p className="mt-4 text-slate-600 dark:text-slate-400">
+              Carregando...
+            </p>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <SignInForm />
     </Suspense>
   );

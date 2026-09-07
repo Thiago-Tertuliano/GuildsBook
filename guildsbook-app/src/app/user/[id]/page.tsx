@@ -102,7 +102,10 @@ export default function PublicProfilePage() {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-2xl md:text-4xl font-bold">
-                    {(profile.name && profile.name.length > 0 ? profile.name.charAt(0) : "U").toUpperCase()}
+                    {(profile.name && profile.name.length > 0
+                      ? profile.name.charAt(0)
+                      : "U"
+                    ).toUpperCase()}
                   </div>
                 )}
               </div>
@@ -112,11 +115,16 @@ export default function PublicProfilePage() {
                   <div>
                     <h1 className="text-3xl font-bold">{profile.name}</h1>
                     {profile.bio && (
-                      <p className="text-muted-foreground mt-2">{profile.bio}</p>
+                      <p className="text-muted-foreground mt-2">
+                        {profile.bio}
+                      </p>
                     )}
                   </div>
                   {!isOwnProfile && (
-                    <FollowButton userId={userId} onFollowChange={handleFollowChange} />
+                    <FollowButton
+                      userId={userId}
+                      onFollowChange={handleFollowChange}
+                    />
                   )}
                 </div>
 
@@ -137,15 +145,23 @@ export default function PublicProfilePage() {
                   <div className="flex items-center gap-2">
                     <BookOpen className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <div className="text-2xl font-bold">{profile._count.userBooks}</div>
-                      <div className="text-xs text-muted-foreground">Livros</div>
+                      <div className="text-2xl font-bold">
+                        {profile._count.userBooks}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Livros
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Star className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <div className="text-2xl font-bold">{profile._count.reviews}</div>
-                      <div className="text-xs text-muted-foreground">Reviews</div>
+                      <div className="text-2xl font-bold">
+                        {profile._count.reviews}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Reviews
+                      </div>
                     </div>
                   </div>
                   <button
@@ -156,8 +172,12 @@ export default function PublicProfilePage() {
                   >
                     <Users className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <div className="text-2xl font-bold">{profile._count.followers}</div>
-                      <div className="text-xs text-muted-foreground">Seguidores</div>
+                      <div className="text-2xl font-bold">
+                        {profile._count.followers}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Seguidores
+                      </div>
                     </div>
                   </button>
                   <button
@@ -168,8 +188,12 @@ export default function PublicProfilePage() {
                   >
                     <Users className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <div className="text-2xl font-bold">{profile._count.following}</div>
-                      <div className="text-xs text-muted-foreground">Seguindo</div>
+                      <div className="text-2xl font-bold">
+                        {profile._count.following}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Seguindo
+                      </div>
                     </div>
                   </button>
                 </div>
@@ -214,7 +238,10 @@ export default function PublicProfilePage() {
         {/* Conteúdo padrão quando info está ativo */}
         {activeTab === "info" && (
           <div className="text-center text-muted-foreground">
-            <p>Clique em "Seguidores" ou "Seguindo" para ver a lista completa.</p>
+            <p>
+              Clique em &quot;Seguidores&quot; ou &quot;Seguindo&quot; para ver
+              a lista completa.
+            </p>
           </div>
         )}
       </div>

@@ -37,12 +37,7 @@ interface QuoteCardProps {
   onLike?: (quoteId: string) => void;
 }
 
-export function QuoteCard({
-  quote,
-  onEdit,
-  onDelete,
-  onLike,
-}: QuoteCardProps) {
+export function QuoteCard({ quote, onEdit, onDelete, onLike }: QuoteCardProps) {
   const { user: currentUser } = useAuth();
   const isOwnQuote = currentUser?.id === quote.user.id;
 
@@ -84,14 +79,19 @@ export function QuoteCard({
                 ) : (
                   <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
                     <span className="text-sm font-medium">
-                      {(quote.user.name && quote.user.name.length > 0 ? quote.user.name.charAt(0) : "U").toUpperCase()}
+                      {(quote.user.name && quote.user.name.length > 0
+                        ? quote.user.name.charAt(0)
+                        : "U"
+                      ).toUpperCase()}
                     </span>
                   </div>
                 )}
                 <span className="font-medium">{quote.user.name}</span>
               </Link>
               <span className="text-sm text-muted-foreground">•</span>
-              <span className="text-sm text-muted-foreground">{formattedDate}</span>
+              <span className="text-sm text-muted-foreground">
+                {formattedDate}
+              </span>
               {!quote.isPublic && (
                 <span title="Privada">
                   <Lock className="h-3 w-3 text-muted-foreground" />
@@ -121,11 +121,7 @@ export function QuoteCard({
           {isOwnQuote && (
             <div className="flex gap-2">
               {onEdit && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onEdit(quote)}
-                >
+                <Button variant="ghost" size="sm" onClick={() => onEdit(quote)}>
                   <Edit className="h-4 w-4" />
                 </Button>
               )}
@@ -147,7 +143,7 @@ export function QuoteCard({
       <CardContent className="space-y-4">
         {/* Citação */}
         <blockquote className="border-l-4 border-primary pl-4 py-2 italic text-lg">
-          "{quote.content}"
+          &ldquo;{quote.content}&rdquo;
         </blockquote>
 
         {/* Metadados (página, capítulo) */}
@@ -175,7 +171,9 @@ export function QuoteCard({
             onClick={handleLike}
             className="flex items-center gap-2"
           >
-            <Heart className={`h-4 w-4 ${quote.likes > 0 ? "fill-red-500 text-red-500" : ""}`} />
+            <Heart
+              className={`h-4 w-4 ${quote.likes > 0 ? "fill-red-500 text-red-500" : ""}`}
+            />
             <span>{quote.likes}</span>
           </Button>
         </div>

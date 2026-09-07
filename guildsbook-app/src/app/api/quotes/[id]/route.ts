@@ -1,6 +1,11 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  getErrorProps,
+  handleValidationError,
+} from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 import { quoteUpdateSchema } from "@/lib/api/schemas";
 
@@ -76,7 +81,10 @@ export async function PUT(
     }
 
     if (quote.userId !== userId) {
-      return errorResponse("Você não tem permissão para atualizar esta citação", 403);
+      return errorResponse(
+        "Você não tem permissão para atualizar esta citação",
+        403
+      );
     }
 
     const updatedQuote = await prisma.quote.update({
@@ -102,11 +110,12 @@ export async function PUT(
     });
 
     return successResponse(updatedQuote);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
-      return errorResponse(error.errors[0].message, 400);
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
+      return handleValidationError(error);
     }
-    if (error.code === "P2025") {
+    if (err.code === "P2025") {
       return errorResponse("Citação não encontrada", 404);
     }
     console.error("Erro ao atualizar citação:", error);
@@ -138,7 +147,10 @@ export async function DELETE(
     }
 
     if (quote.userId !== userId) {
-      return errorResponse("Você não tem permissão para deletar esta citação", 403);
+      return errorResponse(
+        "Você não tem permissão para deletar esta citação",
+        403
+      );
     }
 
     await prisma.quote.delete({
@@ -146,8 +158,9 @@ export async function DELETE(
     });
 
     return successResponse({ message: "Citação deletada com sucesso" });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2025") {
       return errorResponse("Citação não encontrada", 404);
     }
     console.error("Erro ao deletar citação:", error);

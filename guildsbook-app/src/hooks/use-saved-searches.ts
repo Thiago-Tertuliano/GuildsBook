@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { SortOption } from "@/components/book-filters";
 
 export interface SavedSearch {
@@ -19,44 +19,65 @@ export interface SavedSearch {
 
 const STORAGE_KEY = "guildsbook_saved_searches";
 
-export function useSavedSearches() {
-  const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
-
-  useEffect(() => {
-    // Carregar do localStorage
+function readSavedSearches(): SavedSearch[] {
+  try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        setSavedSearches(JSON.parse(stored));
-      } catch (error) {
-        console.error("Erro ao carregar buscas salvas:", error);
-      }
-    }
+    return stored ? (JSON.parse(stored) as SavedSearch[]) : [];
+  } catch (error) {
+    console.error("Erro ao carregar buscas salvas:", error);
+    return [];
+  }
+}
+
+function subscribe(onStoreChange: () => void) {
+  window.addEventListener("storage", onStoreChange);
+  window.addEventListener("guildsbook-saved-searches", onStoreChange);
+  return () => {
+    window.removeEventListener("storage", onStoreChange);
+    window.removeEventListener("guildsbook-saved-searches", onStoreChange);
+  };
+}
+
+function getServerSnapshot(): SavedSearch[] {
+  return [];
+}
+
+function notify() {
+  window.dispatchEvent(new Event("guildsbook-saved-searches"));
+}
+
+export function useSavedSearches() {
+  const savedSearches = useSyncExternalStore(
+    subscribe,
+    readSavedSearches,
+    getServerSnapshot
+  );
+
+  const saveSearch = useCallback(
+    (search: Omit<SavedSearch, "id" | "createdAt">) => {
+      const newSearch: SavedSearch = {
+        ...search,
+        id: Date.now().toString(),
+        createdAt: new Date().toISOString(),
+      };
+      const updated = [...readSavedSearches(), newSearch];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      notify();
+      return newSearch;
+    },
+    []
+  );
+
+  const deleteSearch = useCallback((id: string) => {
+    const updated = readSavedSearches().filter((s) => s.id !== id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    notify();
   }, []);
 
-  const saveSearch = (search: Omit<SavedSearch, "id" | "createdAt">) => {
-    const newSearch: SavedSearch = {
-      ...search,
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString(),
-    };
-
-    const updated = [...savedSearches, newSearch];
-    setSavedSearches(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    return newSearch;
-  };
-
-  const deleteSearch = (id: string) => {
-    const updated = savedSearches.filter((s) => s.id !== id);
-    setSavedSearches(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-  };
-
-  const clearAll = () => {
-    setSavedSearches([]);
+  const clearAll = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
-  };
+    notify();
+  }, []);
 
   return {
     savedSearches,
