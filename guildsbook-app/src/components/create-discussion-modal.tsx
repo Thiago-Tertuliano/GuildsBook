@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getErrorProps } from "@/lib/api/utils";
 import {
   Dialog,
   DialogContent,
@@ -51,38 +52,62 @@ export function CreateDiscussionModal({
       setContent("");
       onClose();
       onSuccess?.();
-    } catch (error: any) {
-      alert(error.message || "Erro ao criar discussão");
+    } catch (error: unknown) {
+      const err = getErrorProps(error);
+      alert(err.message || "Erro ao criar discussão");
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl shadow-2xl overflow-hidden p-0 gap-0" style={{ backgroundColor: '#8d6f29' }}>
+      <DialogContent
+        className="max-w-4xl shadow-2xl overflow-hidden p-0 gap-0"
+        style={{ backgroundColor: "#8d6f29" }}
+      >
         <DialogHeader className="space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-white/10 px-4 pt-4 sm:px-6 sm:pt-6">
           <div className="flex items-start gap-3 sm:gap-4">
-            <div className="p-2 sm:p-3 rounded-xl flex-shrink-0" style={{ backgroundColor: '#7a5f23' }}>
+            <div
+              className="p-2 sm:p-3 rounded-xl flex-shrink-0"
+              style={{ backgroundColor: "#7a5f23" }}
+            >
               <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </div>
             <div className="flex-1 min-w-0">
               <DialogTitle className="text-lg sm:text-2xl text-white font-bold leading-tight">
                 Nova Discussão
               </DialogTitle>
-              <DialogDescription className="text-sm sm:text-base mt-2 sm:mt-3" style={{ color: '#f5ead9' }}>
-                Inicie uma nova discussão no clube de leitura e compartilhe suas ideias com outros membros.
+              <DialogDescription
+                className="text-sm sm:text-base mt-2 sm:mt-3"
+                style={{ color: "#f5ead9" }}
+              >
+                Inicie uma nova discussão no clube de leitura e compartilhe suas
+                ideias com outros membros.
               </DialogDescription>
             </div>
           </div>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="pt-4 sm:pt-6 px-4 sm:px-6 pb-4 sm:pb-6 overflow-y-auto overscroll-contain max-h-[calc(100vh-200px)] sm:max-h-[calc(85vh-120px)]">
+        <form
+          onSubmit={handleSubmit}
+          className="pt-4 sm:pt-6 px-4 sm:px-6 pb-4 sm:pb-6 overflow-y-auto overscroll-contain max-h-[calc(100vh-200px)] sm:max-h-[calc(85vh-120px)]"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Coluna Esquerda */}
             <div className="space-y-4 sm:space-y-5">
               {/* Título */}
-              <div className="space-y-3 sm:space-y-4 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
+              <div
+                className="space-y-3 sm:space-y-4 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]"
+                style={{ backgroundColor: "#7a5f23" }}
+              >
                 <div className="flex items-center gap-2">
-                  <Edit3 className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: '#e8d9b8' }} />
-                  <label htmlFor="title" className="text-sm sm:text-base font-bold" style={{ color: '#f5ead9' }}>
+                  <Edit3
+                    className="h-4 w-4 sm:h-5 sm:w-5"
+                    style={{ color: "#e8d9b8" }}
+                  />
+                  <label
+                    htmlFor="title"
+                    className="text-sm sm:text-base font-bold"
+                    style={{ color: "#f5ead9" }}
+                  >
                     Título da Discussão *
                   </label>
                 </div>
@@ -93,7 +118,7 @@ export function CreateDiscussionModal({
                   placeholder="Ex: Discussão sobre o capítulo 1"
                   required
                   className="bg-white/10 border-0 focus:ring-2 focus:ring-white/40 text-white placeholder:text-gray-300 text-base py-3 transition-all duration-200"
-                  style={{ backgroundColor: '#6b5420' }}
+                  style={{ backgroundColor: "#6b5420" }}
                 />
               </div>
             </div>
@@ -101,10 +126,20 @@ export function CreateDiscussionModal({
             {/* Coluna Direita */}
             <div className="space-y-4 sm:space-y-5">
               {/* Conteúdo */}
-              <div className="space-y-3 sm:space-y-4 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
+              <div
+                className="space-y-3 sm:space-y-4 p-4 sm:p-5 rounded-xl sm:rounded-2xl transition-all duration-200 hover:scale-[1.01]"
+                style={{ backgroundColor: "#7a5f23" }}
+              >
                 <div className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: '#e8d9b8' }} />
-                  <label htmlFor="content" className="text-sm sm:text-base font-bold" style={{ color: '#f5ead9' }}>
+                  <MessageSquare
+                    className="h-4 w-4 sm:h-5 sm:w-5"
+                    style={{ color: "#e8d9b8" }}
+                  />
+                  <label
+                    htmlFor="content"
+                    className="text-sm sm:text-base font-bold"
+                    style={{ color: "#f5ead9" }}
+                  >
                     Conteúdo (opcional)
                   </label>
                 </div>
@@ -114,10 +149,13 @@ export function CreateDiscussionModal({
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Adicione detalhes sobre a discussão, suas perguntas, tópicos que gostaria de abordar..."
                   className="w-full min-h-[200px] sm:min-h-[280px] rounded-lg sm:rounded-xl border-0 bg-white/10 focus:ring-2 focus:ring-white/40 text-white placeholder:text-gray-300 text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-3 transition-all duration-200 resize-none"
-                  style={{ backgroundColor: '#6b5420' }}
+                  style={{ backgroundColor: "#6b5420" }}
                 />
                 {content.length > 0 && (
-                  <p className="text-xs text-right" style={{ color: '#e8d9b8' }}>
+                  <p
+                    className="text-xs text-right"
+                    style={{ color: "#e8d9b8" }}
+                  >
                     {content.length} caracteres
                   </p>
                 )}
@@ -140,7 +178,12 @@ export function CreateDiscussionModal({
               type="submit"
               disabled={createMutation.isPending || !title.trim()}
               className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-sm sm:text-base font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 text-white shadow-lg"
-              style={{ backgroundColor: createMutation.isPending || !title.trim() ? '#6b5420' : '#5e4318' }}
+              style={{
+                backgroundColor:
+                  createMutation.isPending || !title.trim()
+                    ? "#6b5420"
+                    : "#5e4318",
+              }}
             >
               {createMutation.isPending ? (
                 <>

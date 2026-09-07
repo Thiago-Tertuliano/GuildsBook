@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { commentSchema, paginationSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 
 // GET /api/reviews/[reviewId]/comments - Listar comentários
 export async function GET(
@@ -54,8 +59,9 @@ export async function GET(
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
     return errorResponse("Erro ao listar comentários", 500);
@@ -107,8 +113,9 @@ export async function POST(
     });
 
     return successResponse(comment, 201);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
     return errorResponse("Erro ao criar comentário", 500);

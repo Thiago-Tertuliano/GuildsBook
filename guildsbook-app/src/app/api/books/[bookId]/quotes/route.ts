@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import { successResponse, errorResponse, getErrorProps } from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 import { paginationSchema } from "@/lib/api/schemas";
 
@@ -29,7 +30,7 @@ export async function GET(
     }
 
     // Filtro de visibilidade: usuário autenticado vê próprias e públicas
-    let where: any = { bookId };
+    const where: Prisma.QuoteWhereInput = { bookId };
     if (userId) {
       where.OR = [{ isPublic: true }, { userId }];
     } else {
@@ -64,8 +65,9 @@ export async function GET(
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return errorResponse("Parâmetros inválidos", 400);
     }
     console.error("Erro ao listar citações do livro:", error);

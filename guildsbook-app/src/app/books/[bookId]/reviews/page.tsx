@@ -137,11 +137,16 @@ export default function BookReviewsPage() {
               </div>
               <div className="flex-1">
                 <h1 className="text-2xl font-bold mb-2">{book.title}</h1>
-                <p className="text-lg text-muted-foreground mb-4">{book.author}</p>
+                <p className="text-lg text-muted-foreground mb-4">
+                  {book.author}
+                </p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Star className="h-4 w-4" />
-                    <span>{reviews.length} {reviews.length === 1 ? "avaliação" : "avaliações"}</span>
+                    <span>
+                      {reviews.length}{" "}
+                      {reviews.length === 1 ? "avaliação" : "avaliações"}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -161,7 +166,8 @@ export default function BookReviewsPage() {
             <CardContent className="p-8 text-center">
               <Star className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">
-                Este livro ainda não possui avaliações. Seja o primeiro a avaliar!
+                Este livro ainda não possui avaliações. Seja o primeiro a
+                avaliar!
               </p>
             </CardContent>
           </Card>

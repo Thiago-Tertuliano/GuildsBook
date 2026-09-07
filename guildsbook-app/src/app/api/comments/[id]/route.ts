@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { commentUpdateSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 
 // PUT /api/comments/[id] - Atualizar comentário
 export async function PUT(
@@ -28,7 +33,10 @@ export async function PUT(
 
     // Verificar se o usuário é o dono do comentário
     if (comment.userId !== userId) {
-      return errorResponse("Você não tem permissão para atualizar este comentário", 403);
+      return errorResponse(
+        "Você não tem permissão para atualizar este comentário",
+        403
+      );
     }
 
     // Validar dados
@@ -50,11 +58,12 @@ export async function PUT(
     });
 
     return successResponse(updatedComment);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
-    if (error.code === "P2025") {
+    if (err.code === "P2025") {
       return errorResponse("Comentário não encontrado", 404);
     }
     return errorResponse("Erro ao atualizar comentário", 500);
@@ -86,7 +95,10 @@ export async function DELETE(
 
     // Verificar se o usuário é o dono do comentário
     if (comment.userId !== userId) {
-      return errorResponse("Você não tem permissão para deletar este comentário", 403);
+      return errorResponse(
+        "Você não tem permissão para deletar este comentário",
+        403
+      );
     }
 
     // Deletar comentário
@@ -95,8 +107,9 @@ export async function DELETE(
     });
 
     return successResponse({ message: "Comentário deletado com sucesso" });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2025") {
       return errorResponse("Comentário não encontrado", 404);
     }
     return errorResponse("Erro ao deletar comentário", 500);

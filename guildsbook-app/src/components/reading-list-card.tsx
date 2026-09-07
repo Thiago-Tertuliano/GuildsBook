@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/card";
+import { getErrorProps } from "@/lib/api/utils";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/card";
 import { Button } from "@/components/button";
 import { BookOpen, Lock, Globe, Edit, Trash2, User } from "lucide-react";
 import { useMutationApi } from "@/hooks/use-api";
@@ -30,7 +37,12 @@ interface ReadingListCardProps {
   onUpdate?: () => void;
 }
 
-export function ReadingListCard({ list, isOwner, onEdit, onUpdate }: ReadingListCardProps) {
+export function ReadingListCard({
+  list,
+  isOwner,
+  onEdit,
+  onUpdate,
+}: ReadingListCardProps) {
   const deleteMutation = useMutationApi(
     ["reading-lists"],
     `/api/reading-lists/${list.id}`,
@@ -45,8 +57,9 @@ export function ReadingListCard({ list, isOwner, onEdit, onUpdate }: ReadingList
     try {
       await deleteMutation.mutateAsync({});
       onUpdate?.();
-    } catch (error: any) {
-      alert(error.message || "Erro ao deletar lista");
+    } catch (error: unknown) {
+      const err = getErrorProps(error);
+      alert(err.message || "Erro ao deletar lista");
     }
   };
 
@@ -63,17 +76,17 @@ export function ReadingListCard({ list, isOwner, onEdit, onUpdate }: ReadingList
             )}
           </div>
           <div className="flex items-center gap-2 mb-2">
-                      <CardTitle className="text-2xl">{list.name}</CardTitle>
-                      {list.isPublic ? (
-                        <span title="Pública">
-                          <Globe className="h-5 w-5 text-muted-foreground" />
-                        </span>
-                      ) : (
-                        <span title="Privada">
-                          <Lock className="h-5 w-5 text-muted-foreground" />
-                        </span>
-                      )}
-                    </div>
+            <CardTitle className="text-2xl">{list.name}</CardTitle>
+            {list.isPublic ? (
+              <span title="Pública">
+                <Globe className="h-5 w-5 text-muted-foreground" />
+              </span>
+            ) : (
+              <span title="Privada">
+                <Lock className="h-5 w-5 text-muted-foreground" />
+              </span>
+            )}
+          </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -96,11 +109,7 @@ export function ReadingListCard({ list, isOwner, onEdit, onUpdate }: ReadingList
           </Button>
           {isOwner && onEdit && (
             <>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => onEdit(list)}
-              >
+              <Button variant="outline" size="sm" onClick={() => onEdit(list)}>
                 <Edit className="h-3 w-3" />
               </Button>
               <Button

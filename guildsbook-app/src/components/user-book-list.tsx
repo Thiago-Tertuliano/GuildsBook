@@ -4,9 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/card";
 import { Button } from "@/components/button";
-import { BookOpen, Calendar, Star, Edit, Trash2, CheckCircle2, AlertCircle } from "lucide-react";
+import {
+  BookOpen,
+  Calendar,
+  Star,
+  Edit,
+  Trash2,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 import { BookStatus } from "@/types";
-
 
 interface UserBook {
   id: string;
@@ -41,32 +48,40 @@ const statusLabels: Record<BookStatus, string> = {
 };
 
 export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
-    const handleDelete = async (bookId: string) => {
-      if (!confirm("Tem certeza que deseja remover este livro da sua biblioteca?")) {
-        return;
+  const handleDelete = async (bookId: string) => {
+    if (
+      !confirm("Tem certeza que deseja remover este livro da sua biblioteca?")
+    ) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/user/books/${bookId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Erro ao remover livro");
       }
-  
-      try {
-        const response = await fetch(`/api/user/books/${bookId}`, {
-          method: "DELETE",
-        });
-        if (!response.ok) {
-          throw new Error("Erro ao remover livro");
-        }
-        onUpdate();
-      } catch (error) {
-        console.error("Erro ao remover livro:", error);
-        alert("Erro ao remover livro. Tente novamente.");
-      }
-    };
+      onUpdate();
+    } catch (error) {
+      console.error("Erro ao remover livro:", error);
+      alert("Erro ao remover livro. Tente novamente.");
+    }
+  };
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {books.map((userBook) => (
-        <Card key={userBook.id} className="h-full hover:shadow-lg transition-shadow">
+        <Card
+          key={userBook.id}
+          className="h-full hover:shadow-lg transition-shadow"
+        >
           <CardContent className="p-4 flex gap-4">
             <div className="relative w-20 h-28 flex-shrink-0">
-              <Link href={`/books/${userBook.book.id}`} className="relative w-full h-full bg-muted rounded overflow-hidden block">
+              <Link
+                href={`/books/${userBook.book.id}`}
+                className="relative w-full h-full bg-muted rounded overflow-hidden block"
+              >
                 {userBook.book.cover ? (
                   <Image
                     src={userBook.book.cover}
@@ -80,7 +95,7 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
                   </div>
                 )}
               </Link>
-              
+
               {/* Badge de Resenha - Canto superior direito - Apenas se não for "QUERO_LER" */}
               {userBook.status !== "QUERO_LER" && (
                 <div className="absolute -top-2 -right-2 z-10">
@@ -98,7 +113,10 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
             </div>
             <div className="flex-1 min-w-0 space-y-2">
               <div className="flex items-start justify-between gap-2">
-                <Link href={`/books/${userBook.book.id}`} className="flex-1 min-w-0">
+                <Link
+                  href={`/books/${userBook.book.id}`}
+                  className="flex-1 min-w-0"
+                >
                   <h3 className="font-semibold line-clamp-2 hover:text-primary transition-colors">
                     {userBook.book.title}
                   </h3>
@@ -110,20 +128,24 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
 
               {/* Status Badge com bolinha colorida */}
               <div>
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
-                  userBook.status === "LIDO" 
-                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                    : userBook.status === "LENDO"
-                    ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                    : "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                }`}>
-                  <span className={`h-2 w-2 rounded-full ${
-                    userBook.status === "LIDO" 
-                      ? "bg-green-400"
+                <span
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold ${
+                    userBook.status === "LIDO"
+                      ? "bg-green-500/20 text-green-400 border border-green-500/30"
                       : userBook.status === "LENDO"
-                      ? "bg-yellow-400"
-                      : "bg-blue-400"
-                  }`} />
+                        ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                        : "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                  }`}
+                >
+                  <span
+                    className={`h-2 w-2 rounded-full ${
+                      userBook.status === "LIDO"
+                        ? "bg-green-400"
+                        : userBook.status === "LENDO"
+                          ? "bg-yellow-400"
+                          : "bg-blue-400"
+                    }`}
+                  />
                   {statusLabels[userBook.status]}
                 </span>
               </div>
@@ -137,35 +159,41 @@ export function UserBookList({ books, onEdit, onUpdate }: UserBookListProps) {
               )}
 
               {/* Current Page - Barra de Progresso - Apenas se estiver "LENDO" */}
-              {userBook.status === "LENDO" && userBook.currentPage && userBook.book.pages && (
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-muted-foreground font-medium">
-                      Progresso
-                    </span>
-                    <span className="text-muted-foreground font-semibold">
-                      {Math.round((userBook.currentPage / userBook.book.pages) * 100)}%
-                    </span>
+              {userBook.status === "LENDO" &&
+                userBook.currentPage &&
+                userBook.book.pages && (
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground font-medium">
+                        Progresso
+                      </span>
+                      <span className="text-muted-foreground font-semibold">
+                        {Math.round(
+                          (userBook.currentPage / userBook.book.pages) * 100
+                        )}
+                        %
+                      </span>
+                    </div>
+                    <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-300"
+                        style={{
+                          width: `${Math.min(100, (userBook.currentPage / userBook.book.pages) * 100)}%`,
+                          backgroundColor:
+                            userBook.status === "LENDO"
+                              ? "#fbbf24" // yellow-400
+                              : userBook.status === "LIDO"
+                                ? "#4ade80" // green-400
+                                : "#60a5fa", // blue-400
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span>Página {userBook.currentPage}</span>
+                      <span>de {userBook.book.pages}</span>
+                    </div>
                   </div>
-                  <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
-                    <div 
-                      className="h-full rounded-full transition-all duration-300"
-                      style={{
-                        width: `${Math.min(100, (userBook.currentPage / userBook.book.pages) * 100)}%`,
-                        backgroundColor: userBook.status === "LENDO" 
-                          ? '#fbbf24' // yellow-400
-                          : userBook.status === "LIDO"
-                          ? '#4ade80' // green-400
-                          : '#60a5fa' // blue-400
-                      }}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>Página {userBook.currentPage}</span>
-                    <span>de {userBook.book.pages}</span>
-                  </div>
-                </div>
-              )}
+                )}
 
               {/* Metadata */}
               <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">

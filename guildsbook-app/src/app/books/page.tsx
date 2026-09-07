@@ -11,7 +11,7 @@ import { BookList } from "@/components/book-list";
 import { Card } from "@/components/card";
 import { Button } from "@/components/button";
 import { Filter, Bookmark, X } from "lucide-react";
-import { useSavedSearches } from "@/hooks/use-saved-searches"; // Adicionar
+import { useSavedSearches, SavedSearch } from "@/hooks/use-saved-searches"; // Adicionar
 import { SaveSearchModal } from "@/components/save-search-modal"; // Adicionar
 import {
   Dialog,
@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/dialog"; 
+} from "@/components/dialog";
 
 type SearchSource = "local" | "external" | "both";
 
@@ -95,8 +95,22 @@ export default function BooksPage() {
     error: localError,
     refetch: refetchLocal,
   } = useGet<LocalBooksResponse>(
-    ["books", "search", "local", searchQuery, filters.genre, filters.year, filters.publisher, filters.language, filters.sort],
-    searchQuery || filters.genre || filters.year || filters.publisher || filters.language
+    [
+      "books",
+      "search",
+      "local",
+      searchQuery,
+      filters.genre,
+      filters.year,
+      filters.publisher,
+      filters.language,
+      filters.sort,
+    ],
+    searchQuery ||
+      filters.genre ||
+      filters.year ||
+      filters.publisher ||
+      filters.language
       ? buildSearchUrl()
       : `/api/books?page=1&limit=20`,
     true
@@ -119,8 +133,20 @@ export default function BooksPage() {
   const isLoading = isLoadingLocal || isLoadingExternal;
   const hasError = !!localError || !!externalError;
 
-  // Aplicar filtros nos resultados
-  const getBooks = (): Book[] => {
+  // Função para aplicar busca salva
+  const applySavedSearch = (saved: SavedSearch) => {
+    setSearchQuery(saved.query);
+    setFilters({
+      genre: saved.filters.genre || "",
+      year: saved.filters.year || "",
+      publisher: saved.filters.publisher || "",
+      language: saved.filters.language || "",
+      sort: (saved.filters.sort || "created_desc") as SortOption,
+    });
+    setShowSavedSearches(false);
+  };
+
+  const books = useMemo(() => {
     let allBooks: Book[] = [];
 
     if (source === "local") {
@@ -144,7 +170,6 @@ export default function BooksPage() {
 
     // Aplicar filtros (apenas para busca externa ou "both", pois busca local já filtra na API)
     if (source === "local") {
-      // A busca local já vem filtrada da API
       return allBooks;
     }
 
@@ -155,7 +180,11 @@ export default function BooksPage() {
       if (filters.year && book.publishedYear?.toString() !== filters.year) {
         return false;
       }
-      if (filters.publisher && book.publisher && !book.publisher.toLowerCase().includes(filters.publisher.toLowerCase())) {
+      if (
+        filters.publisher &&
+        book.publisher &&
+        !book.publisher.toLowerCase().includes(filters.publisher.toLowerCase())
+      ) {
         return false;
       }
       if (filters.language && book.language !== filters.language) {
@@ -163,22 +192,7 @@ export default function BooksPage() {
       }
       return true;
     });
-  };
-
-  // Função para aplicar busca salva
-  const applySavedSearch = (saved: any) => {
-    setSearchQuery(saved.query);
-    setFilters({
-      genre: saved.filters.genre || "",
-      year: saved.filters.year || "",
-      publisher: saved.filters.publisher || "",
-      language: saved.filters.language || "",
-      sort: (saved.filters.sort || "created_desc") as SortOption,
-    });
-    setShowSavedSearches(false);
-  };
-
-  const books = useMemo(() => getBooks(), [
+  }, [
     localData,
     externalData,
     source,
@@ -186,7 +200,6 @@ export default function BooksPage() {
     filters.year,
     filters.publisher,
     filters.language,
-    filters.sort,
   ]);
 
   return (
@@ -197,7 +210,10 @@ export default function BooksPage() {
             <h1 className="text-2xl md:text-3xl font-bold">Buscar Livros</h1>
             <div className="flex gap-2">
               {/* Botão de buscas salvas */}
-              <Dialog open={showSavedSearches} onOpenChange={setShowSavedSearches}>
+              <Dialog
+                open={showSavedSearches}
+                onOpenChange={setShowSavedSearches}
+              >
                 <DialogTrigger asChild>
                   <Button variant="outline" size="sm">
                     <Bookmark className="h-4 w-4 mr-2" />
@@ -229,10 +245,13 @@ export default function BooksPage() {
                             <div className="font-medium">{saved.name}</div>
                             <div className="text-sm text-muted-foreground">
                               {saved.query || "Sem busca de texto"}
-                              {saved.filters.genre && ` • ${saved.filters.genre}`}
+                              {saved.filters.genre &&
+                                ` • ${saved.filters.genre}`}
                               {saved.filters.year && ` • ${saved.filters.year}`}
-                              {saved.filters.publisher && ` • ${saved.filters.publisher}`}
-                              {saved.filters.language && ` • ${saved.filters.language}`}
+                              {saved.filters.publisher &&
+                                ` • ${saved.filters.publisher}`}
+                              {saved.filters.language &&
+                                ` • ${saved.filters.language}`}
                             </div>
                           </button>
                           <Button
@@ -261,7 +280,11 @@ export default function BooksPage() {
               </Button>
 
               {/* Botão de salvar busca */}
-              {(searchQuery || filters.genre || filters.year || filters.publisher || filters.language) && (
+              {(searchQuery ||
+                filters.genre ||
+                filters.year ||
+                filters.publisher ||
+                filters.language) && (
                 <Button
                   variant="outline"
                   size="sm"
@@ -273,10 +296,7 @@ export default function BooksPage() {
               )}
             </div>
           </div>
-          <BookSearchBar
-            onSearch={setSearchQuery}
-            defaultValue={searchQuery}
-          />
+          <BookSearchBar onSearch={setSearchQuery} defaultValue={searchQuery} />
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6">
@@ -339,7 +359,11 @@ export default function BooksPage() {
                 {books.length === 0 ? (
                   <Card className="p-8 text-center">
                     <p className="text-muted-foreground">
-                      {searchQuery || filters.genre || filters.year || filters.publisher || filters.language
+                      {searchQuery ||
+                      filters.genre ||
+                      filters.year ||
+                      filters.publisher ||
+                      filters.language
                         ? "Nenhum livro encontrado com os filtros aplicados."
                         : "Digite um termo de busca para começar."}
                     </p>

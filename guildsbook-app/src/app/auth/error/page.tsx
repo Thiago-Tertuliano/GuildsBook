@@ -7,23 +7,28 @@ import { Suspense } from "react";
 const errorMessages: Record<string, { title: string; message: string }> = {
   Configuration: {
     title: "Erro de Configuração",
-    message: "Há um problema com a configuração do servidor. Entre em contato com o suporte.",
+    message:
+      "Há um problema com a configuração do servidor. Entre em contato com o suporte.",
   },
   AccessDenied: {
     title: "Acesso Negado",
-    message: "Você não tem permissão para fazer login. Verifique suas credenciais.",
+    message:
+      "Você não tem permissão para fazer login. Verifique suas credenciais.",
   },
   Verification: {
     title: "Link Expirado",
-    message: "O link de verificação expirou ou já foi usado. Solicite um novo link.",
+    message:
+      "O link de verificação expirou ou já foi usado. Solicite um novo link.",
   },
   OAuthAccountNotLinked: {
     title: "Conta Não Vinculada",
-    message: "Este email já está associado a outra conta. Use o método de login original ou entre em contato com o suporte para vincular as contas.",
+    message:
+      "Este email já está associado a outra conta. Use o método de login original ou entre em contato com o suporte para vincular as contas.",
   },
   OAuthCallback: {
     title: "Erro no Callback",
-    message: "Ocorreu um erro ao processar o login. Tente novamente ou use outro método de autenticação.",
+    message:
+      "Ocorreu um erro ao processar o login. Tente novamente ou use outro método de autenticação.",
   },
   Default: {
     title: "Erro ao Fazer Login",
@@ -85,14 +90,18 @@ function AuthErrorContent() {
 
 export default function AuthErrorPage() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
-          <p className="mt-4 text-zinc-600 dark:text-zinc-400">Carregando...</p>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+            <p className="mt-4 text-zinc-600 dark:text-zinc-400">
+              Carregando...
+            </p>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <AuthErrorContent />
     </Suspense>
   );

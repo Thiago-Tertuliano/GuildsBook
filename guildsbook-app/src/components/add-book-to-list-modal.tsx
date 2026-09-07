@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getErrorProps } from "@/lib/api/utils";
 import {
   Dialog,
   DialogContent,
@@ -51,7 +52,9 @@ export function AddBookToListModal({
 
   const { data: searchResults, isLoading: isSearching } = useGet<BooksResponse>(
     ["books", "search", "list-modal", searchQuery],
-    searchQuery ? `/api/books/search?q=${encodeURIComponent(searchQuery)}&page=1&limit=10` : "",
+    searchQuery
+      ? `/api/books/search?q=${encodeURIComponent(searchQuery)}&page=1&limit=10`
+      : "",
     !!searchQuery
   );
 
@@ -74,24 +77,34 @@ export function AddBookToListModal({
       onSuccess();
       setSearchQuery("");
       setSelectedBookId("");
-    } catch (error: any) {
-      alert(error.message || "Erro ao adicionar livro");
+    } catch (error: unknown) {
+      const err = getErrorProps(error);
+      alert(err.message || "Erro ao adicionar livro");
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl shadow-2xl overflow-hidden" style={{ backgroundColor: '#8d6f29' }}>
+      <DialogContent
+        className="max-w-4xl shadow-2xl overflow-hidden"
+        style={{ backgroundColor: "#8d6f29" }}
+      >
         <DialogHeader className="space-y-3 pb-6 border-b border-white/10">
           <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl" style={{ backgroundColor: '#7a5f23' }}>
+            <div
+              className="p-3 rounded-xl"
+              style={{ backgroundColor: "#7a5f23" }}
+            >
               <BookOpen className="h-6 w-6 text-white" />
             </div>
             <div className="flex-1">
               <DialogTitle className="text-2xl text-white font-bold leading-tight">
                 Adicionar Livro à Lista
               </DialogTitle>
-              <DialogDescription className="text-base mt-3" style={{ color: '#f5ead9' }}>
+              <DialogDescription
+                className="text-base mt-3"
+                style={{ color: "#f5ead9" }}
+              >
                 Busque e selecione um livro para adicionar à lista.
               </DialogDescription>
             </div>
@@ -101,14 +114,23 @@ export function AddBookToListModal({
         <form onSubmit={handleSubmit} className="pt-6">
           <div className="space-y-6">
             {/* Busca */}
-            <div className="space-y-4 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.01]" style={{ backgroundColor: '#7a5f23' }}>
+            <div
+              className="space-y-4 p-5 rounded-2xl transition-all duration-200 hover:scale-[1.01]"
+              style={{ backgroundColor: "#7a5f23" }}
+            >
               <div className="flex items-center gap-2">
-                <Search className="h-5 w-5" style={{ color: '#e8d9b8' }} />
-                <label className="text-base font-bold" style={{ color: '#f5ead9' }}>
+                <Search className="h-5 w-5" style={{ color: "#e8d9b8" }} />
+                <label
+                  className="text-base font-bold"
+                  style={{ color: "#f5ead9" }}
+                >
                   Buscar Livro
                 </label>
               </div>
-              <div className="bg-white/10 rounded-xl p-2" style={{ backgroundColor: '#6b5420' }}>
+              <div
+                className="bg-white/10 rounded-xl p-2"
+                style={{ backgroundColor: "#6b5420" }}
+              >
                 <BookSearchBar
                   onSearch={setSearchQuery}
                   placeholder="Digite o título, autor ou ISBN..."
@@ -124,13 +146,19 @@ export function AddBookToListModal({
             )}
 
             {!isSearching && searchQuery && books.length === 0 && (
-              <div className="py-8 text-center text-sm rounded-2xl" style={{ color: '#e8d9b8', backgroundColor: '#7a5f23' }}>
+              <div
+                className="py-8 text-center text-sm rounded-2xl"
+                style={{ color: "#e8d9b8", backgroundColor: "#7a5f23" }}
+              >
                 Nenhum livro encontrado.
               </div>
             )}
 
             {!isSearching && books.length > 0 && (
-              <div className="space-y-2 max-h-[400px] overflow-y-auto rounded-2xl p-4" style={{ backgroundColor: '#7a5f23' }}>
+              <div
+                className="space-y-2 max-h-[400px] overflow-y-auto rounded-2xl p-4"
+                style={{ backgroundColor: "#7a5f23" }}
+              >
                 {books.map((book) => (
                   <button
                     key={book.id}
@@ -143,19 +171,29 @@ export function AddBookToListModal({
                     }`}
                     style={
                       selectedBookId === book.id
-                        ? { backgroundColor: '#5e4318' }
-                        : { backgroundColor: '#6b5420' }
+                        ? { backgroundColor: "#5e4318" }
+                        : { backgroundColor: "#6b5420" }
                     }
                   >
                     <div className="flex items-center gap-3">
                       {selectedBookId === book.id && (
-                        <div className="p-1.5 rounded-full" style={{ backgroundColor: '#7a5f23' }}>
+                        <div
+                          className="p-1.5 rounded-full"
+                          style={{ backgroundColor: "#7a5f23" }}
+                        >
                           <Check className="h-4 w-4 text-white" />
                         </div>
                       )}
                       <div className="flex-1">
-                        <div className="font-bold text-base text-white">{book.title}</div>
-                        <div className="text-sm mt-1" style={{ color: '#e8d9b8' }}>{book.author}</div>
+                        <div className="font-bold text-base text-white">
+                          {book.title}
+                        </div>
+                        <div
+                          className="text-sm mt-1"
+                          style={{ color: "#e8d9b8" }}
+                        >
+                          {book.author}
+                        </div>
                       </div>
                     </div>
                   </button>
@@ -179,7 +217,12 @@ export function AddBookToListModal({
               type="submit"
               disabled={!selectedBookId || addBookMutation.isPending}
               className="px-6 py-2.5 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2 text-white shadow-lg"
-              style={{ backgroundColor: (!selectedBookId || addBookMutation.isPending) ? '#6b5420' : '#5e4318' }}
+              style={{
+                backgroundColor:
+                  !selectedBookId || addBookMutation.isPending
+                    ? "#6b5420"
+                    : "#5e4318",
+              }}
             >
               {addBookMutation.isPending ? (
                 <>

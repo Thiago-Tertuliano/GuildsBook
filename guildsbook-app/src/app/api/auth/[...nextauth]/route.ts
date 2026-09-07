@@ -26,8 +26,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       ...(process.env.SENDGRID_TEMPLATE_ID || process.env.SENDGRID_API_KEY
         ? {
             async sendVerificationRequest({ identifier: email, url }) {
-              const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
-              
+              const baseUrl =
+                process.env.NEXTAUTH_URL || "http://localhost:3000";
+
               // Usa SendGrid API com template dinâmico
               await sendVerificationEmail({
                 to: email,

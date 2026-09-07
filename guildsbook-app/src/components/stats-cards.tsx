@@ -1,15 +1,15 @@
 "use client";
 
 import { Card, CardContent } from "@/components/card";
-import { 
-  BookOpen, 
-  BookMarked, 
-  Eye, 
-  FileText, 
+import {
+  BookOpen,
+  BookMarked,
+  Eye,
+  FileText,
   Star,
   TrendingUp,
   BookCheck,
-  Library
+  Library,
 } from "lucide-react";
 
 interface StatsCardsProps {
@@ -82,32 +82,36 @@ export function StatsCards({
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (
-          <Card 
+          <Card
             key={stat.label}
             className="rounded-2xl border-border/40 bg-gradient-to-br from-card via-card/98 to-card text-card-foreground shadow-lg shadow-primary/5 hover:shadow-primary/10 backdrop-blur-sm group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/20"
           >
             <CardContent className="p-6 relative overflow-hidden">
               {/* Gradiente de fundo sutil no hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-              
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+              />
+
               <div className="relative flex items-center justify-between">
                 <div className="space-y-2 flex-1">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {stat.label}
                   </p>
-                  <p className="text-3xl font-bold text-foreground">{stat.value}</p>
+                  <p className="text-3xl font-bold text-foreground">
+                    {stat.value}
+                  </p>
                   <p className="text-xs text-muted-foreground leading-tight">
                     {stat.description}
                   </p>
                 </div>
-                <div 
+                <div
                   className="h-14 w-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                  style={{ 
+                  style={{
                     backgroundColor: stat.bgColor,
                   }}
                 >
-                  <Icon 
-                    className="h-7 w-7 transition-colors duration-300" 
+                  <Icon
+                    className="h-7 w-7 transition-colors duration-300"
                     style={{ color: stat.color }}
                   />
                 </div>

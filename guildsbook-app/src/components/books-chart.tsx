@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/card";
 import { useMemo } from "react";
 
 interface DataPoint {
@@ -16,9 +22,9 @@ interface BooksChartProps {
   showDescription?: boolean;
 }
 
-export function BooksChart({ 
-  data, 
-  title, 
+export function BooksChart({
+  data,
+  title,
   type,
   color = "hsl(var(--primary))",
   showDescription = false,
@@ -43,7 +49,9 @@ export function BooksChart({
         <CardHeader>
           <CardTitle>{title}</CardTitle>
           {showDescription && (
-            <CardDescription>Visualização dos seus dados de leitura</CardDescription>
+            <CardDescription>
+              Visualização dos seus dados de leitura
+            </CardDescription>
           )}
         </CardHeader>
         <CardContent>
@@ -62,7 +70,9 @@ export function BooksChart({
       <CardHeader className="hidden">
         <CardTitle>{title}</CardTitle>
         {showDescription && (
-          <CardDescription>Visualização dos seus dados de leitura</CardDescription>
+          <CardDescription>
+            Visualização dos seus dados de leitura
+          </CardDescription>
         )}
       </CardHeader>
       <CardContent>
@@ -70,7 +80,8 @@ export function BooksChart({
           {/* Gráfico de barras melhorado */}
           <div className="flex items-end gap-3 h-[240px] overflow-x-auto pb-6 px-2">
             {data.map((item, index) => {
-              const height = maxCount > 0 ? (item.count / maxCount) * maxBarHeight : 0;
+              const height =
+                maxCount > 0 ? (item.count / maxCount) * maxBarHeight : 0;
               const label =
                 type === "month"
                   ? `${item.period.split("-")[1]}/${item.period.split("-")[0]}`
@@ -78,12 +89,27 @@ export function BooksChart({
 
               // Cores vibrantes baseadas na posição
               const colorVariations = [
-                { from: "hsl(var(--primary))", to: "hsl(var(--primary) / 0.7)" },
+                {
+                  from: "hsl(var(--primary))",
+                  to: "hsl(var(--primary) / 0.7)",
+                },
                 { from: "hsl(var(--accent))", to: "hsl(var(--accent) / 0.7)" },
-                { from: "hsl(var(--secondary))", to: "hsl(var(--secondary) / 0.7)" },
-                { from: "hsl(var(--primary) / 0.9)", to: "hsl(var(--accent) / 0.7)" },
-                { from: "hsl(var(--accent) / 0.9)", to: "hsl(var(--secondary) / 0.7)" },
-                { from: "hsl(var(--secondary) / 0.9)", to: "hsl(var(--primary) / 0.7)" },
+                {
+                  from: "hsl(var(--secondary))",
+                  to: "hsl(var(--secondary) / 0.7)",
+                },
+                {
+                  from: "hsl(var(--primary) / 0.9)",
+                  to: "hsl(var(--accent) / 0.7)",
+                },
+                {
+                  from: "hsl(var(--accent) / 0.9)",
+                  to: "hsl(var(--secondary) / 0.7)",
+                },
+                {
+                  from: "hsl(var(--secondary) / 0.9)",
+                  to: "hsl(var(--primary) / 0.7)",
+                },
               ];
               const barColors = colorVariations[index % colorVariations.length];
 
@@ -137,22 +163,34 @@ export function BooksChart({
                 <div className="text-primary/70 text-xs uppercase tracking-wide mb-2 font-semibold">
                   Total
                 </div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">{total}</div>
-                <div className="text-xs text-muted-foreground font-medium mt-1">livros</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  {total}
+                </div>
+                <div className="text-xs text-muted-foreground font-medium mt-1">
+                  livros
+                </div>
               </div>
               <div className="text-center p-4 rounded-lg bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20">
                 <div className="text-accent/70 text-xs uppercase tracking-wide mb-2 font-semibold">
                   Média
                 </div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">{average}</div>
-                <div className="text-xs text-muted-foreground font-medium mt-1">por período</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
+                  {average}
+                </div>
+                <div className="text-xs text-muted-foreground font-medium mt-1">
+                  por período
+                </div>
               </div>
               <div className="text-center p-4 rounded-lg bg-gradient-to-br from-secondary/10 to-secondary/5 border border-secondary/20">
                 <div className="text-secondary-foreground/70 text-xs uppercase tracking-wide mb-2 font-semibold">
                   Períodos
                 </div>
-                <div className="text-3xl font-bold text-foreground">{data.length}</div>
-                <div className="text-xs text-muted-foreground font-medium mt-1">registrados</div>
+                <div className="text-3xl font-bold text-foreground">
+                  {data.length}
+                </div>
+                <div className="text-xs text-muted-foreground font-medium mt-1">
+                  registrados
+                </div>
               </div>
             </div>
           </div>

@@ -49,7 +49,8 @@ export function ProfileStats({ userId, reviewCount }: ProfileStatsProps) {
         <CardContent>
           <div className="text-2xl font-bold">{stats.totalBooks}</div>
           <p className="text-xs text-muted-foreground">
-            {stats.booksByStatus.QUERO_LER} quero ler, {stats.booksByStatus.LENDO} lendo, {stats.booksRead} lidos
+            {stats.booksByStatus.QUERO_LER} quero ler,{" "}
+            {stats.booksByStatus.LENDO} lendo, {stats.booksRead} lidos
           </p>
         </CardContent>
       </Card>

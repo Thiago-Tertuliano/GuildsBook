@@ -14,6 +14,7 @@ import { Users, Lock, Globe, MessageSquare, Plus, LogOut } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useAuth } from "@/hooks/use-auth";
+import { getErrorProps } from "@/lib/api/utils";
 
 interface BookClub {
   id: string;
@@ -77,7 +78,8 @@ export default function ClubDetailsPage() {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
   const clubId = params.id as string;
-  const [isCreateDiscussionModalOpen, setIsCreateDiscussionModalOpen] = useState(false);
+  const [isCreateDiscussionModalOpen, setIsCreateDiscussionModalOpen] =
+    useState(false);
 
   const {
     data: clubData,
@@ -118,8 +120,9 @@ export default function ClubDetailsPage() {
     try {
       await leaveMutation.mutateAsync({});
       router.push("/clubs");
-    } catch (error: any) {
-      alert(error.message || "Erro ao sair do clube");
+    } catch (error: unknown) {
+      const err = getErrorProps(error);
+      alert(err.message || "Erro ao sair do clube");
     }
   };
 
@@ -166,7 +169,9 @@ export default function ClubDetailsPage() {
                   </span>
                 </div>
                 {club.description && (
-                  <p className="text-muted-foreground mt-2">{club.description}</p>
+                  <p className="text-muted-foreground mt-2">
+                    {club.description}
+                  </p>
                 )}
                 <div className="flex items-center gap-6 mt-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
@@ -181,11 +186,12 @@ export default function ClubDetailsPage() {
                     <span>{club.discussionCount || 0} discussões</span>
                   </div>
                   <div>
-                    Criado por <span className="font-medium">{club.owner.name}</span>
+                    Criado por{" "}
+                    <span className="font-medium">{club.owner.name}</span>
                   </div>
                   <div>
                     Criado em{" "}
-                    {format(new Date(club.createdAt || Date.now()), "dd/MM/yyyy", {
+                    {format(new Date(club.createdAt || 0), "dd/MM/yyyy", {
                       locale: ptBR,
                     })}
                   </div>
@@ -279,7 +285,10 @@ export default function ClubDetailsPage() {
               ) : (
                 <div className="space-y-4">
                   {discussions.map((discussion) => (
-                    <DiscussionCard key={discussion.id} discussion={discussion} />
+                    <DiscussionCard
+                      key={discussion.id}
+                      discussion={discussion}
+                    />
                   ))}
                 </div>
               )}

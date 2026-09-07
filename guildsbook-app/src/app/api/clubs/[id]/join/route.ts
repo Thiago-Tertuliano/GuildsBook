@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { successResponse, errorResponse } from "@/lib/api/utils";
+import { successResponse, errorResponse, getErrorProps } from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 
 // POST /api/clubs/[id]/join - Participar do clube
@@ -47,7 +47,10 @@ export async function POST(
 
     // Verificar se o clube é privado e o usuário não é o dono
     if (!club.isPublic && club.ownerId !== userId) {
-      return errorResponse("Não é possível participar de clubes privados sem convite", 403);
+      return errorResponse(
+        "Não é possível participar de clubes privados sem convite",
+        403
+      );
     }
 
     // Adicionar membro
@@ -70,8 +73,9 @@ export async function POST(
     ]);
 
     return successResponse({ message: "Você entrou no clube com sucesso" });
-  } catch (error: any) {
-    if (error.code === "P2002") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2002") {
       // Unique constraint violation
       return errorResponse("Você já é membro deste clube", 400);
     }

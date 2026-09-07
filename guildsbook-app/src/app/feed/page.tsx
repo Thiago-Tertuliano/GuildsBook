@@ -112,10 +112,7 @@ export default function FeedPage() {
         {isLoading && <Loading text="Carregando feed..." />}
 
         {error && (
-          <ErrorComponent
-            message="Erro ao carregar feed"
-            onRetry={refetch}
-          />
+          <ErrorComponent message="Erro ao carregar feed" onRetry={refetch} />
         )}
 
         {!isLoading && !error && (

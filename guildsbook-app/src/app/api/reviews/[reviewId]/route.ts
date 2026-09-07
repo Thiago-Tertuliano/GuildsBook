@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { reviewUpdateSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 
 // PUT /api/reviews/[reviewId] - Atualizar review
 export async function PUT(
@@ -28,14 +33,20 @@ export async function PUT(
 
     // Verificar se o usuário é o dono da review
     if (review.userId !== userId) {
-      return errorResponse("Você não tem permissão para atualizar esta review", 403);
+      return errorResponse(
+        "Você não tem permissão para atualizar esta review",
+        403
+      );
     }
 
     // Validar dados
     const validatedData = reviewUpdateSchema.parse(body);
 
     if (!validatedData.content && validatedData.rating === undefined) {
-      return errorResponse("Pelo menos um campo (content ou rating) deve ser fornecido", 400);
+      return errorResponse(
+        "Pelo menos um campo (content ou rating) deve ser fornecido",
+        400
+      );
     }
 
     // Atualizar review
@@ -59,11 +70,12 @@ export async function PUT(
     });
 
     return successResponse(updatedReview);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
-    if (error.code === "P2025") {
+    if (err.code === "P2025") {
       return errorResponse("Review não encontrada", 404);
     }
     return errorResponse("Erro ao atualizar review", 500);
@@ -95,7 +107,10 @@ export async function DELETE(
 
     // Verificar se o usuário é o dono da review
     if (review.userId !== userId) {
-      return errorResponse("Você não tem permissão para deletar esta review", 403);
+      return errorResponse(
+        "Você não tem permissão para deletar esta review",
+        403
+      );
     }
 
     // Deletar review (os comentários serão deletados automaticamente devido ao onDelete: Cascade)
@@ -104,8 +119,9 @@ export async function DELETE(
     });
 
     return successResponse({ message: "Review deletada com sucesso" });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.code === "P2025") {
       return errorResponse("Review não encontrada", 404);
     }
     return errorResponse("Erro ao deletar review", 500);

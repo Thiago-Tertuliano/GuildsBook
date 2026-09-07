@@ -152,7 +152,7 @@ export async function GET(request: NextRequest) {
       avgRating,
       totalNotRead,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Erro ao buscar estatísticas:", error);
     return errorResponse("Erro ao buscar estatísticas", 500);
   }

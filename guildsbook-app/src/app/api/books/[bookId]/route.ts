@@ -5,10 +5,10 @@ import { successResponse, errorResponse } from "@/lib/api/utils";
 // GET /api/books/[bookId] - Detalhes de um livro
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ bookId: string }> }  
+  { params }: { params: Promise<{ bookId: string }> }
 ) {
   try {
-    const { bookId } = await params;  
+    const { bookId } = await params;
     const book = await prisma.book.findUnique({
       where: { id: bookId },
       include: {

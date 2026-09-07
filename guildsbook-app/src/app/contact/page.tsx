@@ -67,15 +67,15 @@ export default function ContactPage() {
                 <Mail className="h-5 w-5 text-primary" />
                 <h3 className="text-lg font-semibold text-foreground">Email</h3>
               </div>
-              <p className="text-muted-foreground">
-                contato@guildsbook.com
-              </p>
+              <p className="text-muted-foreground">contato@guildsbook.com</p>
             </div>
 
             <div className="bg-gradient-to-br from-card via-card to-card/95 rounded-xl p-6 shadow-md border border-border/40">
               <div className="flex items-center gap-3 mb-3">
                 <MessageSquare className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-foreground">Tempo de Resposta</h3>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Tempo de Resposta
+                </h3>
               </div>
               <p className="text-muted-foreground">
                 Respondemos em até 48 horas úteis
@@ -87,8 +87,8 @@ export default function ContactPage() {
                 Outras formas de contato
               </h3>
               <p className="text-sm text-muted-foreground">
-                Para questões urgentes ou relacionadas à sua conta, você também pode 
-                usar o sistema de suporte dentro da plataforma.
+                Para questões urgentes ou relacionadas à sua conta, você também
+                pode usar o sistema de suporte dentro da plataforma.
               </p>
             </div>
           </div>

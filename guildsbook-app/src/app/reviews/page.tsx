@@ -43,7 +43,7 @@ interface FeedResponse {
 
 export default function ReviewsPage() {
   const { user } = useAuth();
-  
+
   const {
     data: feedData,
     isLoading,
@@ -100,7 +100,8 @@ export default function ReviewsPage() {
               <Card className="p-8 text-center">
                 <Star className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">
-                  Você ainda não fez nenhuma avaliação. Comece avaliando os livros que você leu!
+                  Você ainda não fez nenhuma avaliação. Comece avaliando os
+                  livros que você leu!
                 </p>
               </Card>
             ) : (

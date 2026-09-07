@@ -49,6 +49,7 @@ export function EditQuoteModal({
         </DialogHeader>
 
         <QuoteForm
+          key={quote.id}
           bookId={quote.book.id}
           quoteId={quote.id}
           initialContent={quote.content}

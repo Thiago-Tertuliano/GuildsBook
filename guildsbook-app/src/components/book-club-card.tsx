@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/card";
+import { getErrorProps } from "@/lib/api/utils";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/card";
 import { Button } from "@/components/button";
 import { Users, Lock, Globe, MessageSquare } from "lucide-react";
 import { useMutationApi } from "@/hooks/use-api";
@@ -43,8 +50,9 @@ export function BookClubCard({ club, onUpdate }: BookClubCardProps) {
       await joinMutation.mutateAsync({});
       onUpdate?.();
       router.refresh();
-    } catch (error: any) {
-      alert(error.message || "Erro ao entrar no clube");
+    } catch (error: unknown) {
+      const err = getErrorProps(error);
+      alert(err.message || "Erro ao entrar no clube");
     }
   };
 

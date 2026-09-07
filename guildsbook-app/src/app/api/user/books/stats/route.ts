@@ -12,48 +12,44 @@ export async function GET(request: NextRequest) {
       return errorResponse("Não autenticado", 401);
     }
 
-    const [
-      totalBooks,
-      booksByStatus,
-      averageRating,
-      booksReadData,
-    ] = await Promise.all([
-      // Total de livros na biblioteca
-      prisma.userBook.count({
-        where: { userId },
-      }),
+    const [totalBooks, booksByStatus, averageRating, booksReadData] =
+      await Promise.all([
+        // Total de livros na biblioteca
+        prisma.userBook.count({
+          where: { userId },
+        }),
 
-      // Livros por status
-      prisma.userBook.groupBy({
-        by: ["status"],
-        where: { userId, status: { not: null } },
-        _count: true,
-      }),
+        // Livros por status
+        prisma.userBook.groupBy({
+          by: ["status"],
+          where: { userId, status: { not: null } },
+          _count: true,
+        }),
 
-      // Média de ratings
-      prisma.userBook.aggregate({
-        where: {
-          userId,
-          rating: { not: null },
-        },
-        _avg: {
-          rating: true,
-        },
-      }),
-
-      // Buscar livros lidos para calcular páginas
-      prisma.userBook.findMany({
-        where: {
-          userId,
-          status: "LIDO",
-        },
-        include: {
-          book: {
-            select: { pages: true },
+        // Média de ratings
+        prisma.userBook.aggregate({
+          where: {
+            userId,
+            rating: { not: null },
           },
-        },
-      }),
-    ]);
+          _avg: {
+            rating: true,
+          },
+        }),
+
+        // Buscar livros lidos para calcular páginas
+        prisma.userBook.findMany({
+          where: {
+            userId,
+            status: "LIDO",
+          },
+          include: {
+            book: {
+              select: { pages: true },
+            },
+          },
+        }),
+      ]);
 
     // Calcular total de páginas lidas
     const totalPages = booksReadData.reduce(

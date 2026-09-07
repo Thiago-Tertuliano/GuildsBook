@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { successResponse, errorResponse } from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
@@ -15,8 +16,8 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     // Se filtrar por "following" e usuário estiver autenticado
-    let whereClause: any = {};
-    
+    const whereClause: Prisma.ReviewWhereInput = {};
+
     if (filter === "following" && userId) {
       // Buscar IDs dos usuários que o usuário segue
       const followingUsers = await prisma.follow.findMany({
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
       });
 
       const followingIds = followingUsers.map((f) => f.followingId);
-      
+
       if (followingIds.length === 0) {
         // Se não segue ninguém, retornar vazio
         return successResponse({

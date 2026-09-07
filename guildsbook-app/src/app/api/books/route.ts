@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { bookSchema, paginationSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 
 // GET /api/books - Listar livros (com paginação)
 export async function GET(request: NextRequest) {
@@ -34,8 +39,9 @@ export async function GET(request: NextRequest) {
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
     return errorResponse("Erro ao listar livros", 500);
@@ -56,11 +62,12 @@ export async function POST(request: NextRequest) {
     });
 
     return successResponse(book, 201);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
-    if (error.code === "P2002") {
+    if (err.code === "P2002") {
       return errorResponse("ISBN já existe", 409);
     }
     return errorResponse("Erro ao criar livro", 500);

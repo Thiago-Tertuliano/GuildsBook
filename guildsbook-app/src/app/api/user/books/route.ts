@@ -1,7 +1,13 @@
 import { NextRequest } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { userBookSchema, paginationSchema } from "@/lib/api/schemas";
-import { successResponse, errorResponse, handleValidationError } from "@/lib/api/utils";
+import {
+  successResponse,
+  errorResponse,
+  handleValidationError,
+  getErrorProps,
+} from "@/lib/api/utils";
 import { getUserId } from "@/lib/auth";
 
 // GET /api/user/books - Listar livros do usuário
@@ -21,7 +27,7 @@ export async function GET(request: NextRequest) {
     const pagination = paginationSchema.parse({ page, limit });
     const skip = (pagination.page - 1) * pagination.limit;
 
-    const where: any = { userId };
+    const where: Prisma.UserBookWhereInput = { userId };
     if (status) {
       where.status = status;
     }
@@ -48,8 +54,9 @@ export async function GET(request: NextRequest) {
         totalPages: Math.ceil(total / pagination.limit),
       },
     });
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
     return errorResponse("Erro ao listar livros do usuário", 500);
@@ -107,14 +114,15 @@ export async function POST(request: NextRequest) {
     }
 
     return successResponse(userBook, existingUserBook ? 200 : 201);
-  } catch (error: any) {
-    if (error.name === "ZodError") {
+  } catch (error: unknown) {
+    const err = getErrorProps(error);
+    if (err.name === "ZodError") {
       return handleValidationError(error);
     }
-    if (error.code === "P2002") {
+    if (err.code === "P2002") {
       return errorResponse("Livro já está na biblioteca", 409);
     }
-    if (error.code === "P2025") {
+    if (err.code === "P2025") {
       return errorResponse("Livro não encontrado na biblioteca", 404);
     }
     return errorResponse("Erro ao adicionar livro à biblioteca", 500);

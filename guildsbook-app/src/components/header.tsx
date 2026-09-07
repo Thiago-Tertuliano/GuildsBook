@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -16,40 +16,48 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, Menu, LogIn, User as UserIcon, Settings } from "lucide-react";
+
+function subscribe() {
+  return () => {};
+}
+
+function getClientSnapshot() {
+  return true;
+}
+
+function getServerSnapshot() {
+  return false;
+}
 
 export function Header() {
   const { user, isAuthenticated, isLoading, signOut } = useAuth();
   const pathname = usePathname();
   const { toggle } = useSidebar();
-  const [mounted, setMounted] = useState(false);
-  
-  // Evitar hidratação mismatch - só renderizar conteúdo dinâmico após montagem
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
+  const mounted = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot
+  );
+
   const isLandingPage = pathname === "/";
 
   const userAvatar = user?.image;
   const userName = user?.name || user?.email?.split("@")[0] || "U";
-  const initials = (userName || "U")
-    .split(" ")
-    .map((n) => n && n.length > 0 ? n[0] : "")
-    .filter(Boolean)
-    .join("")
-    .toUpperCase()
-    .slice(0, 2) || "U";
+  const initials =
+    (userName || "U")
+      .split(" ")
+      .map((n) => (n && n.length > 0 ? n[0] : ""))
+      .filter(Boolean)
+      .join("")
+      .toUpperCase()
+      .slice(0, 2) || "U";
 
   const handleLogout = async () => {
     await signOut({ callbackUrl: "/" });
   };
-  
+
   // Durante SSR e carregamento inicial, renderizar versão estática
   // Só renderizar conteúdo que depende de autenticação após hidratação completa
   const isClientReady = mounted;
@@ -61,27 +69,31 @@ export function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-7xl">
         <div className="flex items-center gap-6">
           {/* Botão hambúrguer - sempre renderizar espaço para evitar layout shift */}
-          <div className={cn(
-            "w-10 h-10 flex items-center justify-center",
-            (!isClientReady || isLoading || isLandingPage || !isAuthenticated) && "invisible"
-          )}>
+          <div
+            className={cn(
+              "w-10 h-10 flex items-center justify-center",
+              (!isClientReady ||
+                isLoading ||
+                isLandingPage ||
+                !isAuthenticated) &&
+                "invisible"
+            )}
+          >
             <Button
               variant="ghost"
               size="sm"
               onClick={toggle}
-              className={cn(
-                !isClientReady && "pointer-events-none opacity-0"
-              )}
+              className={cn(!isClientReady && "pointer-events-none opacity-0")}
             >
               <Menu className="h-5 w-5" />
             </Button>
           </div>
           <Link href="/" className="flex items-center">
-            <Image 
-              src="/logo.png" 
-              alt="GuildsBook" 
-              width={150} 
-              height={80} 
+            <Image
+              src="/logo.png"
+              alt="GuildsBook"
+              width={150}
+              height={80}
               className="h-14 w-auto object-contain"
               priority
             />
@@ -116,11 +128,16 @@ export function Header() {
                 <button className="outline-none focus:outline-none">
                   <Avatar className="h-9 w-9 cursor-pointer hover:ring-2 hover:ring-primary/50 transition-all duration-200 hover:scale-105">
                     <AvatarImage src={userAvatar || undefined} alt={userName} />
-                    <AvatarFallback className="bg-primary/10 text-primary font-semibold">{initials}</AvatarFallback>
+                    <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                      {initials}
+                    </AvatarFallback>
                   </Avatar>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-background/95 backdrop-blur-xl border-border/50 shadow-xl">
+              <DropdownMenuContent
+                align="end"
+                className="w-56 bg-background/95 backdrop-blur-xl border-border/50 shadow-xl"
+              >
                 {/* Informações do Usuário */}
                 <DropdownMenuLabel className="px-3 py-2.5">
                   <div className="flex flex-col space-y-1">
@@ -135,26 +152,38 @@ export function Header() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                
+
                 {/* Menu Items */}
-                <DropdownMenuItem asChild className="px-3 py-2.5 cursor-pointer hover:bg-accent/50 transition-colors duration-200">
-                  <Link href="/profile" className="flex items-center gap-3 w-full">
+                <DropdownMenuItem
+                  asChild
+                  className="px-3 py-2.5 cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+                >
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-3 w-full"
+                  >
                     <UserIcon className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm">Meu Perfil</span>
                   </Link>
                 </DropdownMenuItem>
-                
-                <DropdownMenuItem asChild className="px-3 py-2.5 cursor-pointer hover:bg-accent/50 transition-colors duration-200">
-                  <Link href="/settings" className="flex items-center gap-3 w-full">
+
+                <DropdownMenuItem
+                  asChild
+                  className="px-3 py-2.5 cursor-pointer hover:bg-accent/50 transition-colors duration-200"
+                >
+                  <Link
+                    href="/settings"
+                    className="flex items-center gap-3 w-full"
+                  >
                     <Settings className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm">Configurações</span>
                   </Link>
                 </DropdownMenuItem>
-                
+
                 <DropdownMenuSeparator />
-                
+
                 {/* Logout */}
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={handleLogout}
                   variant="destructive"
                   className="px-3 py-2.5 cursor-pointer hover:bg-destructive/10 transition-colors duration-200"
@@ -165,9 +194,9 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : showLoginButton ? (
-            <Button 
-              size="sm" 
-              className="bg-gradient-to-r from-[#c39738] to-[#7f4311] hover:from-[#b08732] hover:to-[#6f3a0f] text-white shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" 
+            <Button
+              size="sm"
+              className="bg-gradient-to-r from-[#c39738] to-[#7f4311] hover:from-[#b08732] hover:to-[#6f3a0f] text-white shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
               asChild
             >
               <Link href="/auth/signin" className="flex items-center gap-2">

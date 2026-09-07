@@ -84,7 +84,7 @@ export function SaveSearchModal({
           <div className="p-3 bg-muted rounded-md text-sm">
             <div className="font-medium mb-1">Prévia da busca:</div>
             <div className="text-muted-foreground">
-              {query && <div>Texto: "{query}"</div>}
+              {query && <div>Texto: &quot;{query}&quot;</div>}
               {filters.genre && <div>Gênero: {filters.genre}</div>}
               {filters.year && <div>Ano: {filters.year}</div>}
               {filters.publisher && <div>Editora: {filters.publisher}</div>}

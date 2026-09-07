@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/card";
 import { useAuth } from "@/hooks/use-auth";
 import {
   BookOpen,
@@ -60,7 +66,7 @@ export default function HomePage() {
           </video>
           {/* Overlay escuro para destacar o texto */}
           <div className="absolute inset-0 bg-black/85 z-[1]"></div>
-          
+
           <div className="relative z-10 container mx-auto flex flex-col items-center justify-center gap-6">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
               <span className="text-white">Bem-vindo ao </span>
@@ -69,17 +75,26 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="max-w-2xl mx-auto text-lg text-white/90 sm:text-xl">
-              Sua plataforma social para descobrir livros, compartilhar avaliações
-              e conectar-se com outros leitores apaixonados.
+              Sua plataforma social para descobrir livros, compartilhar
+              avaliações e conectar-se com outros leitores apaixonados.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-6">
-              <Button size="lg" className="bg-gradient-to-r from-[#c39738] to-[#7f4311] hover:from-[#b08732] hover:to-[#6f3a0f] text-white shadow-lg shadow-[#c39738]/50" asChild>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-[#c39738] to-[#7f4311] hover:from-[#b08732] hover:to-[#6f3a0f] text-white shadow-lg shadow-[#c39738]/50"
+                asChild
+              >
                 <Link href="/auth/signin">
                   Começar Agora
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-[#c39738] text-[#7f4311] hover:bg-[#ffff96]/30 dark:border-[#c39738] dark:text-[#c39738] dark:hover:bg-[#5e4318]/20" asChild>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-[#c39738] text-[#7f4311] hover:bg-[#ffff96]/30 dark:border-[#c39738] dark:text-[#c39738] dark:hover:bg-[#5e4318]/20"
+                asChild
+              >
                 <Link href="/books">Explorar Livros</Link>
               </Button>
             </div>
@@ -94,7 +109,8 @@ export default function HomePage() {
                 Por que escolher o GuildsBook?
               </h2>
               <p className="text-[#5e4318] dark:text-slate-300 max-w-2xl mx-auto text-lg">
-                Tudo que você precisa para organizar sua leitura e se conectar com outros leitores
+                Tudo que você precisa para organizar sua leitura e se conectar
+                com outros leitores
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -154,7 +170,8 @@ export default function HomePage() {
                 Como Funciona
               </h2>
               <p className="text-[#5e4318] dark:text-slate-300 max-w-2xl mx-auto text-lg">
-                Em poucos passos, você começa a organizar sua leitura e se conectar com a comunidade
+                Em poucos passos, você começa a organizar sua leitura e se
+                conectar com a comunidade
               </p>
             </div>
             <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto">
@@ -162,9 +179,12 @@ export default function HomePage() {
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#c39738] to-[#7f4311] text-white mb-4 shadow-lg shadow-[#c39738]/50 group-hover:scale-110 transition-transform">
                   <UserPlus className="h-10 w-10" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">Crie sua conta</h3>
+                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">
+                  Crie sua conta
+                </h3>
                 <p className="text-[#5e4318] dark:text-slate-400">
-                  Cadastre-se gratuitamente e comece a organizar sua biblioteca pessoal
+                  Cadastre-se gratuitamente e comece a organizar sua biblioteca
+                  pessoal
                 </p>
               </div>
               <div className="text-center group">
@@ -174,18 +194,24 @@ export default function HomePage() {
                     <BookPlus className="h-4 w-4" />
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">Adicione livros</h3>
+                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">
+                  Adicione livros
+                </h3>
                 <p className="text-[#5e4318] dark:text-slate-400">
-                  Busque e adicione livros à sua biblioteca, acompanhe seu progresso
+                  Busque e adicione livros à sua biblioteca, acompanhe seu
+                  progresso
                 </p>
               </div>
               <div className="text-center group">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#7f4311] to-[#5e4318] text-white mb-4 shadow-lg shadow-[#7f4311]/50 group-hover:scale-110 transition-transform">
                   <Network className="h-10 w-10" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">Conecte-se</h3>
+                <h3 className="text-xl font-semibold mb-2 text-[#361f00] dark:text-slate-200">
+                  Conecte-se
+                </h3>
                 <p className="text-[#5e4318] dark:text-slate-400">
-                  Compartilhe reviews, participe de clubes e descubra novos leitores
+                  Compartilhe reviews, participe de clubes e descubra novos
+                  leitores
                 </p>
               </div>
             </div>
@@ -208,7 +234,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Busca Avançada</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">
+                    Busca Avançada
+                  </h3>
                   <p className="text-[#5e4318] dark:text-slate-400">
                     Filtre por gênero, ano, editora, idioma e muito mais
                   </p>
@@ -221,7 +249,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Listas de Leitura</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">
+                    Listas de Leitura
+                  </h3>
                   <p className="text-[#5e4318] dark:text-slate-400">
                     Crie e compartilhe listas personalizadas de livros
                   </p>
@@ -234,7 +264,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Citações</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">
+                    Citações
+                  </h3>
                   <p className="text-[#5e4318] dark:text-slate-400">
                     Salve e compartilhe suas citações favoritas dos livros
                   </p>
@@ -247,7 +279,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Estatísticas</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">
+                    Estatísticas
+                  </h3>
                   <p className="text-[#5e4318] dark:text-slate-400">
                     Acompanhe seu progresso com gráficos e métricas detalhadas
                   </p>
@@ -260,7 +294,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Seguir Leitores</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">
+                    Seguir Leitores
+                  </h3>
                   <p className="text-[#5e4318] dark:text-slate-400">
                     Conecte-se com outros leitores e descubra recomendações
                   </p>
@@ -273,7 +309,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">Avaliações</h3>
+                  <h3 className="font-semibold text-lg mb-2 text-[#361f00] dark:text-slate-200">
+                    Avaliações
+                  </h3>
                   <p className="text-[#5e4318] dark:text-slate-400">
                     Deixe reviews e comente nas avaliações de outros leitores
                   </p>
@@ -291,16 +329,27 @@ export default function HomePage() {
               Pronto para começar sua jornada literária?
             </h2>
             <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-95">
-              Junte-se à nossa comunidade de leitores e descubra um mundo de livros
+              Junte-se à nossa comunidade de leitores e descubra um mundo de
+              livros
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" variant="secondary" className="bg-[#ffff96] text-[#361f00] hover:bg-[#ffff96]/90 shadow-xl" asChild>
+              <Button
+                size="lg"
+                variant="secondary"
+                className="bg-[#ffff96] text-[#361f00] hover:bg-[#ffff96]/90 shadow-xl"
+                asChild
+              >
                 <Link href="/auth/signin">
                   Criar Conta Gratuita
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm" asChild>
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+                asChild
+              >
                 <Link href="/books">Explorar Livros</Link>
               </Button>
             </div>

@@ -67,8 +67,9 @@ export function CommentForm({
       }
       setContent("");
       onSubmit();
-    } catch (err: any) {
-      setError(err.message || "Erro ao salvar comentário");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : undefined;
+      setError(message || "Erro ao salvar comentário");
     }
   };
 
@@ -81,9 +82,7 @@ export function CommentForm({
           placeholder="Escreva um comentário..."
           className="w-full"
         />
-        {error && (
-          <p className="text-xs text-destructive">{error}</p>
-        )}
+        {error && <p className="text-xs text-destructive">{error}</p>}
       </div>
       <div className="flex gap-2">
         {onCancel && (
@@ -103,8 +102,8 @@ export function CommentForm({
           {createMutation.isPending || updateMutation.isPending
             ? "Salvando..."
             : mode === "edit"
-            ? "Atualizar"
-            : "Comentar"}
+              ? "Atualizar"
+              : "Comentar"}
         </Button>
       </div>
     </form>

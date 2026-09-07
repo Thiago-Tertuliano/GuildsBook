@@ -62,9 +62,12 @@ export function ReviewList({ bookId }: ReviewListProps) {
     }
 
     try {
-      const response = await fetch(`/api/reviews/${reviewId}?userId=${user?.id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `/api/reviews/${reviewId}?userId=${user?.id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         throw new Error("Erro ao deletar review");
       }
@@ -104,10 +107,7 @@ export function ReviewList({ bookId }: ReviewListProps) {
 
   if (error) {
     return (
-      <ErrorComponent
-        message="Erro ao carregar reviews"
-        onRetry={refetch}
-      />
+      <ErrorComponent message="Erro ao carregar reviews" onRetry={refetch} />
     );
   }
 
